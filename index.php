@@ -69,7 +69,7 @@
 
             </div>
             <div class="modal-footer">
-                <button id="load_test_module_button" type="button" class="btn btn-outline-info">Тестирование XML</button>
+                <button id="load_test_module_button" type="button" class="btn btn-outline-warning">Тестирование XML</button>
                 <button id="load_create_module_button" type="button" class="btn btn-outline-success">Создание XML</button>
             </div>
         </div>

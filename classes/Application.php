@@ -53,7 +53,7 @@ class Application
 
                     $name       = substr($file, 0, stripos($file, '.'));
                     $extension  = substr($file, stripos($file, '.') + 1);
-                    $lastUpdate = date("F d Y H:i:s.", fileatime($directory . "/" . $file));
+                    $lastUpdate = date("F d Y H:i:s", fileatime($directory . "/" . $file));
                     $fullPath   = $directory . "/" . $file;
 
                     if(empty($name)) {

@@ -57,22 +57,22 @@
                 <h4 class="card-title">Выберите способ загрузки XML</h4>
                 <p class="card-text">Выберите XML для загрузки из списка ниже, или укажить путь до неё.</p>
 
-                <button id="load_from_file_btn" class="btn btn-primary">Загрузить из файла...</button>
+                <button id="load_from_file_btn" class="btn btn-primary" disabled>Загрузить из файла...</button>
 
                 <button id="cheat_button" type="button" class="btn btn-outline-info btn-sm">Загрузить эталонку</button>
                 <br><br>
 
                 <!--Таблица со списком xml-->
                 <div class="card card-block">
-                    <h4 class="card-title">Существующие XML</h4>
+                    <h4 class="card-title">Существующие XML <i id="xml_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
                     <table class="table table-striped">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Версия файла</th>
-                            <th>Тип</th>
-                            <th>Имя</th>
-                            <th><i class="fa fa-check-circle fa-2x" aria-hidden="true"></i></th>
+                            <th><i class="fa fa-calendar" aria-hidden="true"></i> Версия файла</th>
+                            <th><i class="fa fa-code" aria-hidden="true"></i> Тип</th>
+                            <th><i class="fa fa-file-text-o" aria-hidden="true"></i> Имя</th>
+                            <th><i class="fa fa-check-circle" aria-hidden="true"></i> Выбрать</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -110,7 +110,7 @@
                     <div class="form-group">
                         <label for="exampleSelect1">Тип</label>
                         <select id="message_type_select" class="form-control" id="exampleSelect1">
-                            <option></option>
+                            <option>Выбрать</option>
                             <?php echo $msg_types; ?>
                         </select>
                     </div>
@@ -162,17 +162,17 @@
     </div>
 
     <!--Окно со всплывающийся настройками XSD-->
-    <div class="modal fade" id="xsd_setup_info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">Настройки XSD параметров</h4>
+                    <h4 id="info_header_text" class="modal-title" id="myModalLabel">Не настроеное сообщение!</h4>
                 </div>
-                <div class="modal-body">
-                    Тут очень важные настройки XSD параметров без которых нельзя проводить тестирование!
+                <div id="info_body_text" class="modal-body">
+                    Исправте этот текст функцией show_model_info в main.js!
                 </div>
                 <div class="modal-footer">
                     <button id="load_test_module_button" type="button" class="btn btn-outline-success">Сохранить</button>
