@@ -35,3 +35,7 @@
 #main_menu_btn {
     float: right;
 }
+
+#alert_message {
+    display: none;
+}
