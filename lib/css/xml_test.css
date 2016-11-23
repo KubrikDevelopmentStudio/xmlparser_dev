@@ -1,7 +1,7 @@
 
 
 /*Основной блок с контентом*/
-#main_block {
+#main_block, #alert_message {
     width: 80%;
     height: auto;
     margin: 50px auto;

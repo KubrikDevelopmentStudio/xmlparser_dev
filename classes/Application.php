@@ -36,6 +36,7 @@ class Application
     ];
 
 
+    public $errorMsg = [];
     /**
      * Загрузка схем, указанного формата.
      *
@@ -53,8 +54,15 @@ class Application
                     $name       = substr($file, 0, stripos($file, '.'));
                     $extension  = substr($file, stripos($file, '.') + 1);
                     $lastUpdate = date("F d Y H:i:s.", fileatime($directory . "/" . $file));
+                    $fullPath   = $directory . "/" . $file;
 
                     if(empty($name)) {
+                        continue;
+                    }
+
+                    if($extension != 'xsd' && $extension != 'xml') {
+                        $msg = "<strong>Внимание!</strong> Загружаемый <a href='". $fullPath . "' class='alert-link'>" . $file . "</a> имеет неверный формат: " . $extension . "! Проверьте файл! <br>";
+                        $this->errorMsg[] = $msg;
                         continue;
                     }
 
@@ -64,7 +72,8 @@ class Application
                                 'full_name' => $file,
                                 'name' => $name,
                                 'extension' => $extension,
-                                'last_update' => $lastUpdate
+                                'last_update' => $lastUpdate,
+                                'full_path' => $fullPath
                             ];
                             break;
 
@@ -73,7 +82,8 @@ class Application
                                 'full_name' => $file,
                                 'name' => $name,
                                 'extension' => $extension,
-                                'last_update' => $lastUpdate
+                                'last_update' => $lastUpdate,
+                                'full_path' => $fullPath
                             ];
                             break;
 
@@ -90,18 +100,21 @@ class Application
 
 
     /**
-     * @return string Генерация XML таблицы с существующими XML.
+     * Генерация таблицы с существующими XML.
+     *
+     * @return string
      */
     public function get_xml_table() {
         $html = "";
         $count = 1;
         for ($i = 0; $i < count($this->_xmlsArr); $i++) {
             $html .= "
-            <tr>
+            <tr data-path='" . $this->_xmlsArr[$i]['full_path'] . "'>.
                 <th scope='row'>$count</th>
                 <td>" . $this->_xmlsArr[$i]['last_update'] . "</td>               
                 <td>" . $this->_xmlsArr[$i]['extension'] . "</td>               
                 <td>" . $this->_xmlsArr[$i]['name'] . "</td>               
+                <td></td>               
             </tr>
         ";
             $count++;
@@ -109,11 +122,17 @@ class Application
         return $html;
     }
 
+
+    /**
+     * Генерация списка загруженных XSD.
+     *
+     * @return string
+     */
     public function get_message_types() {
         $html = "";
         for ($i = 0; $i < count($this->_schemasArr); $i++) {
             $html .= "
-                <option>" . $this->_schemasArr[$i]['name'] . "</option>
+                <option data-path='" . $this->_schemasArr[$i]['full_path'] . "'>" . $this->_schemasArr[$i]['name'] . "</option>
             ";
         }
         return $html;

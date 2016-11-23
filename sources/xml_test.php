@@ -30,8 +30,20 @@
 
     <script type="text/javascript" src="../lib/js/animations/xml_test-anim.js"></script>
     <script type="text/javascript" src="../lib/js/redirects/xml_test-redir.js"></script>
+    <script type="text/javascript" src="../lib/js/main.js"></script>
 </head>
 <body>
+
+<?php if(!empty($app->errorMsg)): ?>
+    <div id="alert_message" class="alert alert-warning" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <?php foreach ($app->errorMsg as $message) {
+            echo $message;
+        } ?>
+    </div>
+<?php endif; ?>
 
 <div id="main_block" class="card">
     <div id="main_block_header" class="card-header">
@@ -41,11 +53,12 @@
     <div class="card-block">
         <h4 id="main_block_body_header" class="card-title">XML PARSER DEV</h4>
 
-        <div class="card card-block" style="width: 100%">
+        <div class="card card-block">
             <h4 class="card-title">Выберите способ загрузки XML</h4>
             <p class="card-text">Выберите XML для загрузки из списка ниже, или укажить путь до неё.</p>
 
-            <button id="load_from_file_btn" type="button" class="btn btn-primary">Загрузить из файла...</button>
+            <button id="load_from_file_btn" class="btn btn-primary">Загрузить из файла...</button>
+
             <button id="cheat_button" type="button" class="btn btn-outline-info btn-sm">Загрузить эталонку</button>
             <br><br>
 
@@ -59,6 +72,7 @@
                         <th>Версия файла</th>
                         <th>Тип</th>
                         <th>Имя</th>
+                        <th><i class="fa fa-check-circle fa-2x" aria-hidden="true"></i></th>
                     </tr>
                     </thead>
                     <tbody>
