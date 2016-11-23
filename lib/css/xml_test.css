@@ -22,6 +22,10 @@
     width: 35%;
 }
 
+#setup_xsd {
+    float: right;
+}
+
 
 #select_message_block, #select_test_params_block {
     display: none;

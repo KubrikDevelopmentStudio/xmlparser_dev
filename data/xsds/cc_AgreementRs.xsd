@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by MESMERiZE (MSM) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd" id="mtsRequestState">
+	<!-- Импорт базовых типов -->
+	<xsd:include schemaLocation="../Include/CC/cc_Types.xsd"/>
+	<xsd:include schemaLocation="../Include/clientData_strict.xsd"/>
+	<!--Запрос на согласование условий кредитования-->
+	<xsd:element name="FDX">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="requestId" type="xsd:positiveInteger" nillable="false">
+					<xsd:annotation>
+						<xsd:documentation>Идентификатор заявки Банка</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="messageId">
+					<xsd:annotation>
+						<xsd:documentation>Уникальный идентификатор ответного сообщения (GUID)</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="36"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="messageIdRq">
+					<xsd:annotation>
+						<xsd:documentation>Уникальный идентификатор сообщения запроса (GUID)</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="36"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="messageType" type="mbrd:messageType" fixed="AGREEMENT_RS">
+					<xsd:annotation>
+						<xsd:documentation>Тип сообщения</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="messageDateTime" type="xsd:dateTime">
+					<xsd:annotation>
+						<xsd:documentation>Дата Время создания сообщения</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="initiatorCode" type="mbrd:systemType">
+					<xsd:annotation>
+						<xsd:documentation>Код системы, инициатора запроса. Значения системного справочника кодов информационных систем в файле /Include/systemDictionaries.xsd</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="sourceCode" type="mbrd:systemType">
+					<xsd:annotation>
+						<xsd:documentation>Код системы, выполняющей запрос. Значения системного справочника кодов информационных систем в файле /Include/systemDictionaries.xsd</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="callCenter" type="mbrd:callCenterType"/>
+				<xsd:element name="creditDecision" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="decisionId" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>Идентификатор решения</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="creditSum" nillable="false" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Сумма лимита</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:decimal">
+										<xsd:fractionDigits value="2"/>
+										<xsd:totalDigits value="9"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="ServerInfo">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="MsgType" type="xsd:string"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="deliveryInfo" minOccurs="0">
+					<xsd:complexType>
+						<xsd:choice>
+							<xsd:element name="servicePointCode" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>Код доп. офиса Банка</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="rtkPointCode" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>Код точки продаж РТК</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="insuranceDataList" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="insuranceData" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:all>
+										<xsd:element name="insProgramCode" type="xsd:string" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Код страховой программы</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:all>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="requestServices" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="service" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="serviceType">
+											<xsd:annotation>
+												<xsd:documentation>Код услуги</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="phoneMTS">
+										<xsd:annotation>
+											<xsd:documentation>Номер телефона МТС</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+									<xsd:attribute name="optyId"/>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="State" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Статус заявки</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="DetailState" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Детализированный статус заявки</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:length value="100"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="agreeCard" type="xsd:boolean" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Признак согласия клиента на кросс-карту в рамках согласования условий по ПОС-заявке</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="comment" type="mbrd:comment" minOccurs="0"/>
+				<xsd:element name="client" type="mbrd:clientData" minOccurs="0"/>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
