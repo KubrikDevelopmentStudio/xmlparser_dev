@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by MESMERiZE (MSM) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd" id="ClientsList_Request">
+	<!-- Импорт базовых типов -->
+	<xsd:include schemaLocation="../Include/clientData_strict.xsd"/>
+	<xsd:include schemaLocation="../Include/clientComplexData_strict.xsd"/>
+	<xsd:include schemaLocation="../Include/systemDictionaries.xsd"/>
+	<xsd:include schemaLocation="../Include/systemComplexTypes.xsd"/>
+	<xsd:include schemaLocation="../Include/CC/cc_Types.xsd"/>
+	<xsd:element name="ContactCenterDataExchange">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на ввод анкеты клиента и дополнительных данных заявки</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="requestId" type="xsd:positiveInteger" nillable="false">
+					<xsd:annotation>
+						<xsd:documentation>Идентификатор заявки Банка</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="messageId">
+					<xsd:annotation>
+						<xsd:documentation>Уникальный идентификатор сообщения запроса (GUID)</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="60"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="messageType" type="mbrd:messageType" fixed="ENT_ANKETA_REQUEST_DATA_RQ">
+					<xsd:annotation>
+						<xsd:documentation>Тип сообщения</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="messageDateTime" type="xsd:dateTime">
+					<xsd:annotation>
+						<xsd:documentation>Дата Время создания сообщения</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="initiatorCode" type="mbrd:systemType">
+					<xsd:annotation>
+						<xsd:documentation>Код системы, инициатора запроса. Значения системного справочника кодов информационных систем в файле /Include/systemDictionaries.xsd</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="sourceCode" type="mbrd:systemType">
+					<xsd:annotation>
+						<xsd:documentation>Код системы, выполняющей запрос</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="callCenter" type="mbrd:callCenterType"/>
+				<xsd:element name="fakeRecognize" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Признак нераспознания скана парпорта в АФЛ</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="client" type="mbrd:clientData" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Контейнер анкетных клиентских данных</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="clientRequest" type="mbrd:clientRequestCommonDataType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Контейнер данных по заявкам</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="documents" type="mbrd:DocumentsDataType" minOccurs="0"/>
+				<xsd:element name="requestAdditionalInfo" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="item" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="value" type="xsd:string"/>
+									</xsd:sequence>
+									<xsd:attribute name="name" use="required"/>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="errorInfo" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="errorCode" minOccurs="0">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:string">
+										<xsd:maxLength value="255"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+							<xsd:element name="errorDescription" minOccurs="0">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:string">
+										<xsd:maxLength value="1024"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="reason" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Причина анкетирования (Short/Full)</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="priority" type="xsd:integer" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Приоритет заявки</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="continued" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Признак продолжения анкетирования</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="singleAgreementNew" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Признак единого договора</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="IdentificChange" type="xsd:boolean" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Признак старой/новой логики в рамках изменения идентификации МТС228.2</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="useCreditBrokerScript" type="xsd:boolean" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Признак заявки из Кредитного Брокера</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="uploadDataRequestDataType">
+		<xsd:annotation>
+			<xsd:documentation>Тип для комплексного элемента данных анкеты клиента и заявки</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="serviceData">
+				<xsd:annotation>
+					<xsd:documentation>Блок служебной информации</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="initiatorCode" type="mbrd:systemType">
+							<xsd:annotation>
+								<xsd:documentation>Код системы, инициатора запроса. Значения системного справочника кодов информационных систем в файле /Include/systemDictionaries.xsd</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="sourceCode" type="mbrd:systemType">
+							<xsd:annotation>
+								<xsd:documentation>Код системы, выполняющей запрос</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="clientComplexData" type="mbrd:clientComplexDataSingleRequestType">
+				<xsd:annotation>
+					<xsd:documentation>Контейнер анкетных клиентских данных и заявок</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -5,6 +5,18 @@
  * Date: 23.11.16
  * Time: 0:12
  */
+
+    require_once "../classes/Application.php";
+
+    $app = new Application();
+
+    $app->load_schema('xsd', '../data/xsds');
+    $app->load_schema('xml', '../data/custom_xmls');
+
+
+    $xml_table = $app->get_xml_table();
+    $msg_types = $app->get_message_types();
+
 ?>
 
 <html>
@@ -24,7 +36,7 @@
 <div id="main_block" class="card">
     <div id="main_block_header" class="card-header">
         VERSION v1.0a
-        <button id="main_menu_btn" type="button" class="btn btn-outline-warning btn-sm">Главное меню</button>
+        <button id="main_menu_btn" type="button" class="btn btn-outline-warning">Главное меню</button>
     </div>
     <div class="card-block">
         <h4 id="main_block_body_header" class="card-title">XML PARSER DEV</h4>
@@ -34,7 +46,7 @@
             <p class="card-text">Выберите XML для загрузки из списка ниже, или укажить путь до неё.</p>
 
             <button id="load_from_file_btn" type="button" class="btn btn-primary">Загрузить из файла...</button>
-            <button id="cheat_button" type="button" class="btn btn-outline-info">Загрузить эталонку</button>
+            <button id="cheat_button" type="button" class="btn btn-outline-info btn-sm">Загрузить эталонку</button>
             <br><br>
 
             <!--Таблица со списком xml-->
@@ -50,24 +62,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                        <?php echo $xml_table; ?>
                     </tbody>
                 </table>
 
@@ -95,20 +90,18 @@
 
         <!--Блок с SELECT для выбора типа сообщения-->
         <div id="select_message_block" class="card card-block">
-            <h4 class="card-title">Выберите тип сообщения</h4>
-            <p class="card-text">Выберите тип сообщения, соответствующий выбранной выше XML.</p>
+            <h4 class="card-title">Выбор XSD схемы</h4>
+            <p class="card-text">Выберите XSD схему, для валидирования выбранной выше XML.</p>
             <form>
                 <div class="form-group">
                     <label for="exampleSelect1">Тип</label>
                     <select id="message_type_select" class="form-control" id="exampleSelect1">
                         <option></option>
-                        <option>ENT_ANKETA_REQUEST_DATA_RS</option>
-                        <option>ENT_ANKETA_REQUEST_DATA_RQ</option>
-                        <option>AGREEMENT_RS</option>
-                        <option>AGREEMENT_RQ</option>
+                        <?php echo $msg_types; ?>
                     </select>
                 </div>
             </form>
+            <button id="setup_xsd" type="button" class="btn btn-outline-info btn-sm">Настройка XSD</button>
         </div>
 
         <!--Блок для выбора параметров тестирования-->

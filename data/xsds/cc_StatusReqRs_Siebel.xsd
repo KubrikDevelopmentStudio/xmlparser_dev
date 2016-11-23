@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by Sergey chaban (at-consulting) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd">
+	<!-- Импорт базовых типов -->
+	<xsd:include schemaLocation="../Include/CC/cc_Types.xsd"/>
+	<!--Отчет о статусе заявки-->
+	<xsd:element name="ContactCenterDataExchange">
+		<xsd:complexType>
+			<xsd:all>
+				<!--Идентификатор заявки-->
+				<xsd:element name="requestId" type="xsd:positiveInteger" nillable="false"/>
+				<!--Идентификатор сообщения запроса-->
+				<xsd:element name="messageId">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="36"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="messageIdRq" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="36"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<!--Идентификатор сообщения ответа-->
+				<!--Тип сообщения-->
+				<xsd:element name="messageType" type="mbrd:messageType" fixed="STATUS_REQ_RS">
+					<xsd:annotation>
+						<xsd:documentation>Тип сообщения</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!--Статус заявки-->
+				<xsd:element name="messageDateTime" type="xsd:dateTime">
+					<xsd:annotation>
+						<xsd:documentation>Дата Время создания сообщения</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="initiatorCode" type="mbrd:systemType">
+					<xsd:annotation>
+						<xsd:documentation>Код системы, инициатора запроса. Значения системного справочника кодов информационных систем в файле /Include/systemDictionaries.xsd</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="sourceCode" type="mbrd:systemType">
+					<xsd:annotation>
+						<xsd:documentation>Код системы, выполняющей запрос. Значения системного справочника кодов информационных систем в файле /Include/systemDictionaries.xsd</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="callCenter" type="mbrd:callCenterType"/>
+				<xsd:element name="state" type="mbrd:state"/>
+				<!--Комментарий-->
+				<xsd:element name="comment" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="mbrd:comment">
+							<xsd:maxLength value="600"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

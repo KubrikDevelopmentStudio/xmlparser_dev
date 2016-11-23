@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by MESMERiZE (MSM) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd" id="ClientsList_Request">
+	<!-- Импорт базовых типов -->
+	<xsd:include schemaLocation="../Include/clientData_strict.xsd"/>
+	<xsd:include schemaLocation="../Include/clientComplexData_strict.xsd"/>
+	<xsd:include schemaLocation="../Include/systemDictionaries.xsd"/>
+	<xsd:include schemaLocation="../Include/systemComplexTypes.xsd"/>
+	<xsd:include schemaLocation="../Include/CC/cc_Types.xsd"/>
+	<xsd:element name="FDX">
+		<xsd:annotation>
+			<xsd:documentation>Корневой элемент</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="requestId" type="xsd:positiveInteger" nillable="false">
+					<xsd:annotation>
+						<xsd:documentation>Идентификатор заявки Банка</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="messageId">
+					<xsd:annotation>
+						<xsd:documentation>Уникальный идентификатор ответного сообщения (GUID)</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="36"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="messageIdRq">
+					<xsd:annotation>
+						<xsd:documentation>Уникальный идентификатор входящего сообщения (GUID)</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="36"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="messageType" type="mbrd:messageType" fixed="ENT_ANKETA_REQUEST_DATA_RS">
+					<xsd:annotation>
+						<xsd:documentation>Тип сообщения</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="messageDateTime" type="xsd:dateTime">
+					<xsd:annotation>
+						<xsd:documentation>Дата Время создания сообщения</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="initiatorCode" type="mbrd:systemType">
+					<xsd:annotation>
+						<xsd:documentation>Код системы, инициатора запроса. Значения системного справочника кодов информационных систем в файле /Include/systemDictionaries.xsd</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="sourceCode" type="mbrd:systemType">
+					<xsd:annotation>
+						<xsd:documentation>Код системы, выполняющей запрос</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="ServerInfo">
+					<xsd:complexType>
+						<xsd:all>
+							<xsd:element name="MsgType" type="xsd:string"/>
+						</xsd:all>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="client" type="mbrd:clientData" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Контейнер анкетных клиентских данных</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="clientHF" type="mbrd:clientData" minOccurs="0"/>
+				<xsd:element name="clientRequest" type="mbrd:clientRequestCommonDataType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Контейнер данных по заявкам</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="documents" type="mbrd:DocumentsDataType" minOccurs="0"/>
+				<xsd:element name="requestAdditionalInfo" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="item" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="value" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Фотография клиента соответствует фотографии на паспорте</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="name" use="required">
+										<xsd:annotation>
+											<xsd:documentation>flagClientFotoEqualsPassportFoto</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="State" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Статус заявки</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="DetailState" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Детализированный статус заявки</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:length value="100"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="comment" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Комментарий</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="questionnaire" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Список вопросов и ответов</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="question" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="questionNumber" type="xsd:integer">
+											<xsd:annotation>
+												<xsd:documentation>Номер вопроса</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="questionText" type="xsd:string" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Текст вопроса</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="answersList">
+											<xsd:annotation>
+												<xsd:documentation>Список ответов</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="answer" maxOccurs="unbounded">
+														<xsd:annotation>
+															<xsd:documentation>Ответ на вопрос</xsd:documentation>
+														</xsd:annotation>
+														<xsd:complexType>
+															<xsd:all>
+																<xsd:element name="answerNumber" type="xsd:integer">
+																	<xsd:annotation>
+																		<xsd:documentation>Номер ответа</xsd:documentation>
+																	</xsd:annotation>
+																</xsd:element>
+																<xsd:element name="answerText" type="xsd:string" minOccurs="0">
+																	<xsd:annotation>
+																		<xsd:documentation>Текст ответа</xsd:documentation>
+																	</xsd:annotation>
+																</xsd:element>
+															</xsd:all>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="reason" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Причина анкетирования</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="uploadDataRequestDataType">
+		<xsd:annotation>
+			<xsd:documentation>Тип для комплексного типа данных клиента и заявки</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="serviceData">
+				<xsd:annotation>
+					<xsd:documentation>Блок служебной информации</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence/>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="clientComplexData" type="mbrd:clientComplexDataSingleRequestType">
+				<xsd:annotation>
+					<xsd:documentation>Контейнер анкетных клиентских данных и заявок</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>
