@@ -11,28 +11,30 @@
 <head>
     <link href="lib/bootstrap4/css/bootstrap.css" rel="stylesheet" type="text/css"/>
     <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="lib/css/loader.css" rel="stylesheet" type="text/css"/>
+
 
     <script type="text/javascript" src="lib/jquery/jquery-3.1.1.js"></script>
     <script type="text/javascript" src="lib/bootstrap4/js/bootstrap.js"></script>
 
-    <script type="text/javascript" src="lib/js/main.js"></script>
+    <script type="text/javascript" src="lib/js/animations/loader-anim.js"></script>
+    <script type="text/javascript" src="lib/js/redirects/loader-redir.js"></script>
 </head>
 <body>
 
-
-<div id="loading_block" class="card" style="width: 30%;height: auto;margin: 250px auto;">
+<div id="loading_block" class="card">
     <div class="card-header">
         XML PARSER
     </div>
     <div class="card-block">
-        <h4 class="card-title">Загрузка...</h4>
-        <p class="card-text">Внимание!!! Скрипт находится в разработке!</p>
-        <progress class="progress progress-striped progress-info" value="10" max="100"></progress>
+        <h4 id="load_header_text" class="card-title">Загрузка...</h4>
+        <p id="load_content_text" class="card-text">Внимание! Это тестовая версия скрипта, в нем есть и предусмотрены ошибки.</p>
+        <progress class="progress progress-info" value="1" max="100"></progress>
     </div>
 </div>
 
 <!--Окно со всплывающийся подсказкой-->
-<div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="module_list" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

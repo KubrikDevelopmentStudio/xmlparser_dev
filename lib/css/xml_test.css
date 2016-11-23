@@ -1,0 +1,33 @@
+
+
+/*Основной блок с контентом*/
+#main_block {
+    width: 80%;
+    height: auto;
+    margin: 50px auto;
+}
+
+
+#main_block_body_header{
+    text-align: center;
+}
+
+
+#cheat_button {
+    float: right;
+}
+
+
+#message_type_select {
+    width: 35%;
+}
+
+
+#select_message_block, #select_test_params_block {
+    display: none;
+}
+
+
+#main_menu_btn {
+    float: right;
+}

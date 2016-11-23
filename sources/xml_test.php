@@ -9,28 +9,32 @@
 
 <html>
 <head>
-    <link href="lib/bootstrap4/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-    <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="../lib/bootstrap4/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="../lib/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="../lib/css/xml_test.css" rel="stylesheet" type="text/css"/>
 
-    <script type="text/javascript" src="lib/jquery/jquery-3.1.1.js"></script>
-    <script type="text/javascript" src="lib/bootstrap4/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../lib/jquery/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="../lib/bootstrap4/js/bootstrap.js"></script>
 
-    <script type="text/javascript" src="lib/js/main.js"></script>
+    <script type="text/javascript" src="../lib/js/animations/xml_test-anim.js"></script>
+    <script type="text/javascript" src="../lib/js/redirects/xml_test-redir.js"></script>
 </head>
 <body>
-<div class="card" style="width: 80%;height: auto;margin: 50px auto;">
-    <div class="card-header" style="text-align: center">
+
+<div id="main_block" class="card">
+    <div id="main_block_header" class="card-header">
         VERSION v1.0a
+        <button id="main_menu_btn" type="button" class="btn btn-outline-warning btn-sm">Главное меню</button>
     </div>
     <div class="card-block">
-        <h4 class="card-title" style="text-align: center">XML PARSER DEV</h4>
+        <h4 id="main_block_body_header" class="card-title">XML PARSER DEV</h4>
 
         <div class="card card-block" style="width: 100%">
             <h4 class="card-title">Выберите способ загрузки XML</h4>
             <p class="card-text">Выберите XML для загрузки из списка ниже, или укажить путь до неё.</p>
 
-            <button type="button" class="btn btn-primary">Загрузить из файла...</button>
-            <button type="button" class="btn btn-outline-info" style="float: right">Загрузить эталонку</button>
+            <button id="load_from_file_btn" type="button" class="btn btn-primary">Загрузить из файла...</button>
+            <button id="cheat_button" type="button" class="btn btn-outline-info">Загрузить эталонку</button>
             <br><br>
 
             <!--Таблица со списком xml-->
@@ -69,13 +73,13 @@
 
                 <!--Постраничная навигация внизу таблицы-->
                 <nav aria-label="Page navigation"">
-                <ul class="pagination" style="margin: auto;>
-                                <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                </li>
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
                 <li class="page-item"><a class="page-link" href="#">1</a></li>
                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                 <li class="page-item">
@@ -90,13 +94,13 @@
         </div>
 
         <!--Блок с SELECT для выбора типа сообщения-->
-        <div class="card card-block" style="width: 100%">
+        <div id="select_message_block" class="card card-block">
             <h4 class="card-title">Выберите тип сообщения</h4>
             <p class="card-text">Выберите тип сообщения, соответствующий выбранной выше XML.</p>
             <form>
-                <div class="form-group" style="width: 35%">
+                <div class="form-group">
                     <label for="exampleSelect1">Тип</label>
-                    <select class="form-control" id="exampleSelect1">
+                    <select id="message_type_select" class="form-control" id="exampleSelect1">
                         <option></option>
                         <option>ENT_ANKETA_REQUEST_DATA_RS</option>
                         <option>ENT_ANKETA_REQUEST_DATA_RQ</option>
@@ -108,10 +112,10 @@
         </div>
 
         <!--Блок для выбора параметров тестирования-->
-        <div class="card card-block" style="width: 100%">
+        <div id="select_test_params_block" class="card card-block">
             <h4 class="card-title">Параметры тестирования</h4>
             <p class="card-text">Отметьте необходимые параметры для тестирования.</p>
-            <form>
+            <form id="test_params_form">
                 <div class="form-check">
                     <label class="form-check-label">
                         <input type="checkbox" class="form-check-input">
@@ -137,7 +141,7 @@
                     </label>
                 </div>
                 <hr>
-                <button type="button" class="btn btn-success" disabled>Начать тестирование</button>
+                <button id="launch_test" type="button" class="btn btn-success" disabled>Начать тестирование</button>
             </form>
         </div>
 
