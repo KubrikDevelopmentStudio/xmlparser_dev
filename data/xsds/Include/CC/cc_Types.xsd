@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by MESMERiZE (MSM) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd" id="docDataType">
+	<xsd:include schemaLocation="../clientComplexData_strict.xsd"/>
+	<xsd:annotation>
+		<xsd:documentation>
+			<!--Файл содержит набор ограничений применяемых для блоков служебной информации в схемах запросов и результатов.-->
+		</xsd:documentation>
+	</xsd:annotation>
+	<!--Ограничение на длину комментария-->
+	<xsd:simpleType name="comment">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="600"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Идентификатор заявки используемый при взаимодействии систем-->
+	<xsd:simpleType name="mtsRequestId">
+		<xsd:restriction base="xsd:int"/>
+	</xsd:simpleType>
+	<!--Состояние заявки-->
+	<xsd:simpleType name="state">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="100"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Тип сообщения-->
+	<xsd:simpleType name="messageType">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="50"/>
+			<xsd:enumeration value="ENT_ANKETA_REQUEST_DATA_RQ"/>
+			<xsd:enumeration value="ENT_ANKETA_REQUEST_DATA_RS"/>
+			<xsd:enumeration value="STATUS_REQ_RS"/>
+			<xsd:enumeration value="STATUS_REQ_RQ"/>
+			<xsd:enumeration value="AGREEMENT_RQ"/>
+			<xsd:enumeration value="AGREEMENT_RS"/>
+			<xsd:enumeration value="CALCULATE_PSK_RQ"/>
+			<xsd:enumeration value="CALCULATE_PSK_RS"/>
+			<xsd:enumeration value="CLIENT_NOTIFICATION_RQ"/>
+			<xsd:enumeration value="CLIENT_NOTIFICATION_RS"/>
+			<xsd:enumeration value="NEGATIVE_CLIENT_DECISION"/>
+			<xsd:enumeration value="FOTO_COMPARE_RQ"/>
+			<xsd:enumeration value="FOTO_COMPARE_RS"/>
+			<xsd:enumeration value="QuestionsListRs"/>
+			<xsd:enumeration value="QuestionsListRq"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Контакт-центры-->
+	<xsd:simpleType name="callCenterType">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="30"/>
+			<xsd:enumeration value="NEW_CONTACT"/>
+			<xsd:enumeration value="CREDITNY_OTDEL"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Кредитное решение-->
+	<xsd:complexType name="creditDecision">
+		<xsd:all>
+			<!--сумма кредита, RUB-->
+			<xsd:element name="decisionId" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор решения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="clientchoise" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Решение, выбранное клиентом на этапе анкетирования</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="productCode" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Код продукта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="productName" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование продукта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="creditSum" nillable="false" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сумма лимита</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:fractionDigits value="2"/>
+						<xsd:totalDigits value="9"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<!--сумма первоначального взноса, RUB;-->
+			<xsd:element name="creditMinSum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Нижняя граница лимита</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="9"/>
+						<xsd:fractionDigits value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="initialPayment" nillable="false" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Первоначальный взнос</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:fractionDigits value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<!--сумма ежемесячного платежа, RUB;-->
+			<!--			<xsd:element name="monthlyPayment" nillable="false">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:fractionDigits value="2"/>
+						<xsd:totalDigits value="6"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+-->
+			<!--полная стоимость кредита, %-->
+			<!--			<xsd:element name="overallCost" nillable="false">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:fractionDigits value="2"/>
+						<xsd:totalDigits value="7"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+-->
+			<!--номинальная процентная ставка, %;-->
+			<xsd:element name="initialPaymentPercent" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Первоначальный взнос (%)</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:fractionDigits value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<!--процентная ставка, %;-->
+			<xsd:element name="rate" nillable="false" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Процентаная ставка</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="4"/>
+						<xsd:fractionDigits value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<!--срок кредита, мес-->
+			<xsd:element name="creditPeriod" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Срок кредита</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:integer">
+						<xsd:maxInclusive value="99"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="monthlyPayment" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Ежемесячный платеж</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:fractionDigits value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<!--ПСК с учетом страховки-->
+			<xsd:element name="totalIRR" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ПСК с учетом страховки</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:fractionDigits value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="simpleIRR" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ПСК без учета страховки</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:fractionDigits value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="creditFullTerm" type="xsd:integer" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Срок полного погашения кредита (месяцы)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="overpaymentOnCredit" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Переплата за весь срок пользования кредитом</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:fractionDigits value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="overpaymentOnCreditPercent" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Переплата за весь срок пользования кредитом в %</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:fractionDigits value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="prepaymentCommission" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Комиссия за полное/частичное досрочное погашение кредита</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:fractionDigits value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="prepaymentMinSumma" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Минимальная сумма частичного досрочного погашения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:fractionDigits value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="card" type="mbrd:clientRequestCardDataType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Данные о карте</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="currency" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Валюта кредита</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="insuranceInfo" type="mbrd:insuranceInfoType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Данные страховки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="isGrace" type="xsd:boolean">
+				<xsd:annotation>
+					<xsd:documentation>Льготный период</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OnlyMainPurchase" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Одобрен только основной товар</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="bankServices" type="mbrd:bankServices" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<!--Документы клиента-->
+	<xsd:complexType name="DocumentsDataType">
+		<xsd:annotation>
+			<xsd:documentation>Документы клиента</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="document" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="docPath" type="xsd:string"/>
+						<xsd:element name="docTypeCode" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="50"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="imageColor" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Цветность скана</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="Colored"/>
+									<xsd:enumeration value="BlackAndWhite"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="docTypeName" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="255"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="scanErrors" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Список полей, не распознанных в АФЛ</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="scanError" minOccurs="0" maxOccurs="unbounded">
+										<xsd:complexType>
+											<xsd:all>
+												<xsd:element name="state">
+													<xsd:annotation>
+														<xsd:documentation>Статус поля</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+												<xsd:element name="fieldId" type="xsd:string">
+													<xsd:annotation>
+														<xsd:documentation>Код поля</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+											</xsd:all>
+										</xsd:complexType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="docData" type="xsd:base64Binary" minOccurs="0"/>
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

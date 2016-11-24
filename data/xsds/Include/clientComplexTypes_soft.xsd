@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by ALevchenko (MBRD) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd" id="docDataType">
+	<!--Блок паспортных данных-->
+	<xsd:complexType name="documentFullDataType">
+		<xsd:sequence>
+			<xsd:element name="serial" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="number" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="expireDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="issueOrgCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="issueOrgName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="issueDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="documentTypeDetail" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="documentType" type="xsd:string" use="optional"/>
+		<xsd:attribute name="isActive" type="xsd:string" use="optional"/>
+		<xsd:attribute name="isPrimary" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<!--Блок адрессных данных-->
+	<xsd:complexType name="countryInfo">
+		<xsd:sequence>
+			<xsd:element name="countryName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="countryCode" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="addressKLADR_Small">
+		<xsd:sequence>
+			<xsd:element name="countryName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="countryCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="regionName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="regionSocr" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="districtName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="districtSocr" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="localityName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="localitySocr" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="kladrCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="zipCode" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="addressKLADR_Full">
+		<xsd:sequence>
+			<xsd:element name="countryName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="countryCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="regionName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="regionSocr" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="districtName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="districtSocr" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="cityName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="citySocr" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="localityName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="localitySocr" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="streetName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="streetSocr" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="house" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="block" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="building" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="flat" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="zipCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="kladrCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="codeOKATO" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="status" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="regBase" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="regDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="phone" type="mbrd:contact" minOccurs="0"/>
+			<xsd:element name="realestate_type" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="isKladr" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="doc_number" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="doc_code" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="address_to_string" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="addressType" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<!-- Инофрмация о местах работы клиента -->
+	<xsd:complexType name="perWorkType">
+		<xsd:sequence>
+			<xsd:element name="employmentType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="workForm" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="fullName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="shortName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="sizeCompany" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="propertyForm" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ownCountry" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="relation2Mbrr" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="activityType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="clientActivity" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="period" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="flagSameAddress" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="addresses" type="mbrd:clientWorkAddressList" minOccurs="0"/>
+			<xsd:element name="addForEmployment" type="mbrd:addForEmploymentType" minOccurs="0"/>
+			<xsd:element name="accountingPhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="website" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="INNCompany" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="workFormDetail" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="clientActivityDetail" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="activityTypeDetail" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="workType" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<!--Блок данных о транспортных средствах в собственности клиента-->
+	<xsd:complexType name="perTransportType">
+		<xsd:sequence>
+			<xsd:element name="marka" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="model" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="yearCreate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="cost" type="mbrd:amount" minOccurs="0"/>
+			<xsd:element name="regNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="isPledge" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="hasDoc" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="transportTypeDetail" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="transportType" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<!--Блок данных о недвижимости в собственности клиента-->
+	<xsd:complexType name="perPropertyType">
+		<xsd:sequence>
+			<xsd:element name="addressType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="address" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="cost" type="mbrd:amount" minOccurs="0"/>
+			<xsd:element name="planForUse" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="isPledge" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="haveDoc" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="typePropertyDetail" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="propertyType" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="contact">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="contactType" type="xsd:string" use="optional"/>
+				<xsd:attribute name="isPrimary" type="xsd:string" use="optional"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--Блок данных о кредитных обязательсвах клиента-->
+	<xsd:complexType name="сreditLiabilitiesType">
+		<xsd:sequence>
+			<xsd:element name="role" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="repaymentDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="startDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="crdterm" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="creditor" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="crdsum" type="mbrd:amount" minOccurs="0"/>
+			<xsd:element name="crdlimit" type="mbrd:amount" minOccurs="0"/>
+			<xsd:element name="mnthpayment" type="mbrd:amount" minOccurs="0"/>
+			<xsd:element name="crdrest" type="mbrd:amount" minOccurs="0"/>
+			<xsd:element name="crdMbrr" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="crdtypeDetail" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="crdtype" type="xsd:string" use="optional"/>
+		<xsd:attribute name="creditActivity" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<!--Блок данных о доходах/расходах/активах клиента-->
+	<xsd:complexType name="perIncome">
+		<xsd:sequence>
+			<xsd:element name="value" type="mbrd:amount" minOccurs="0"/>
+			<xsd:element name="bankDescription" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="type" type="xsd:string" use="optional"/>
+		<xsd:attribute name="category" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<!--Блок данных о накоплениях клиента-->
+	<xsd:complexType name="сlientSaving">
+		<xsd:sequence>
+			<xsd:element name="bank" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="category" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="cardType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="rest" type="mbrd:amount" minOccurs="0"/>
+			<xsd:element name="term" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="rate" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="type" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<!--Блок данных о дополнительных контактных лицах, ближайших родственниках клиента-->
+	<xsd:complexType name="client2People">
+		<xsd:sequence>
+			<xsd:element name="lastname" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="firstname" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="middlename" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="sex" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="birthdate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="phone" type="mbrd:contact" minOccurs="0"/>
+			<xsd:element name="flagEmploymentSpouse" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="prevlastname" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="prevfirstname" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="prevmiddlename" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="flag_living_together" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="type" type="xsd:string" use="optional"/>
+		<xsd:attribute name="groupDependent" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<!--Блок идентификационной информации-->
+	<xsd:complexType name="identityDataType">
+		<xsd:sequence>
+			<xsd:element name="clientId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VKI" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="family" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="name" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="fatherName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="birthDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="birthPlace" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="clientType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="listDocument" type="mbrd:clientDocuments" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="clientDocuments">
+		<xsd:sequence>
+			<xsd:element name="document" type="mbrd:documentFullDataType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="amount">
+		<xsd:sequence>
+			<xsd:element name="summa" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="currency" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Адрес места работы-->
+	<xsd:complexType name="clientWorkAddressList">
+		<xsd:sequence>
+			<xsd:element name="address" type="mbrd:addressKLADR_Full" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Собственник бизнеса-->
+	<xsd:complexType name="ownBusinessType">
+		<xsd:sequence>
+			<xsd:element name="partInterest" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Наемный работник-->
+	<xsd:complexType name="workerType">
+		<xsd:sequence>
+			<xsd:element name="positionLevel" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="position" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ownWorker" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="startDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="kind" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Наемный работник или Собственник-->
+	<xsd:complexType name="addForEmploymentType">
+		<xsd:choice>
+			<xsd:element name="ownBusiness" type="mbrd:ownBusinessType" minOccurs="0"/>
+			<xsd:element name="worker" type="mbrd:workerType" minOccurs="0"/>
+		</xsd:choice>
+	</xsd:complexType>
+</xsd:schema>

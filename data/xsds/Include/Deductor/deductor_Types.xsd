@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by ALevchenko (MBRD) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd" id="docDataType">
+	<xsd:annotation>
+		<xsd:documentation>
+			<!--Файл содержит набор ограничений применяемых для блоков служебной информации в схемах запросов и результатов.-->
+		</xsd:documentation>
+	</xsd:annotation>
+	<!--Идентификатор  этапа обработки-->
+	<xsd:simpleType name="moduleType">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="50"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

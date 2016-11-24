@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by ALevchenko (none) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd" id="ClientsList_Request">
+	<xsd:annotation>
+		<xsd:documentation>
+			<!-- Файл содержит описание типа "ClientData" с базовыми требованиями к структуре. Проверяется только наличие основных и отсутствие 
+			лишних блоков.-->
+		</xsd:documentation>
+	</xsd:annotation>
+	<!-- Импорт базовых типов -->
+	<xsd:include schemaLocation="clientComplexTypes_soft.xsd"/>
+	<xsd:include schemaLocation="systemComplexTypes.xsd"/>
+	<!-- Тип clientData, описывающий минимальные требования к структуре данных по клиенту -->
+	<xsd:complexType name="clientData">
+		<xsd:sequence>
+			<xsd:element name="clientId" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="clientSupportInfo" type="mbrd:clientSupportInfoType" minOccurs="0"/>
+			<xsd:element name="clientCommonData" type="mbrd:clientCommonDataType" minOccurs="0"/>
+			<!-- Документы клиента-->
+			<xsd:element name="clientListDocument" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientDocument" type="mbrd:documentFullDataType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Адреса клиента-->
+			<xsd:element name="clientListAddress" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientAddress" type="mbrd:addressKLADR_Full" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="clientListContact" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientContact" type="mbrd:contact" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="clientCreditHistoryInfo" type="mbrd:creditHistoryDataType" minOccurs="0"/>
+			<xsd:element name="clientCalculatedData" type="mbrd:calculatedData" minOccurs="0"/>
+			<!-- Информация о местах работы клиента (не используется в АБС "Inversia") (new4Inversia)-->
+			<xsd:element name="clientListWork" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientWork" type="mbrd:perWorkType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Транспортные средства в собственности клиента (не используется в АБС "Inversia") (new4Inversia)-->
+			<xsd:element name="clientListTransport" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientTransport" type="mbrd:perTransportType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Недвижимость в собственности клиента (не используется в АБС "Inversia") (new4Inversia)-->
+			<xsd:element name="clientListProperty" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientProperty" type="mbrd:perPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Кредитные обязательства клиента (не используется в АБС "Inversia") (new4Inversia)-->
+			<xsd:element name="clientListCreditLiabilities" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientCreditLiabilities" type="mbrd:сreditLiabilitiesType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Доходы/расходы/активы клиента (не используется в АБС "Inversia") (new4Inversia)-->
+			<xsd:element name="clientListIncome" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientIncome" type="mbrd:perIncome" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Дополнительные контактные лица, ближайшие родственники клиента (не используется в АБС "Inversia") (new4Inversia)-->
+			<xsd:element name="clientListClient2People" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientClient2People" type="mbrd:client2People" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Накопления клиента (не используется в АБС "Inversia")-->
+			<xsd:element name="clientListClientSaving" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientClientSaving" type="mbrd:сlientSaving" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="serviceClientData" type="mbrd:serviceClientDataType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Блок общей информации -->
+	<xsd:complexType name="clientCommonDataType">
+		<xsd:sequence>
+			<xsd:element name="family" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="name" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="fatherName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="birthDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="clientSex" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="birthPlace" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="birthPlaceKladr" type="mbrd:addressKLADR_Small" minOccurs="0"/>
+			<xsd:element name="fioParentCase" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="fioDativeCase" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="familyLat" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="nameLat" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="citizenship" type="mbrd:countryInfo" minOccurs="0"/>
+			<xsd:element name="residence" type="mbrd:countryInfo" minOccurs="0"/>
+			<xsd:element name="consularRegistry" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="martialStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="educationStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="militaryService" type="xsd:string" minOccurs="0">
+				<!--Новое поле (не согласовывалось с АБС "Inversia") (new4Inversia)-->
+			</xsd:element>
+			<xsd:element name="INN" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="statusIPDL" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="clientType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="dependents" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="totalIncome" type="mbrd:amount" minOccurs="0">
+				<!--Новое поле (не согласовывалось с АБС "Inversia") (new4Inversia)-->
+			</xsd:element>
+			<xsd:element name="totalOutlay" type="mbrd:amount" minOccurs="0">
+				<!--Новое поле (не согласовывалось с АБС "Inversia") (new4Inversia)-->
+			</xsd:element>
+			<!-- Является студентом-->
+			<xsd:element name="flag_is_student" type="xsd:string" minOccurs="0"/>
+			<!-- Клиент работает-->
+			<xsd:element name="flag_is_work" type="xsd:string" minOccurs="0"/>
+			<!-- Клиент является пенсионером-->
+			<xsd:element name="flag_is_pensioner" type="xsd:string" minOccurs="0"/>
+			<!-- Общий трудовой стаж(месяцах)-->
+			<xsd:element name="total_experiance" type="xsd:string" minOccurs="0"/>
+			<!-- Привлекались ли вы к уголовной ответственности?-->
+			<xsd:element name="flagcriminalliability" type="xsd:string" minOccurs="0"/>
+			<!-- Являетесь ли вы в настоящее время  подозреваемым, обвиняемым, свидетелем по уголовному делу?-->
+			<xsd:element name="flag_criminal_suspect" type="xsd:string" minOccurs="0"/>
+			<!-- Являетесь ли вы в настоящее время  ответчиком в гражданском судебном процессе?-->
+			<xsd:element name="flag_low_respondent" type="xsd:string" minOccurs="0"/>
+			<!-- Имеются ли у вас в настоящее время обязательства по исполнительным документам?-->
+			<xsd:element name="flagunsatjudgement" type="xsd:string" minOccurs="0"/>
+			<!-- Имеете ли вы в настоящее время просроченную задолженность по любым финансовым обязательствам в т.ч перед физ лицами?-->
+			<xsd:element name="flagunsettleddebt" type="xsd:string" minOccurs="0"/>
+			<!-- Имеете ли вы  нерассмотренные кредитные заявки в других банках?-->
+			<xsd:element name="flag_open_request" type="xsd:string" minOccurs="0"/>
+			<!-- Являетесь ли вы недееспособным/ограниченно-дееспособным лицом или над Вами  установлена опека/попечительство?-->
+			<xsd:element name="flagcreditdeal" type="xsd:string" minOccurs="0"/>
+			<!-- Планируете ли вы в ближайшее время длительные командировки (более 30 дней), смену работы или должности, изменение состава семьи?-->
+			<xsd:element name="flag_plan_changes" type="xsd:string" minOccurs="0"/>
+			<!-- Используете ли Вы (хотя бы частично) заемные средства для выплаты первоначального взноса?-->
+			<xsd:element name="flag_credit_for_fee" type="xsd:string" minOccurs="0"/>
+			<!-- Возникала  ли у вас за последние 3 года просроченная задолженность по кредиту длительностью более 60 дней?	-->
+			<xsd:element name="flag_had_delay" type="xsd:string" minOccurs="0"/>
+			<!-- Имеет дополнительную работу		-->
+			<xsd:element name="flag_has_add_work" type="xsd:string" minOccurs="0"/>
+			<!-- Наличие действующих вкладов		-->
+			<xsd:element name="flag_has_deposit" type="xsd:string" minOccurs="0"/>
+			<!-- Кол-во транспортных средств		-->
+			<xsd:element name="transport_count" type="xsd:string" minOccurs="0"/>
+			<!--Количество смен работы за 1.5 года -->
+			<xsd:element name="workchng" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="flag_allow_pass_BKI" type="xsd:boolean">
+				<xsd:annotation>
+					<xsd:documentation>Флаг согласия субъекта персональных данных на передачу данных в БКИ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="flag_allow_pass_BKI_Date" type="xsd:date">
+				<xsd:annotation>
+					<xsd:documentation>Дата согласия субъекта персональных данных на передачу данных в БКИ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="prevFamily" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="prevName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="prevFatherName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="adderessReceirtMail" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="flagMaritalAgreement" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="divisionOfProperty" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="flag_has_join_child" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="creditHist" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="comment_for_ipdl" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="militaryDelay" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="clientRole" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="addnationality" type="mbrd:countryInfo" minOccurs="0"/>
+			<xsd:element name="signature" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Блок данных о кредитной истории -->
+	<xsd:complexType name="creditHistoryDataType">
+		<xsd:sequence>
+			<xsd:element name="subjectCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="codeExpire" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--Блок расчетных данных-->
+	<xsd:complexType name="calculatedData">
+		<xsd:sequence>
+			<xsd:element name="residence" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="financeStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="riskLevel" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="riskLevelExplain" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--Блок Служебной информации-->
+	<xsd:complexType name="clientSupportInfoType">
+		<xsd:sequence>
+			<xsd:element name="lastRenewDate" type="xsd:string"/>
+			<xsd:element name="nextRenewDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="lastRenewUser" type="xsd:string"/>
+			<xsd:element name="manager" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="branchCode" type="xsd:string"/>
+			<xsd:element name="officeCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="requestComment" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--Детализация информации по клиенту-->
+	<xsd:complexType name="fullClientDataType">
+		<xsd:sequence>
+			<xsd:element name="serviceClientData" type="mbrd:serviceClientDataType" minOccurs="0"/>
+			<xsd:element name="clientData" type="mbrd:clientData"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="serviceClientDataType">
+		<xsd:sequence>
+			<xsd:element name="isCorrect" type="xsd:boolean"/>
+			<xsd:element name="errors" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="error" type="mbrd:error" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by MESMERiZE (MSM) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd">
+	<xsd:complexType name="questionnaire">
+		<xsd:annotation>
+			<xsd:documentation>Список вопросов и ответов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="question" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>данные по вопросу</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="questionNumber" type="xsd:integer">
+							<xsd:annotation>
+								<xsd:documentation>номер вопроса</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="questionText" type="xsd:string" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Текст вопроса</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="answersList">
+							<xsd:annotation>
+								<xsd:documentation>Список ответов</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="answer" maxOccurs="unbounded">
+										<xsd:annotation>
+											<xsd:documentation>информация по ответу</xsd:documentation>
+										</xsd:annotation>
+										<xsd:complexType>
+											<xsd:all>
+												<xsd:element name="answerNumber" type="xsd:integer">
+													<xsd:annotation>
+														<xsd:documentation>номер ответа</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+												<xsd:element name="answerText" type="xsd:string" minOccurs="0">
+													<xsd:annotation>
+														<xsd:documentation>Текст ответа</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+											</xsd:all>
+										</xsd:complexType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

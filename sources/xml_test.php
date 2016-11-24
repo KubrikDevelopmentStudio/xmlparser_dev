@@ -10,7 +10,7 @@
 
     $app = new Application();
 
-    $app->load_schema('xsd', '../data/xsds');
+    $app->load_schema('xsd', '../data/xsds/CC');
     $app->load_schema('xml', '../data/custom_xmls');
 
 
@@ -37,6 +37,8 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
+        <text id="header_text" style="font-weight: bold"></text>
+        <text id="body_text"></text>
         <?php if(!empty($app->errorMsg)) {
             foreach ($app->errorMsg as $message) {
                 echo $message;

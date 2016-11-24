@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by MESMERiZE (MSM) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd">
+	<xsd:include schemaLocation="clientSimpleTypes.xsd"/>
+	<xsd:include schemaLocation="clientComplexTypes_strict.xsd"/>
+	<xsd:complexType name="LoanListType">
+		<xsd:annotation>
+			<xsd:documentation>Договора клиента</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="LoanInfo" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="LoanStatus">
+							<xsd:annotation>
+								<xsd:documentation>Состояние КД</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="LoanStatusCode" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>Код состояния КД</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="StatusDesc" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>Наименование состояния КД</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="IsClosed" type="xsd:boolean" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Признак (действующий/закрытый)</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="LoanType">
+							<xsd:annotation>
+								<xsd:documentation>Вид кредита КД</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="LoanTypeCode" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>Код вида кредита</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="LoanTypeName" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>Наименование вида кредита</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="LoanKind" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Группа кредитов, принадлежность вида кредита к продукту МТС ПОС</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="AgrCur" type="xsd:string">
+							<xsd:annotation>
+								<xsd:documentation>Валюта КД</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="LoanId" type="xsd:string">
+							<xsd:annotation>
+								<xsd:documentation>идентификатор КД</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="AgreemtNum" type="xsd:string" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>номер КД</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="AgreemtName" type="xsd:string" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>наименование договора</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="ProdName" type="xsd:string" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Вид продукта (наименование продукта)</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="CredProgram" minOccurs="0">
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="CredProgramCode" type="xsd:string"/>
+									<xsd:element name="CredProgramName" type="xsd:string"/>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="StartDt" type="mbrd:Date" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Дата открытия кредитного договора</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="EndDt" type="mbrd:Date" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Дата закрытия кредитного договора</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="MonthlyAmt" type="mbrd:CurrencyAmount" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Ежемесячный платеж</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="PastDuePmtCount1" type="xsd:integer" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Количество просрочек 1+</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="PastDuePmtCount30" type="xsd:integer" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Количество просрочек 30+</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="PastDuePmtCount60" type="xsd:integer" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Количество просрочек 60+</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="PastDuePmtCount90" type="xsd:integer" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Количество просрочек 90+</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!--Совокупный объем выплаченных средств по кредиту.Тэг добавлен.Тип-числовой.-->
+						<xsd:element name="WasDebtMore30LY" type="xsd:boolean" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Наличие просрочки > 30 дней в течение последнего года действия кредитного договора</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="TotalPmtAmt" type="mbrd:CurrencyAmount" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Совокупный объем выплаченных средств по кредиту</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Term" type="mbrd:TermType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Срок обслуживания кредита  (с даты открытия до даты закрытия или до текущей даты, если КД открыт)</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="DelinqAging" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Текущая просроченная задолженность,  в валюте кредита</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="CurAmt" type="mbrd:CurrencyAmount"/>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="ClosedMonth" type="xsd:integer" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Количество полных месяцев с момента закрытия кредитного обязательства</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="MaxOverdebtTerm" type="mbrd:TermType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Максимально допустимая просрочка</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="IntRate" minOccurs="0">
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="Rate" type="xsd:float"/>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="BankInfo" minOccurs="0">
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="BranchId" type="xsd:string"/>
+									<xsd:element name="AgencyId" type="xsd:string" minOccurs="0"/>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="LoanAmount" type="mbrd:CurrencyAmount" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Сумма договора</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="AcctId" type="xsd:string" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Номер текущего счета кредитного договора</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="DepInfo" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Связанный договор депозита</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="DepId" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Id договора</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

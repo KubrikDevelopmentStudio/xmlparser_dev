@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by ALevchenko (MBRD) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd" id="docDataType">
+	<xsd:annotation>
+		<xsd:documentation>
+			<!--Файл содержит набор ограничений применяемых для блоков служебной информации в схемах запросов и результатов.
+				Как правило, данные типы применяются в блоках, <serviceData>-->
+		</xsd:documentation>
+	</xsd:annotation>
+	<!--Ограничение на длину комментария об ошибке-->
+	<xsd:simpleType name="errorComment">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="200"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Ограничение на длину ФИО сотрудника банка-->
+	<xsd:simpleType name="FIO">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Ограничение на длину комментария к заявке на изменение данных-->
+	<xsd:simpleType name="requestComment">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="400"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>
