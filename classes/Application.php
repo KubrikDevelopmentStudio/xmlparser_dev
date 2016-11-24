@@ -37,6 +37,8 @@ class Application
 
 
     public $errorMsg = [];
+
+
     /**
      * Загрузка схем, указанного формата.
      *
@@ -51,17 +53,17 @@ class Application
             if ($dh = opendir($directory)) {
                 while (($file = readdir($dh)) !== false) {
 
-                    $name       = substr($file, 0, stripos($file, '.'));
-                    $extension  = substr($file, stripos($file, '.') + 1);
+                    $name = substr($file, 0, stripos($file, '.'));
+                    $extension = substr($file, stripos($file, '.') + 1);
                     $lastUpdate = date("F d Y H:i:s", fileatime($directory . "/" . $file));
-                    $fullPath   = $directory . "/" . $file;
+                    $fullPath = $directory . "/" . $file;
 
-                    if(empty($name)) {
+                    if (empty($name)) {
                         continue;
                     }
 
-                    if($extension != 'xsd' && $extension != 'xml') {
-                        $msg = "<strong>Внимание!</strong> Загружаемый <a href='". $fullPath . "' class='alert-link'>" . $file . "</a> имеет неверный формат: " . $extension . "! Проверьте файл! <br>";
+                    if ($extension != 'xsd' && $extension != 'xml') {
+                        $msg = "<strong>Внимание!</strong> Загружаемый файл <a href='" . $fullPath . "' class='alert-link'>" . $file . "</a> имеет неверный формат: " . $extension . "! Проверьте файл! <br>";
                         $this->errorMsg[] = $msg;
                         continue;
                     }
