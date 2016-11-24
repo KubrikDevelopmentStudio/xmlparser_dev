@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by none (none) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd" id="docDataType">
+	<xsd:annotation>
+		<xsd:documentation>
+			<!--Файл содержит набор системных справочников, применяемых для блоков служебной информации в схемах запросов и результатов.-->
+		</xsd:documentation>
+	</xsd:annotation>
+	<!--Справочник Информационных систем-->
+	<xsd:simpleType name="systemType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="EGAR">
+				<!--EGAR-->
+			</xsd:enumeration>
+			<xsd:enumeration value="DIRECT_CREDIT">
+				<!--DIRECT_CREDIT-->
+			</xsd:enumeration>
+			<xsd:enumeration value="RETAIL">
+				<!--ARM-->
+			</xsd:enumeration>
+			<xsd:enumeration value="CRM_MORTGAGE">
+				<!--CRM ипотека-->
+			</xsd:enumeration>
+			<xsd:enumeration value="INVERSIA">
+				<!--Инверсия-->
+			</xsd:enumeration>
+			<xsd:enumeration value="COLVIR">
+				<!--Колвир-->
+			</xsd:enumeration>
+			<xsd:enumeration value="MODULE_BKI">
+				<!--Модуль для правки данных-->
+			</xsd:enumeration>
+			<xsd:enumeration value="DAS">
+				<!--Система принятия решения-->
+			</xsd:enumeration>
+			<xsd:enumeration value="RTK"/>
+			<xsd:enumeration value="MTS"/>
+			<xsd:enumeration value="CALL_CENTER"/>
+			<xsd:enumeration value="WC_NFO"/>
+			<xsd:enumeration value="ESB"/>
+			<xsd:enumeration value="RBO"/>
+			<xsd:enumeration value="DKB.IBS"/>
+			<xsd:enumeration value="WC_SPECTR"/>
+			<xsd:enumeration value="WEB.SITE"/>
+			<xsd:enumeration value="SIEBEL"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Справочник "Тип совпадений"-->
+	<xsd:simpleType name="matchType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="DOCUMENT">
+				<!--Совпала серия и номер ДУЛ-->
+			</xsd:enumeration>
+			<xsd:enumeration value="PERSON_INFO">
+				<!--Совпало ФИО и дата рождения-->
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Справочник "Тип ошибки"-->
+	<xsd:simpleType name="errorType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="FALSE_DATA">
+				<!--Некорректный формат данных-->
+			</xsd:enumeration>
+			<xsd:enumeration value="FALSE_CHECK">
+				<!--Проверки не пройдены-->
+			</xsd:enumeration>
+			<xsd:enumeration value="DIFFERENT_DATA">
+				<!--Идентификационные данные на совпадают-->
+			</xsd:enumeration>
+			<xsd:enumeration value="PASSPORT_FALSE">
+				<!--Паспортные данные не уникальны-->
+			</xsd:enumeration>
+			<xsd:enumeration value="FALSE_KEY">
+				<!--Не уникален ключ ФИО, Дата рождения, Место рождение-->
+			</xsd:enumeration>
+			<xsd:enumeration value="FALSE_CONNECTION">
+				<!--Сервер не отвечает-->
+			</xsd:enumeration>
+			<xsd:enumeration value="FALSE_IDENTIFICATION">
+				<!--Клиент с заданным идентификатором не найден-->
+			</xsd:enumeration>
+			<xsd:enumeration value="FALSE_AML_CHECK"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Справочник "Платежная система"-->
+	<xsd:simpleType name="paymentSystemType">
+		<xsd:annotation>
+			<xsd:documentation>Платежная система</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!--Справочник "Категория карты"-->
+	<xsd:simpleType name="cardCategoryType">
+		<xsd:annotation>
+			<xsd:documentation>Категория карты</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!--Справочник "Тип карты"-->
+	<xsd:simpleType name="cardTypeType">
+		<xsd:annotation>
+			<xsd:documentation>Тип карты</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0">
+				<xsd:annotation>
+					<xsd:documentation>Неименная</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation>Именная</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CARD.PERSONAL"/>
+			<xsd:enumeration value="CARD.EXPRESS"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Справочник "Статус карты"-->
+	<xsd:simpleType name="cardStatusType">
+		<xsd:annotation>
+			<xsd:documentation>Коды статусов карт</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0">
+				<xsd:annotation>
+					<xsd:documentation>Сформирована заявка на изготовление в ПЦ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="5">
+				<xsd:annotation>
+					<xsd:documentation>Карта изготовлена в ПЦ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="10">
+				<xsd:annotation>
+					<xsd:documentation>Карта доставлена на точку выдачи</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="15">
+				<xsd:annotation>
+					<xsd:documentation>Карта активирована</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="20">
+				<xsd:annotation>
+					<xsd:documentation>Карта выдана клиенту</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="25">
+				<xsd:annotation>
+					<xsd:documentation>Карта заблокирована</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Справочник "Основание для операции"-->
+	<xsd:simpleType name="actionReason">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="CORRECT_ERROR">
+				<!--Исправление ошибок-->
+			</xsd:enumeration>
+			<xsd:enumeration value="CORRECT_CLIENT">
+				<!--Редактирование данных по заявлению клиента-->
+			</xsd:enumeration>
+			<xsd:enumeration value="CORRECT_WORKER">
+				<!--Редактирование данных  ответственными сотрудниками-->
+			</xsd:enumeration>
+			<xsd:enumeration value="CREDIT_REQUEST">
+				<!--Обращение клиента за новым продуктом-->
+			</xsd:enumeration>
+			<xsd:enumeration value="CORRECT_CLIENT_IDENTIFICATION"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="clientType">
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!--Тип сервиса. ("I_BANK" - интернет банк, "SMS_INFO", "AUTO_PAYMENT"-Автоплатеж,"MTS_BONUS"-МТС Бонус,"MOBILE_BANK"-Мобильный банк)-->
+	<xsd:simpleType name="serviceType">
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+</xsd:schema>

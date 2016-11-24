@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by MESMERiZE (MSM) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd">
+	<xsd:include schemaLocation="clientSimpleTypes.xsd"/>
+	<xsd:include schemaLocation="clientComplexTypes_strict.xsd"/>
+	<xsd:complexType name="DepositListType">
+		<xsd:annotation>
+			<xsd:documentation>Договора клиента</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="DepositInfo" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>информация о депозите
+</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="CustInfo" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>информация о клиенте
+</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="CustId" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>идентификатор клиента
+</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="PersonInfo">
+										<xsd:complexType>
+											<xsd:all>
+												<xsd:element name="PersonName">
+													<xsd:annotation>
+														<xsd:documentation>Имя клиента
+</xsd:documentation>
+													</xsd:annotation>
+													<xsd:complexType>
+														<xsd:sequence>
+															<xsd:element name="LastName" type="xsd:string">
+																<xsd:annotation>
+																	<xsd:documentation>Фамилия</xsd:documentation>
+																</xsd:annotation>
+															</xsd:element>
+															<xsd:element name="FirstName" type="xsd:string">
+																<xsd:annotation>
+																	<xsd:documentation>Имя</xsd:documentation>
+																</xsd:annotation>
+															</xsd:element>
+															<xsd:element name="MiddleName" type="xsd:string" minOccurs="0">
+																<xsd:annotation>
+																	<xsd:documentation>Отчество</xsd:documentation>
+																</xsd:annotation>
+															</xsd:element>
+														</xsd:sequence>
+													</xsd:complexType>
+												</xsd:element>
+												<xsd:element name="FullName">
+													<xsd:annotation>
+														<xsd:documentation>ФИО строкой</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+											</xsd:all>
+										</xsd:complexType>
+									</xsd:element>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="AgreemtNum" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="DepId" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Id  договора депозита</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="BankInfo" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>инфоомация о банке
+</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="BranchId" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>филиал
+</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="BranchName" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>наименование филиала
+</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="AgencyId" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>отделение
+</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="AgencyName" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>наименование отделения
+</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="BankId" minOccurs="0"/>
+									<xsd:element name="RUS.CorrAcct" minOccurs="0"/>
+									<xsd:element name="Name" minOccurs="0"/>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="DepAcctId" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>информация о счете вклада</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="AcctId" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>Номер счета</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="AcctCur" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Валюта</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="Blnc" type="xsd:decimal" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Текущий остаток</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="ConsAcctId" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Номер сводного счета</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="StartDt" type="mbrd:Date" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>дата открытия счета
+</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="BS2" type="xsd:string" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>БС 2-го порядка
+</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="DepType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Тип депозита</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="DepTypeCode">
+										<xsd:annotation>
+											<xsd:documentation>Код типа депозита</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="DepTypeName">
+										<xsd:annotation>
+											<xsd:documentation>Наименование типа депозита</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="MinAmt" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>неснижаемый остаток
+</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="Amt" type="xsd:decimal" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>сумма</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="CurCode" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>валюта</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="CardInfo" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>информация о карте
+</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="PAN" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>номер карты
+</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="HashPAN" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>хэшированный номер карты
+</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="CardStm" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>карточная ситстема,всегда 'MB'
+</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="CardId" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>идентификатор карты</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="CardAcctId" type="mbrd:AcctType"/>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="EndDt" type="mbrd:Date" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>дата окончания действия депозита
+</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="FirstDepositsAmt" type="mbrd:CurrencyAmount" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>первоначальный взнос
+</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="RetAcctId" type="mbrd:AcctType" minOccurs="0"/>
+						<xsd:element name="IntRates" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="IntRate">
+										<xsd:annotation>
+											<xsd:documentation>Процентная ставка</xsd:documentation>
+										</xsd:annotation>
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="Rate"/>
+												<xsd:element name="StartDt" type="mbrd:Date">
+													<xsd:annotation>
+														<xsd:documentation>Дата начала действия</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+												<xsd:element name="EndDt" type="mbrd:Date" minOccurs="0">
+													<xsd:annotation>
+														<xsd:documentation>Дата окончания действия </xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="TrnsList" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Движение по счету</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="TrnsInfo" minOccurs="0" maxOccurs="unbounded">
+										<xsd:annotation>
+											<xsd:documentation>Движение по счету</xsd:documentation>
+										</xsd:annotation>
+										<xsd:complexType>
+											<xsd:all>
+												<xsd:element name="TrnsBankDt">
+													<xsd:annotation>
+														<xsd:documentation>Дата ОД совершения операции</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+												<xsd:element name="TrnsAmt">
+													<xsd:annotation>
+														<xsd:documentation>Сумма операции в валюте счета</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+												<xsd:element name="BlncAfter">
+													<xsd:annotation>
+														<xsd:documentation>Остаток сразу после совершения операции, в соответствии с их порядком</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+												<xsd:element name="TrnsTypeCode" minOccurs="0">
+													<xsd:annotation>
+														<xsd:documentation>Код операции</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+												<xsd:element name="TrnsDirection">
+													<xsd:annotation>
+														<xsd:documentation>Направление операции</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+											</xsd:all>
+										</xsd:complexType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="EmplSalary" type="xsd:boolean" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Признак того, что карта сотрудника Банка в рамках з/п проекта</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

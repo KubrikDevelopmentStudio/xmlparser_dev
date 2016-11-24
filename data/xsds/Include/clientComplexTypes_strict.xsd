@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by MESMERiZE (MSM) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd" id="docDataType">
+	<!-- Импорт базовых типов -->
+	<xsd:include schemaLocation="systemDictionaries.xsd"/>
+	<xsd:include schemaLocation="clientSimpleTypes.xsd"/>
+	<!--Блок паспортных данных-->
+	<xsd:complexType name="documentFullDataType">
+		<xsd:annotation>
+			<xsd:documentation>Данные о документах</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="serial" type="mbrd:docSerial" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Серия документа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="number" type="mbrd:docNumber">
+				<xsd:annotation>
+					<xsd:documentation>Номер документа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="expireDate" type="xsd:date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Срок действия документа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="issueOrgCode" type="mbrd:docIssueOrgCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код подразеделения, выдавшего документ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="issueOrgName" type="mbrd:docIssueOrgName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Название подразделения, выдавшего документ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="issueDate" type="xsd:date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата выдачи документа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="documentTypeDetail" type="mbrd:elemAdr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип документа (иное)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="cardType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип карты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="documentType" type="mbrd:dictionary" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Код типа документа</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="isActive" type="xsd:boolean" use="optional">
+			<xsd:annotation>
+				<xsd:documentation>Флаг действительности документа</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="isPrimary" type="xsd:boolean" use="optional">
+			<xsd:annotation>
+				<xsd:documentation>Флаг, показывающий что документ, является основным</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<!--Блок адрессных данных-->
+	<xsd:complexType name="countryInfo">
+		<xsd:sequence>
+			<xsd:element name="countryName" type="mbrd:kladrElemName">
+				<xsd:annotation>
+					<xsd:documentation>Название государства</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="countryCode" type="mbrd:kladrElemCode">
+				<xsd:annotation>
+					<xsd:documentation>Код государства</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="addressKLADR_Small">
+		<xsd:sequence>
+			<xsd:element name="countryName" type="mbrd:kladrElemName">
+				<xsd:annotation>
+					<xsd:documentation>Название государства</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="countryCode" type="mbrd:kladrElemCode">
+				<xsd:annotation>
+					<xsd:documentation>Код государства</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="regionName" type="mbrd:kladrElemName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Название региона(для городов федерального подчинения - название города)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="regionCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код региона</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="regionSocr" type="mbrd:kladrElemSocr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сокращение типа региона</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="districtName" type="mbrd:kladrElemName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Название района(для городов областного подчинения - название города)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="districtSocr" type="mbrd:kladrElemSocr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сокращение типа района</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="cityName" type="mbrd:kladrElemName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Название города</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="citySocr" type="mbrd:kladrElemSocr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сокращение типа города</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="localityName" type="mbrd:kladrElemName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Название населенного пункта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="localitySocr" type="mbrd:kladrElemSocr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сокращение типа населенного пункта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="kladrCodeHouse" type="mbrd:kladrCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код КЛАДР до уровня дома</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="kladrCodeStreet" type="mbrd:kladrCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код КЛАДР до уровня улицы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="kladrCode" type="mbrd:kladrCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Кладр код</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="zipCode" type="mbrd:addressZipCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Индекс-код</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="hfСheckCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код проверки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="hfComplCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код полноты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="isHfChangeAddr" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак изменения исходного адреса; true - адрес менялся, false - адрес не менялся</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="addressKLADR_Full">
+		<xsd:all>
+			<xsd:element name="countryName" type="mbrd:kladrElemName">
+				<xsd:annotation>
+					<xsd:documentation>Название государства</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="countryCode" type="mbrd:kladrElemCode">
+				<xsd:annotation>
+					<xsd:documentation>Код государства</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="regionName" type="mbrd:kladrElemLName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Название региона</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="regionCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код региона</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="regionSocr" type="mbrd:kladrElemSocr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сокращение типа региона</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="districtName" type="mbrd:kladrElemLName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Название района</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="districtSocr" type="mbrd:kladrElemSocr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сокращение типа района</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="cityName" type="mbrd:kladrElemName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Название города</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="citySocr" type="mbrd:kladrElemSocr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сокращение типа города</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="localityName" type="mbrd:kladrElemName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Название населенного пункта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="localitySocr" type="mbrd:kladrElemSocr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сокращение типа населенного пункта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="streetName" type="mbrd:kladrStreetName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Название улицы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="streetSocr" type="mbrd:kladrElemSocr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сокращение типа улицы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="house" type="mbrd:kladrHouse" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер дома</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="block" type="mbrd:kladrBlock" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование корпуса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="building" type="mbrd:kladrBuilding" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование строения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="flat" type="mbrd:kladrFlat" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер квартиры</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="zipCode" type="mbrd:addressZipCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Индекс-код</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="kladrCodeStreet" type="mbrd:kladrCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код КЛАДР до уровня улицы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="kladrCodeHouse" type="mbrd:kladrCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код КЛАДР до уровня дома</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="kladrCode" type="mbrd:kladrCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код Кладр</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="codeOKATO" type="mbrd:codeOKATO" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код окато</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="status" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статус по отношению к Адресу</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="regBase" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Основание для регистрации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="regDate" type="mbrd:elemDateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата регистрации/Проживает с</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="phone" type="mbrd:contact" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Телефон</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="realestate_type" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Вид недвижимости</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="isKladr" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак того, что адрес заполнен по КЛАДР</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="timeZone" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Часовой пояс</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="doc_number" type="mbrd:docNumber" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер подтверждающего документа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="doc_code" type="mbrd:docIssueOrgCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код подразделения выдавшего подтверждающий документ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="address_to_string" type="mbrd:adrString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Адрес (строка)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="hfСheckCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код проверки </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="hfComplCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код полноты </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="isHfChangeAddr" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак изменения исходного адреса (true - адрес менялся, false - адрес не менялся)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="isMailAddress" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Использовать этот адрес для получения корреспонденции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:all>
+		<xsd:attribute name="addressType" type="mbrd:dictionary" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Код типа адреса</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<!-- Инофрмация о местах работы клиента -->
+	<xsd:complexType name="perWorkType">
+		<xsd:sequence>
+			<xsd:element name="employmentType" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Вид занятости</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="workForm" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Организационно-правовая форма</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="fullName" type="mbrd:elemOrgName_full" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Полное наименование организации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="shortName" type="mbrd:elemOrgName_short" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сокращенное наименование организации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="sizeCompany" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Размер организации(человек)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="propertyForm" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Вид собственности</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ownCountry" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Принадлежность компании</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="relation2Mbrr" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Отношение организации к МБРР</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="activityType" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Направление деятельности предприятия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="clientActivity" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сфера  занятий клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="period" type="xsd:nonNegativeInteger" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Стаж работы в теку щей сфере деятельности (в месяцах)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="flagSameAddress" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Фактический рабочий адрес совпадает с любым из адресов руководства</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="addresses" type="mbrd:clientWorkAddressList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Адрес места работы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="addForEmployment" type="mbrd:addForEmploymentType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дополнительные данные работника</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="accountingPhone" type="mbrd:contact" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Телефон отдела кадров</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="website" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Веб сайт компании</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="INNCompany" type="mbrd:companyINN" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ИНН организации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="workFormDetail" type="mbrd:elemAdr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Организационно-правовая форма (иное)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="clientActivityDetail" type="mbrd:elemAdr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сфера  занятий клиента (иное)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="activityTypeDetail" type="mbrd:elemAdr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Направление деятельности организации (прочее)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="flagInKin" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Являюсь родственником собственника или одного из руководителей предприятия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="headName" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ФИО Руководителя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="curLengthService" type="xsd:nonNegativeInteger" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Стаж работы в данной организации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="workType" type="xsd:boolean" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Тип работы (Основная/Дополнительная)</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<!--Блок данных о транспортных средствах в собственности клиента-->
+	<xsd:complexType name="perTransportType">
+		<xsd:sequence>
+			<xsd:element name="marka" type="mbrd:dictionary">
+				<xsd:annotation>
+					<xsd:documentation>Марка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="model" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Модель</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="yearCreate" type="mbrd:elemYear">
+				<xsd:annotation>
+					<xsd:documentation>Год выпуска</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="cost" type="mbrd:amount" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Текущая рыночная стоимость</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="regNumber" type="mbrd:elemRegNumber" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Регистрационный номер транспортного средства</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="isPledge" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Обременена залогом</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="hasDoc" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Предоставлены правоустанавливающие документы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="transportTypeDetail" type="mbrd:elemAdr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип транспортного средства (иное)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="purchaseMethod" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Способ приобретения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="transportType" type="mbrd:dictionary" use="optional">
+			<xsd:annotation>
+				<xsd:documentation>Тип транспортного средства (иное)</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<!--Блок данных о недвижимости в собственности клиента-->
+	<xsd:complexType name="perPropertyType">
+		<xsd:sequence>
+			<xsd:element name="addressType" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип адреса (с чем совпадает)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="address" type="mbrd:adrString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Адрес недвижимости</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="cost" type="mbrd:amount" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Текущая рыночная стоймость</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="planForUse" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Планы по использованию</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="isPledge" type="xsd:boolean">
+				<xsd:annotation>
+					<xsd:documentation>Обременена залогом</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="haveDoc" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Предоставлены правоустанавливающие документы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="typePropertyDetail" type="mbrd:elemAdr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип недвижимости (иное)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="propertyType" type="mbrd:dictionary" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Тип недвижимости</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:complexType name="contact">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="contactType" type="mbrd:dictionary" use="required">
+					<xsd:annotation>
+						<xsd:documentation>Код типа контакта</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="isPrimary" type="xsd:boolean" use="optional">
+					<xsd:annotation>
+						<xsd:documentation>Флаг, показывающий что документ, является основным</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="OmtOwnerID" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>Клиент-владелец ОМТ</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="hfEmailQualityCode" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>Код качества e-mail</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="clientContact" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>Номер телефона</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--Блок данных о кредитных обязательсвах клиента-->
+	<xsd:complexType name="creditLiabilitiesType">
+		<xsd:sequence>
+			<xsd:element name="role" type="mbrd:dictionary">
+				<xsd:annotation>
+					<xsd:documentation>Роль в сделке </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="repaymentDate" type="mbrd:elemDateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата погашения кредита </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="startDate" type="mbrd:elemDateType">
+				<xsd:annotation>
+					<xsd:documentation>Дата выдачи кредита</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="crdterm" type="xsd:nonNegativeInteger" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Срок кредита (в месяцах)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="creditor" type="mbrd:elemName">
+				<xsd:annotation>
+					<xsd:documentation>Кредитор (банк и т.п.)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="crdsum" type="mbrd:amount" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сумма кредита</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="crdlimit" type="mbrd:amount" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Доступный лимит</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="mnthpayment" type="mbrd:amount">
+				<xsd:annotation>
+					<xsd:documentation>Ежемесячный платеж</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="crdrest" type="mbrd:amount">
+				<xsd:annotation>
+					<xsd:documentation>Остаток долга</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="crdMbrr" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак того, что кредит взят в МБРР </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="crdtypeDetail" type="mbrd:elemAdr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Вид кредита (иное)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="crdtype" type="mbrd:dictionary" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Вид кредита</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="creditActivity" type="mbrd:dictionary" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Тип кредита</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<!--Блок данных о доходах/расходах/активах клиента-->
+	<xsd:complexType name="perIncome">
+		<xsd:sequence>
+			<xsd:element name="value" type="mbrd:amount">
+				<xsd:annotation>
+					<xsd:documentation>Уровень дохода/расхода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="bankDescription" type="mbrd:elemName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Эмитент, название ЦБ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="flagConfirmDoc" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак наличия подтверждающих документов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="type" type="mbrd:dictionary" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Тип дохода</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="category" type="mbrd:dictionary" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Категория (доход/расход)</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<!--Блок данных о накоплениях клиента-->
+	<xsd:complexType name="clientSaving">
+		<xsd:sequence>
+			<xsd:element name="bank" type="mbrd:elemName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Банк-эмитент</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="category" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Вид вклада</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="cardType" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип карты (если применимо)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="rest" type="mbrd:amount" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Остаток на карте, либо сумма вклада</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="term" type="xsd:nonNegativeInteger" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Срок вклада</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="rate" type="mbrd:partInterestType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Процентная ставка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="type" type="mbrd:dictionary" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Тип накопления (депозит/расчетная карта)</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<!--Блок данных о дополнительных контактных лицах, ближайших родственниках клиента-->
+	<xsd:complexType name="client2People">
+		<xsd:sequence>
+			<xsd:element name="lastname" type="mbrd:peopleFamily" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Фамилия связанного лица</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="firstname" type="mbrd:peopleName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Имя связанного лица</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="middlename" type="mbrd:peopleFatherName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Отчество связанного лица</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="sex" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Пол</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="birthdate" type="mbrd:clientBirthDate" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата рождения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="phone" type="mbrd:contact" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Телефон</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="flagEmploymentSpouse" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Занятость супруга (-имеет доход, - не имеет доход)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="prevlastname" type="mbrd:peopleFamily" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Предыдущяа фамилия супруга</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="prevfirstname" type="mbrd:peopleName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Предыдущее имя супруга</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="prevmiddlename" type="mbrd:peopleFatherName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Предыдущее отчество супруга</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="flag_living_together" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Проживает совместно с клиентом</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="type" type="mbrd:dictionary" use="optional">
+			<xsd:annotation>
+				<xsd:documentation>Тип родства</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="groupDependent" type="mbrd:dictionary" use="optional">
+			<xsd:annotation>
+				<xsd:documentation>Категория иждивенца</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<!--Блок идентификационной информации-->
+	<xsd:complexType name="identityDataType">
+		<xsd:sequence>
+			<xsd:element name="clientId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VKI" type="xsd:string"/>
+			<xsd:element name="family" type="mbrd:clientFamily"/>
+			<xsd:element name="name" type="mbrd:clientName"/>
+			<xsd:element name="fatherName" type="mbrd:clientFatherName" minOccurs="0"/>
+			<xsd:element name="birthDate" type="mbrd:clientBirthDate" minOccurs="0"/>
+			<xsd:element name="birthPlace" type="mbrd:clientBirthPlace" minOccurs="0"/>
+			<xsd:element name="clientType" type="mbrd:clientType" minOccurs="0"/>
+			<xsd:element name="listDocument" type="mbrd:clientDocuments" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="clientDocuments">
+		<xsd:sequence>
+			<xsd:element name="document" type="mbrd:documentFullDataType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Стоимость/сумма-->
+	<xsd:complexType name="amount">
+		<xsd:sequence>
+			<xsd:element name="summa" type="mbrd:elemAmount">
+				<xsd:annotation>
+					<xsd:documentation>Сумма</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="currency" type="mbrd:dictionary">
+				<xsd:annotation>
+					<xsd:documentation>Валюта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Адрес места работы-->
+	<xsd:complexType name="clientWorkAddressList">
+		<xsd:sequence>
+			<xsd:element name="address" type="mbrd:addressKLADR_Full" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Собственник бизнеса-->
+	<xsd:complexType name="ownBusinessType">
+		<xsd:sequence>
+			<xsd:element name="partInterest" type="mbrd:partInterestType">
+				<xsd:annotation>
+					<xsd:documentation>Процент собственности(0-100%)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Наемный работник-->
+	<xsd:complexType name="workerType">
+		<xsd:sequence>
+			<xsd:element name="positionLevel" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Уровень должности</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="position" type="mbrd:elemName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование должности</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ownWorker" type="xsd:unsignedInt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Кол-во человек в подчинении</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="startDate" type="mbrd:elemDateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата начала работы в организации </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="kind" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Характер работы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Наемный работник или Собственник-->
+	<xsd:complexType name="addForEmploymentType">
+		<xsd:all>
+			<xsd:element name="ownBusiness" type="mbrd:ownBusinessType" minOccurs="0"/>
+			<xsd:element name="worker" type="mbrd:workerType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="AcctType">
+		<xsd:sequence>
+			<xsd:element name="AcctId" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Номер счета</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AcctCur" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Валюта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Date">
+		<xsd:sequence>
+			<xsd:element name="Year" type="xsd:nonNegativeInteger"/>
+			<xsd:element name="Month" type="xsd:nonNegativeInteger"/>
+			<xsd:element name="Day" type="xsd:nonNegativeInteger"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TermType">
+		<xsd:sequence>
+			<xsd:element name="Count" type="xsd:integer">
+				<xsd:annotation>
+					<xsd:documentation>количество</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TermUnits" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>единица срока</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CurrencyAmount">
+		<xsd:all>
+			<xsd:element name="Amt" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>сумма</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurCode" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>код валюты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

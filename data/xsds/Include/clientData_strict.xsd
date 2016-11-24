@@ -1,0 +1,1014 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by MESMERiZE (MSM) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd" id="ClientsList_Request">
+	<xsd:annotation>
+		<xsd:documentation>
+			<!-- Файл содержит описание типа "ClientData" со строгими требованиями к структуре и составу данных. Применяется для определения неверно 
+			заполненных полей запроса или существующих данных клиента -->
+		</xsd:documentation>
+	</xsd:annotation>
+	<!-- Импорт базовых типов -->
+	<xsd:include schemaLocation="clientComplexTypes_strict.xsd"/>
+	<xsd:include schemaLocation="clientSimpleTypes.xsd"/>
+	<xsd:include schemaLocation="systemSimpleTypes.xsd"/>
+	<xsd:include schemaLocation="systemComplexTypes.xsd"/>
+	<!-- Тип clientData, описывающий жесткие требования к данным клиента -->
+	<xsd:complexType name="clientData">
+		<xsd:annotation>
+			<xsd:documentation>Данные клиента</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="clientId" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ID клиента в РБО</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="VKI" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Общесистемный идентификатор клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExtCustId" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Id клиента в EGAR</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="clientSupportInfo" type="mbrd:clientSupportInfoType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок Служебной информации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="clientCommonData" type="mbrd:clientCommonDataType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок общей информации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Документы клиента-->
+			<xsd:element name="clientListDocument" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок данных о документах клиента</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientDocument" type="mbrd:documentFullDataType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Документы удостоверяющие личность</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Адреса клиента-->
+			<xsd:element name="clientListAddress" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок данных о адресах клиента</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientAddress" type="mbrd:addressKLADR_Full" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Адреса</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="clientListContact" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок данных о контактах клиента</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientContact" type="mbrd:contact" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Контакты (телефон, результирующий email)</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="clientCreditHistoryInfo" type="mbrd:creditHistoryDataType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок данных о кредитной истории</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="clientCalculatedData" type="mbrd:calculatedData" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок расчетных данных</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Информация о местах работы клиента (не используется в АБС "Inversia") (new4Inversia)-->
+			<xsd:element name="clientListWork" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок данных о месте работы клиента</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientWork" type="mbrd:perWorkType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Транспортные средства в собственности клиента (не используется в АБС "Inversia") (new4Inversia)-->
+			<xsd:element name="clientListTransport" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок данных о транспортных средствах в собственности клиента</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientTransport" type="mbrd:perTransportType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Транспортное средство</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Недвижимость в собственности клиента (не используется в АБС "Inversia") (new4Inversia)-->
+			<xsd:element name="clientListProperty" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок данных о недвижимости в собственности клиента</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientProperty" type="mbrd:perPropertyType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Недвижимость в собственности</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Кредитные обязательства клиента (не используется в АБС "Inversia") (new4Inversia)-->
+			<xsd:element name="clientListCreditLiabilities" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок данных о кредитных обязательствах клиента (не используется в АБС "Inversia") (new4Inversia)</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientCreditLiabilities" type="mbrd:creditLiabilitiesType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Кредитные обязательства</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Доходы/расходы/активы клиента (не используется в АБС "Inversia") (new4Inversia)-->
+			<xsd:element name="clientListIncome" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок данных о доходах/расходах/активах клиента (не используется в АБС "Inversia") (new4Inversia)</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientIncome" type="mbrd:perIncome" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Доход/Расход</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Дополнительные контактные лица, ближайшие родственники клиента (не используется в АБС "Inversia") (new4Inversia)-->
+			<xsd:element name="clientListClient2People" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок данных о дополнительных контактных лицах, ближайших родственниках клиента (не используется в АБС "Inversia") (new4Inversia)</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientClient2People" type="mbrd:client2People" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Контактное лицо</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Накопления клиента (не используется в АБС "Inversia")-->
+			<xsd:element name="clientListClientSaving" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок данных о накоплениях клиента (не используется в АБС "Inversia")</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientClientSaving" type="mbrd:clientSaving" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Накопление клиента</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="clientListAsset" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок Данные об активах</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientAsset" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="type">
+										<xsd:annotation>
+											<xsd:documentation>Тип актива</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="flagConfirmDoc" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Налилчие подтверждающих документов</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="cost" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Текущая рыночная стоимость</xsd:documentation>
+										</xsd:annotation>
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="summa" minOccurs="0"/>
+												<xsd:element name="currency" minOccurs="0"/>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="clientListPayDoс" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок Документы подтверждающие платежеспособность</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientPayDoс" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="type">
+										<xsd:annotation>
+											<xsd:documentation>Тип документа</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="serviceClientData" type="mbrd:serviceClientDataType" minOccurs="0"/>
+			<xsd:element name="clientExistingDeposits" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наличие действующих вкладов</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="existingDeposits" type="xsd:boolean"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--Блок общей информации -->
+	<xsd:complexType name="clientCommonDataType">
+		<xsd:annotation>
+			<xsd:documentation>Блок общей информации</xsd:documentation>
+		</xsd:annotation>
+		<xsd:all>
+			<xsd:element name="OMTValue" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер основного мобильного телефона клиента</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="12"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="isnewclient" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак нового клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="family" type="mbrd:clientFamily" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Результирующая Фамилия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="familyHfCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код качества Фамилии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="name" type="mbrd:clientName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Результирующее Имя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="nameHfCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код качества Имени</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="fatherName" type="mbrd:clientFatherName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Результирующее Отчество</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="fathernameHfCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код качества Отчества</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="nameHfQuality" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Общий код качества ФИО</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="nameHfState" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статус ФИО</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="birthDate" type="mbrd:clientBirthDate" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата рождения клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DeathDate" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата смерти клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="clientSex" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Результирующий пол</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="sexHfCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код качества пола</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="birthPlace" type="mbrd:clientBirthPlace" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Место рождения, как оно указано в паспорте</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="birthPlaceKladr" type="mbrd:addressKLADR_Small" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Место рождения по КЛАДР</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="fioParentCase" type="mbrd:FIO" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ФИО клиента в родительном падеже</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="fioDativeCase" type="mbrd:FIO" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ФИО клиента в дательном падеже</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="familyLat" type="mbrd:clientFamily" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Фамилия клиента латинскими символами</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="nameLat" type="mbrd:clientName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Имя клиента латинскими символами</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="fatherNameLat" type="mbrd:clientFatherName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Отчество на латинице</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="citizenship" type="mbrd:countryInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация о гражданстве</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="residence" type="mbrd:countryInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация о стране постоянного пребывания</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="consularRegistry" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Отметка о консульском учете</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="martialStatus" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код семейного положения клиента в системе, обрабатывающей запрос</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="educationStatus" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код уровня образованния клиента в системе, обрабатывающей запрос</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="militaryService" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Отношение  к воинской службе</xsd:documentation>
+				</xsd:annotation>
+				<!--Новое поле (не согласовывалось с АБС "Inversia") (new4Inversia)-->
+			</xsd:element>
+			<xsd:element name="INN" type="mbrd:clientINN" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ИНН клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="INNHfQualutyCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код качества ИНН</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="INNState" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статус ИНН</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="statusIPDL" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код статуса ИПДЛ(Иностранное Публичное Должностное Лицо)  клиента в системе, обрабатывающей запрос</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="relationshipIPDLData" type="mbrd:relationshipIPDLData" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок отношения клиента к ИПДЛ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="clientType" type="mbrd:clientType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="isVip" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="dependents" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Кол-во иждевенцев</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:totalDigits value="2"/>
+						<xsd:fractionDigits value="0"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="totalIncome" type="mbrd:amount" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Общий регулярный среднемесячный доход</xsd:documentation>
+				</xsd:annotation>
+				<!--Новое поле (не согласовывалось с АБС "Inversia") (new4Inversia)-->
+			</xsd:element>
+			<xsd:element name="totalOutlay" type="mbrd:amount" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Общий среднемесячный расход</xsd:documentation>
+				</xsd:annotation>
+				<!--Новое поле (не согласовывалось с АБС "Inversia") (new4Inversia)-->
+			</xsd:element>
+			<!-- Является студентом-->
+			<xsd:element name="sourceCash" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сведения об источнике происхождения денежных средств и (или) иного имущества клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="businessRelations" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сведения о целях и предполагаемом характере деловых отношений</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="financialSituation" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сведения о финансовом положении</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="goodwill" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сведения о деловой репутации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="flag_is_student" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Является студентом</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Клиент работает-->
+			<xsd:element name="flag_is_work" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Клиент работает</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Клиент является пенсионером-->
+			<xsd:element name="flag_is_pensioner" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>FLAG_IS_PENSIONER</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Общий трудовой стаж(месяцах)-->
+			<xsd:element name="total_experiance" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Общий трудовой стаж(месяцах)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Привлекались ли вы к уголовной ответственности?-->
+			<xsd:element name="flagcriminalliability" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Привлекались ли вы к уголовной ответственности?</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Являетесь ли вы в настоящее время  подозреваемым, обвиняемым, свидетелем по уголовному делу?-->
+			<xsd:element name="flag_criminal_suspect" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Являетесь ли вы в настоящее время  подозреваемым, обвиняемым, свидетелем по уголовному делу?</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Являетесь ли вы в настоящее время  ответчиком в гражданском судебном процессе?-->
+			<xsd:element name="flag_low_respondent" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Являетесь ли вы в настоящее время  ответчиком в гражданском судебном процессе?</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Имеются ли у вас в настоящее время обязательства по исполнительным документам?-->
+			<xsd:element name="flagunsatjudgement" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Имеются ли у вас в настоящее время обязательства по исполнительным документам?</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Имеете ли вы в настоящее время просроченную задолженность по любым финансовым обязательствам в т.ч перед физ лицами?-->
+			<xsd:element name="flagunsettleddebt" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Имеете ли вы в настоящее время просроченную задолженность по любым финансовым обязательствам в т.ч перед физ лицами?</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Имеете ли вы  нерассмотренные кредитные заявки в других банках?-->
+			<xsd:element name="flag_open_request" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Имеете ли вы  нерассмотренные кредитные заявки в других банках?</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Являетесь ли вы недееспособным/ограниченно-дееспособным лицом или над Вами  установлена опека/попечительство?-->
+			<xsd:element name="flagcreditdeal" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Являетесь ли вы недееспособным/ограниченно-дееспособным лицом или над Вами  установлена опека/попечительство?</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Планируете ли вы в ближайшее время длительные командировки (более 30 дней), смену работы или должности, изменение состава семьи?-->
+			<xsd:element name="flag_plan_changes" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Планируете ли вы в ближайшее время длительные командировки (более 30 дней), смену работы или должности, изменение состава семьи?</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Используете ли Вы (хотя бы частично) заемные средства для выплаты первоначального взноса?-->
+			<xsd:element name="flag_credit_for_fee" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Используете ли Вы (хотя бы частично) заемные средства для выплаты первоначального взноса?</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Возникала  ли у вас за последние 3 года просроченная задолженность по кредиту длительностью более 60 дней?	-->
+			<xsd:element name="flag_had_delay" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Возникала  ли у вас за последние 3 года просроченная задолженность по кредиту длительностью более 60 дней?</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Имеет дополнительную работу		-->
+			<xsd:element name="flag_has_add_work" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Имеет дополнительную работу</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Наличие действующих вкладов		-->
+			<xsd:element name="flag_has_deposit" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наличие действующих вкладов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Кол-во транспортных средств		-->
+			<xsd:element name="flag_control_another_person" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак действия к выгоде другого лица</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="transport_count" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Кол-во транспортных средств</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Количество смен работы за 1.5 года -->
+			<xsd:element name="workchng" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="flag_allow_pass_BKI" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Флаг согласия субъекта персональных данных на передачу данных в БКИ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="flag_allow_pass_BKI_Date" type="xsd:date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата согласия субъекта персональных данных на передачу данных в БКИ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="prevFamily" type="mbrd:clientFamily" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Предыдущая фамилия клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="prevName" type="mbrd:clientName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Предыдущее имя клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="prevFatherName" type="mbrd:clientFatherName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Предыдущее отчество клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="addressReceiptMail" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип адреса получения корреспонденции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="weddingdate" type="xsd:date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>дата регистрации брака</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="flagMaritalAgreement" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Брачный контракт</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="divisionOfProperty" type="mbrd:elemAdr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Способ раздела имущества</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="flag_has_join_child" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Имеют совместных детей</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="creditHist" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наличие кредитной истории. 1- да, 0 - нет</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="comment_for_ipdl" type="mbrd:elemName1000" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Комментарии к ИПДЛ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="militaryDelay" type="mbrd:elemDateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Отсрочка от армии до</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="clientRole" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Роль клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="addnationality" type="mbrd:countryInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Второе гражданство</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="signature" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наличие подписи</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="motherMaidenName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Девичья фамилия матери</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="flagAllowReceiveInfoFromBank" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Я согласен получать информацию о специальных предложениях и услугах ОАО "МТС-Банк" по SMS-информированию и электронной почте</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="codeWord" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Кодовое слово</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="preferredTime" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Удобное время для звонка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="timeZone" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Ваша временная зона</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="registeredLive" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Проживание по месту постоянной регистрации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FlagTravel" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Были ли у Вас поездки за пределы стран СНГ в течение последнего календарного года</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="flagChangeFIO" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак изменения ФИО</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SyncPMPhone" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Синхронизировать ОМТ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="spouse" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Занятость супруги</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="flagAllowPassOthersOrg" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Согласие на передачу данных в сторонние организации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RiskLevel" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Обоснование уровня риска</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="familyIncome" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Семейный среднемесячный доход</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="childCount" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Количество детей</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="eyePosition" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Координаты глаз</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="employeeCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код сотрудника КЦ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="birthCountry" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Страна рождения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="noInsAcctId" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак отсутствия СНИЛС у Клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+	<!--Блок данных о кредитной истории -->
+	<xsd:complexType name="creditHistoryDataType">
+		<xsd:annotation>
+			<xsd:documentation>Блок данных о кредитной истории</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="subjectCode" type="mbrd:creditHistoryCode">
+				<xsd:annotation>
+					<xsd:documentation>Код субъекта кредитной истории</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="codeExpire" type="xsd:date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания  использования кода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--Блок расчетных данных-->
+	<xsd:complexType name="calculatedData">
+		<xsd:annotation>
+			<xsd:documentation>Блок расчетных данных</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="residence" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак Резидентности</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="financeStatus" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код финансового статуса клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="riskLevel" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код уровня риска клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="riskLevelExplain" type="mbrd:riskLevelExplain" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Обоснование уровня риска</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="clientCategoryList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Агрегат категорий клиента</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="clientCategory" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="categoryName" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>Категория клиента</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="previousRequestList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список прошлых заявок клиента, заведенных в Siebel</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="previousRequest" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Прошлая заявка клиента в Siebel</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="requestId" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Идентификатор заявки </xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="requestStatus" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Статус заявки</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="agreeNumber" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Номер договора</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="requestDt" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>дата изменения статуса</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="visCharCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Визуальная оценка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestComment" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Комментарий к визуальной оценке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="passDetectorResult" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Результат проверки паспорта на УФ детекторе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="passFMSresult" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Результат проверки паспорта на сайте ФМС</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--Блок Служебной информации-->
+	<xsd:complexType name="clientSupportInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Блок Служебной информации</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:annotation>
+				<xsd:documentation>Табельный номер сотрудника оформившего заявку</xsd:documentation>
+			</xsd:annotation>
+			<xsd:element name="lastRenewDate" type="xsd:date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата обновления</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="nextRenewDate" type="xsd:date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата планируемого следующего</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="lastRenewUser" type="mbrd:FIO" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ФИО сотрудника обновившего данные(заводившего заявку)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="manager" type="mbrd:FIO" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Менеджер клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="branchCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код филиала</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="officeCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код ДО</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestComment" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Комментарии по  данным клиента</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="1000"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="timeIntervalDecision" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Режим принятия решения (для СПР3)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="userCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Табельный номер сотрудника оформившего заявку</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--Детализация информации по клиенту-->
+	<xsd:complexType name="fullClientDataType">
+		<xsd:sequence>
+			<xsd:element name="clientData" type="mbrd:clientData" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="serviceClientDataType">
+		<xsd:sequence>
+			<xsd:element name="isCorrect" type="xsd:boolean">
+				<xsd:annotation>
+					<xsd:documentation>Флаг корректности выходных данных. Заполняется на этапе проверки web-сервисом выходных данных. Для системы, обрабатывающей запрос, установка этого значения необязательна.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="errors" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Блок с детализацией ошибок</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="error" type="mbrd:error" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Данные об ошибке, возникшей в ходе выполнения запроса. При системных ошибках достаточно служебного сообщения об исключении/ошибке,
+выдаваемого обрабатывающей платформой.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="relationshipIPDLData">
+		<xsd:annotation>
+			<xsd:documentation>Данные отношений клиента к ИПДЛ/ПДЛ </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="statusIPDL" type="mbrd:dictionary">
+				<xsd:annotation>
+					<xsd:documentation>Статус ИПДЛ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="familialRelationshipType" type="mbrd:dictionary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип семейной связи с ИПДЛ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="positionIPDL" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Должность родственника ИПДЛ</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="100"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by none (none) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd">
+	<xsd:include schemaLocation="clientSimpleTypes.xsd"/>
+	<xsd:include schemaLocation="clientComplexTypes_strict.xsd"/>
+	<xsd:complexType name="OrgInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Информация об организации</xsd:documentation>
+		</xsd:annotation>
+		<xsd:all>
+			<xsd:element name="Org">
+				<xsd:annotation>
+					<xsd:documentation>ID организации в РБО</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Name" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование организации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LegalName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Полное наименование</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AccrdtnList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список направлений аккредитации</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Accrdtn" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Информация о направлении аккредитации</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="AccrdtnCode" type="xsd:string"/>
+									<xsd:element name="AccrdtnName" type="xsd:string"/>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="GroupList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список групп, в которые входит организация</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Group" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Информация о группе</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="GroupCode" type="xsd:string"/>
+									<xsd:element name="GroupName" type="xsd:string"/>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

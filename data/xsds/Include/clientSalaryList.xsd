@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by none (none) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd">
+	<xsd:include schemaLocation="clientSimpleTypes.xsd"/>
+	<xsd:include schemaLocation="clientComplexTypes_strict.xsd"/>
+	<xsd:complexType name="SalaryListType">
+		<xsd:annotation>
+			<xsd:documentation>Информация об организации</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="SalaryRec" maxOccurs="unbounded" minOccurs="0">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="OrgInfo">
+							<xsd:annotation>
+								<xsd:documentation>информация об организации</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="OrgId" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>код организации</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="Name" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>наименование организации</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="LegalName" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>Официальное название</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="OrgCode" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>Код организации для простановки аттирибута на новую карту для ПЦ</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="CardAcctId">
+							<xsd:annotation>
+								<xsd:documentation>информация о счете</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="AcctId" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>Счет СКС</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="AcctCur" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>валюта счета СКС</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="StartDt" type="mbrd:Date">
+										<xsd:annotation>
+											<xsd:documentation>Дата открытия счета СКС</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="DepoStatus" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Статус депозита</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

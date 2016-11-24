@@ -27,7 +27,7 @@
         XML PARSER
     </div>
     <div class="card-block">
-        <h4 id="load_header_text" class="card-title">Загрузка...</h4>
+        <h4 id="load_header_text" class="card-title"><i class="fa fa-spinner fa-pulse fa-fw"></i> Загрузка...</h4>
         <p id="load_content_text" class="card-text">Внимание! Это тестовая версия скрипта, в нем есть и предусмотрены ошибки.</p>
         <progress class="progress progress-info" value="1" max="100"></progress>
     </div>
@@ -69,7 +69,7 @@
 
             </div>
             <div class="modal-footer">
-                <button id="load_test_module_button" type="button" class="btn btn-outline-info">Тестирование XML</button>
+                <button id="load_test_module_button" type="button" class="btn btn-outline-warning">Тестирование XML</button>
                 <button id="load_create_module_button" type="button" class="btn btn-outline-success">Создание XML</button>
             </div>
         </div>

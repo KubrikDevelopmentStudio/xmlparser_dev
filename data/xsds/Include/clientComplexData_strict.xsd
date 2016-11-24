@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by Sergey chaban (at-consulting) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd" id="ClientsList_Request">
+	<xsd:annotation>
+		<xsd:documentation>
+			<!-- Файл содержит описание типа "ClientComplexData" со строгими требованиями к структуре и составу данных. Применяется для определения неверно 
+			заполненных полей запроса или существующих данных клиента -->
+		</xsd:documentation>
+	</xsd:annotation>
+	<!-- Импорт базовых типов -->
+	<xsd:include schemaLocation="clientData_strict.xsd"/>
+	<xsd:include schemaLocation="clientRequestData_strict.xsd"/>
+	<xsd:include schemaLocation="clientComplexTypes_strict.xsd"/>
+	<xsd:include schemaLocation="clientSimpleTypes.xsd"/>
+	<xsd:include schemaLocation="systemSimpleTypes.xsd"/>
+	<xsd:include schemaLocation="systemComplexTypes.xsd"/>
+	<xsd:include schemaLocation="clientLoanList.xsd"/>
+	<xsd:include schemaLocation="clientCardList.xsd"/>
+	<xsd:include schemaLocation="clientDepositList.xsd"/>
+	<xsd:include schemaLocation="clientOrgInfo.xsd"/>
+	<xsd:include schemaLocation="clientSalaryList.xsd"/>
+	<xsd:complexType name="clientComplexDataType">
+		<xsd:annotation>
+			<xsd:documentation>Тип для контейнера анкетных клиентских данных и нескольких заявок</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="client" type="mbrd:clientData" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Контейнер анкетных клиентских данных</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="clientRequest" type="mbrd:clientRequestData" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Контейнер данных по заявкам</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="clientComplexDataSingleRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Тип для контейнера анкетных клиентских данных и одной заявки</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="client" type="mbrd:clientData" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Контейнер анкетных клиентских данных</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="clientHF" type="mbrd:clientData" minOccurs="0"/>
+			<xsd:element name="clientRequest" type="mbrd:clientRequestData" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Контейнер данных по заявкам</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

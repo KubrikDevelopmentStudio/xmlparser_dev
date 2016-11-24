@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by none (none) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd" id="docDataType">
+	<xsd:include schemaLocation="../../Include/clientComplexData_strict.xsd"/>
+	<xsd:annotation>
+		<xsd:documentation>
+			<!--Файл содержит набор ограничений применяемых для блоков служебной информации в схемах запросов и результатов.-->
+		</xsd:documentation>
+	</xsd:annotation>
+	<!--Ограничение на длину комментария-->
+	<xsd:simpleType name="comment">
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!--Состояние заявки-->
+	<xsd:simpleType name="state">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="50"/>
+			<xsd:enumeration value="IN_QUEUE"/>
+			<xsd:enumeration value="IN_PROCESSING"/>
+			<xsd:enumeration value="TECH_ERROR"/>
+			<xsd:enumeration value="DATA_ERROR"/>
+			<xsd:enumeration value="DATA_ERROR_FRONT"/>
+			<xsd:enumeration value="BANK_REFUSE"/>
+			<xsd:enumeration value="BANK_REFUSE_OPEN_REQUEST"/>
+			<xsd:enumeration value="POSITIVE_DECISION_BANK"/>
+			<xsd:enumeration value="ANKETA_START"/>
+			<xsd:enumeration value="ANKETA_CLIENT_REFUSE"/>
+			<xsd:enumeration value="ANNULMENT_EXPIRE_REQUEST"/>
+			<!--Заявка принята ESB-->
+			<!--Заявка принята в обработку EGAR Loans-->
+			<!--Заявка отклонена ESB (сервис проверок временно не доступен)/Описание технической ошибки-->
+			<!--Заявка отклонена ESB (не пройдена проверка xsd-схемы)-->
+			<!--Заявка отклонена EGAR Loans (ошибка в данных заявки) -->
+			<!--Отказ Банка (есть кредитный договор по продукту)-->
+			<!--Отказ Банка (есть открытая заявка)-->
+			<!--Отказ Банка (есть активная карта МТС Деньги)-->
+			<!--Положительное решение-->
+			<!---->
+			<!--Процесс завершен (Карта выдана/Кредит выдан)-->
+			<!--Анкетирование-->
+			<!--Отказ клиента (анкетирование)-->
+			<!--Заявка аннулирована (анкетирование)-->
+			<!--Заявка  аннулирована (истек срок обработки  заявки)-->
+			<!--Отказ в идентификации (анкетирование)-->
+			<!--Отказ от проверки данных в БКИ (анкетирование)-->
+			<!--Скорринг-->
+			<!--Отказ Банка (скорринг)-->
+			<!--Заявка аннулирована (истек срок действия кредитного решения) -->
+			<!--Согласование условий с клиентом-->
+			<!--Отказ клиента (согласование условий)-->
+			<!--Отказ клиента получен Банком (номер карты)-->
+			<!--Некорректный номер карты-->
+			<!--Документация сформирована-->
+			<!--Отказ клиента получен Банком (подписание документов)-->
+			<!--Осуществляется подключение услуг-->
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Тип сообщения-->
+	<xsd:simpleType name="messageType">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="50"/>
+			<xsd:enumeration value="REGISTER_REQ_SITE"/>
+			<xsd:enumeration value="STATUS_REQ_REPLY_SITE"/>
+			<!--Регистрация заявки-->
+			<!--Передача статуса заявки-->
+			<!--Положительное решение банка-->
+			<!--Положительное решение клиента-->
+			<!--Отрицательное решение клиента-->
+			<!--Передача кредитной документации-->
+			<!--Фиксация подписи клиента-->
+			<!--Запрос статуса заявки-->
+			<!--Информирование о передачи заявки в сторонний Банк-->
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Идентификатор заявки используемый при взаимодействии систем-->
+	<xsd:simpleType name="mtsRequestId">
+		<xsd:restriction base="xsd:long"/>
+	</xsd:simpleType>
+</xsd:schema>

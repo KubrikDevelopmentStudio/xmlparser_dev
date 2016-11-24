@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by none (none) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd" id="docDataType">
+	<xsd:annotation>
+		<xsd:documentation>
+			<!-- Файл содержит набор ограничений применяемых для блоков информации о клиенте в схемах запросов и результатов. 
+				 Здесь собраны основные требования на соответствие содержания данных ограничениям по длине, шаблону, или граничным значениям.
+				 В этом файле собраны только самые простые проверки, не требующие разграничения логики проверки элементов в зависимости от типов.-->
+		</xsd:documentation>
+	</xsd:annotation>
+	<!--Ограничение на длину кода справочника-->
+	<xsd:simpleType name="dictionary">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="256"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Ограничение на длину Фамилии клиента-->
+	<xsd:simpleType name="clientFamily">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="85"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Ограничение на длину Имени клиента-->
+	<xsd:simpleType name="clientName">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="85"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Ограничение на длину Отчества клиента-->
+	<xsd:simpleType name="clientFatherName">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="85"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Ограничение на дату рождения клиента-->
+	<xsd:simpleType name="clientBirthDate">
+		<xsd:restriction base="xsd:date">
+			<xsd:minInclusive value="1900-01-01"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Ограничение на длину названия места рождения клиента-->
+	<xsd:simpleType name="clientBirthPlace">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="128"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Формат ИНН клиента -->
+	<xsd:simpleType name="clientINN">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{10,12}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Ограничение на длину серии документа-->
+	<xsd:simpleType name="docSerial">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="25"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Ограничение на длину номера документа-->
+	<xsd:simpleType name="docNumber">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="25"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Ограничение на длину кода учреждения, выдавшего документ-->
+	<xsd:simpleType name="docIssueOrgCode">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="25"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Ограничение на длину названия учреждения, выдавшего документ-->
+	<xsd:simpleType name="docIssueOrgName">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="160"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение на длину названия элемента КЛАДР 60 символов-->
+	<xsd:simpleType name="kladrElemLName">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="60"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение на длину названия элемента КЛАДР 40 символов-->
+	<xsd:simpleType name="kladrElemName">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="40"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение на длину кода элемента КЛАДР -->
+	<xsd:simpleType name="kladrElemCode">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="25"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение на длину сокращения типа объекта КЛАДР -->
+	<xsd:simpleType name="kladrElemSocr">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение на длину названия улицы КЛАДР -->
+	<xsd:simpleType name="kladrStreetName">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="64"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение на длину номера дома -->
+	<xsd:simpleType name="kladrHouse">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="16"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение на длину наименования корпуса/строения/квартиры -->
+	<xsd:simpleType name="kladrBlock">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="16"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="kladrBuilding">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="16"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="kladrFlat">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="16"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение на длину КЛАДР-кода -->
+	<xsd:simpleType name="kladrCode">
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!-- Формат индекса -->
+	<xsd:simpleType name="addressZipCode">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="10"/>
+			<!--<xsd:pattern value="(\d{6})|(\w{2}-\d{4})"/>-->
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Код Окато -->
+	<xsd:simpleType name="codeOKATO">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="21"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Код субъекта кредитной истории -->
+	<xsd:simpleType name="creditHistoryCode">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="20"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Код субъекта кредитной истории -->
+	<xsd:simpleType name="riskLevelExplain">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="200"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Год выпуска 4 символа -->
+	<xsd:simpleType name="elemYear">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{4}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение сумм -->
+	<xsd:simpleType name="elemAmount">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:fractionDigits value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение на длину регистрационного номера ТС-->
+	<xsd:simpleType name="elemRegNumber">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="20"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение на длину в 128 символов-->
+	<xsd:simpleType name="elemAdr">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="256"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение на длину в 100 символов-->
+	<xsd:simpleType name="elemName">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="100"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение на длину в 1000 символов-->
+	<xsd:simpleType name="elemName1000">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="1000"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение на наименование организации в 512 символов-->
+	<xsd:simpleType name="elemOrgName_full">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="512"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение на сокр. наименование организации в 512 символов-->
+	<xsd:simpleType name="elemOrgName_short">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="512"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Доля в уставном капитале-->
+	<xsd:simpleType name="partInterestType">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="100"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Дата в формате mm.yyyy -->
+	<xsd:simpleType name="elemDateType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(0|1)[0-9]\.\d{4}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Ограничение на длину Фамилии контактного лица-->
+	<xsd:simpleType name="peopleFamily">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="100"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Ограничение на длину Имени контактного лица-->
+	<xsd:simpleType name="peopleName">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="100"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--Ограничение на длину Отчества контактного лица-->
+	<xsd:simpleType name="peopleFatherName">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="100"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Формат ИНН организации -->
+	<xsd:simpleType name="companyINN">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{10,12}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Ограничение на длину адреса в 256 символов -->
+	<xsd:simpleType name="adrString">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="256"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

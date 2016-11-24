@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by ALevchenko (none) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mbrd="mbrd" targetNamespace="mbrd" id="docDataType">
+	<xsd:annotation>
+		<xsd:documentation>
+			<!--Файл содержит набор составных типов применяемых в качестве элементов <serviceData> в файлах запросов и ответов.-->
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="systemSimpleTypes.xsd"/>
+	<xsd:include schemaLocation="systemDictionaries.xsd"/>
+	<xsd:complexType name="responseServiceData">
+		<xsd:annotation>
+			<xsd:documentation>
+				<!--Шаблон блока сервисной информации, применяемый для функций получения списка клиентов и выгрузки информации о клиенте.-->
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="sourceCode" type="mbrd:systemType"/>
+			<xsd:element name="success" type="xsd:boolean"/>
+			<xsd:element name="comment" type="mbrd:requestComment" minOccurs="0"/>
+			<xsd:element name="error" type="mbrd:error" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="error">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="errorType" type="mbrd:errorType" use="optional">
+					<xsd:annotation>
+						<xsd:documentation>Системная категория ошибки. Атрибут устанавливается только в том случае, если ошибка имеет
+один из указанных в справочнике типов. Прочие ошибки передаются без указания данного атрибута.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="errorSource" type="xsd:string" use="optional">
+					<xsd:annotation>
+						<xsd:documentation>Источник ошибки. Содержит XPath запрос к узлу документа, вызвавшему ошибку/содержащему некорректные данные.
+Заполняется только втом случае если контекст ошибки и исполняющая система поддерживают получение
+подобной информации.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="errorClientId" type="xsd:string" use="optional">
+					<xsd:annotation>
+						<xsd:documentation>Внутренний идентификатор клиента РБО</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+</xsd:schema>
