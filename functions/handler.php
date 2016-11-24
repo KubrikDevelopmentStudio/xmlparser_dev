@@ -18,7 +18,7 @@ switch ($_REQUEST['action']) {
             // Enable user error handling
             libxml_use_internal_errors(true);
 
-            $xmlDoc= new DOMDocument();
+            $xmlDoc = new DOMDocument();
             $xmlDoc->loadXML($xml);
 
             $has_errors = false;
@@ -32,12 +32,19 @@ switch ($_REQUEST['action']) {
                 'errorList' => $error_body
             ];
 
-            print_r($data);
+            print_r(json_encode($data));
             die();
         }
         break;
 }
 
+
+/**
+ * Парсинг информации об ошибке.
+ *
+ * @param $error Конкретная ошибка.
+ * @return string Возвращает информацию об ошибке.
+ */
 function libxml_display_error($error)
 {
     $return = "";
@@ -54,14 +61,21 @@ function libxml_display_error($error)
     }
     $return .= trim($error->message);
     if ($error->file) {
-        $return .=    " in $error->file";
+        $return .= " in $error->file";
     }
     $return .= " on line $error->line";
 
     return $return;
 }
 
-function libxml_display_errors() {
+
+/**
+ * Парсинг всех ошибок произошедших при валидации.
+ *
+ * @return array Возвращается массив с описанием всех ошибок.
+ */
+function libxml_display_errors()
+{
     $errors = libxml_get_errors();
 
     $errArr = [];
