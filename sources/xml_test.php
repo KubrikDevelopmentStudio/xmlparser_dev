@@ -129,26 +129,14 @@ $msg_types = $app->get_message_types();
             <form id="test_params_form">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
+                        <input type="checkbox" data-param="DEFAULT" class="form-check-input">
                         Первый параметр
                     </label>
                 </div>
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
+                        <input type="checkbox" data-param="MY_VALIDATION" class="form-check-input">
                         Второй параметр
-                    </label>
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                        Третий параметр
-                    </label>
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                        Четвертый параметр
                     </label>
                 </div>
                 <hr>
@@ -169,7 +157,9 @@ $msg_types = $app->get_message_types();
                     <div id="FIRST_TEST_RESULT_BLOCK" class="card card-block">
                         <h3 id="FIRST_HEADER_BLOCK" class="card-title">Заголовок первого блока</h3>
                         <p  id="FIRST_DESCRIPTION_BLOCK" class="card-text">Описание первого блока.</p>
+                        <div id="xml_content">
 
+                        </div>
                         <text id="FIRST_BODY_BLOCK"></text>
                     </div>
                 </div>

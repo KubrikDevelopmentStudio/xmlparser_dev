@@ -40,3 +40,10 @@
 #alert_message {
     display: none;
 }*/
+
+#xml_content {
+
+    border: 2px solid #E8C48F; /* рамка 25px */
+    padding: 20px;              /* поля 20px */
+    overflow: auto;             /* прокрутка */
+}
