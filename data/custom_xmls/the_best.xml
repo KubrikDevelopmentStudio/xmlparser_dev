@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mbrd:ContactCenterDataExchange
-    xmlns:mbrd="mbrd">
+<mbrd:ContactCenterDataExchange xmlns:mbrd="mbrd">
     <requestId>1476356583</requestId>
     <messageId>41e53a96-dada-3f88-e053-35ebadd25eae</messageId>
     <messageIdRq>E53EE807-2757-DB3E-9FA5-574BA974766B</messageIdRq>
@@ -222,5 +221,4 @@
             </bankServices>
         </product>
     </clientRequest>
-    <documents/>
 </mbrd:ContactCenterDataExchange>

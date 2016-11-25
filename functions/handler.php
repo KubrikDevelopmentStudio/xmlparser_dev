@@ -69,10 +69,85 @@ switch ($_REQUEST['action']) {
                         die();
 
                         break;
+
+                    case 'TEST':
+                        $data = custom_validation($xml, $xsd);
+
+                        print_r($data);
+                        die();
+
+                        break;
                 }
             }
         }
         break;
+}
+
+function custom_validation($xml, $xsd) {
+
+    //Включаем информацию об ошибках.
+    libxml_use_internal_errors(true);
+
+    $doc = new XMLReader();
+    $doc->open($xml);
+
+    $nodes = [];
+    while($doc->read()) {
+        $mathc=[];
+        $node = $doc->readOuterXml();
+        if(preg_match_all('/<(.*?)>/', $node, $mathc)) {
+            if(count($mathc[0]) == 2) {
+               $nodes[] = $node;
+            }
+        } else {
+            $node = str_replace(array("\r\n", "\r", "\n"), '',  trim($node));
+            if(!preg_match('/<(.*?)>/', $node) && $node != "") {
+                $nodes[count($nodes)][] = $node;
+            }
+        }
+
+    }
+    $doc->close();
+
+//    $doc->setParserProperty(XMLReader::NONE, true);
+//    $doc->setParserProperty(XMLReader::ELEMENT, true);
+//    $doc->setParserProperty(XMLReader::ATTRIBUTE, true);
+//    $doc->setParserProperty(XMLReader::TEXT, true);
+//    $doc->setParserProperty(XMLReader::CDATA, true);
+//    $doc->setParserProperty(XMLReader::ENTITY_REF, true);
+//    $doc->setParserProperty(XMLReader::ENTITY, true);
+//    $doc->setParserProperty(XMLReader::PI, true);
+//    $doc->setParserProperty(XMLReader::COMMENT, true);
+//    $doc->setParserProperty(XMLReader::DOC, true);
+//    $doc->setParserProperty(XMLReader::DOC_TYPE, true);
+//    $doc->setParserProperty(XMLReader::DOC_FRAGMENT, true);
+//    $doc->setParserProperty(XMLReader::NOTATION, true);
+//    $doc->setParserProperty(XMLReader::WHITESPACE, true);
+//    $doc->setParserProperty(XMLReader::SIGNIFICANT_WHITESPACE, true);
+//    $doc->setParserProperty(XMLReader::END_ELEMENT, true);
+//    $doc->setParserProperty(XMLReader::END_ENTITY, true);
+//    $doc->setParserProperty(XMLReader::XML_DECLARATION, true);
+
+    return [
+        'valid' =>$doc->isValid(),
+        'errors' =>$error_body = libxml_display_errors(),
+        'nodes' => $nodes
+
+    ];
+
+    if(!$doc->isValid()) {
+        $has_errors = true;
+        $error_body = libxml_display_errors();
+    } else {
+        $has_errors = false;
+    }
+
+    $data = [
+        'hasErrors' => $has_errors,
+        'errorList' => $error_body,
+    ];
+
+    return $data;
 }
 /**
  * Стандартный механизм валидирования.

@@ -130,13 +130,13 @@ $msg_types = $app->get_message_types();
                 <div class="form-check">
                     <label class="form-check-label">
                         <input type="checkbox" data-param="DEFAULT" class="form-check-input">
-                        Первый параметр
+                        Стандартная валидация
                     </label>
                 </div>
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" data-param="MY_VALIDATION" class="form-check-input">
-                        Второй параметр
+                        <input type="checkbox" data-param="TEST" class="form-check-input">
+                        Тест
                     </label>
                 </div>
                 <hr>
