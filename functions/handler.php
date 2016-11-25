@@ -77,11 +77,150 @@ switch ($_REQUEST['action']) {
                         die();
 
                         break;
+
+                    case 'MY_TEST':
+                        $data = custom_validation2($xml, $xsd);
+
+                        print_r($data);
+                        die();
+
+                        break;
                 }
             }
         }
         break;
 }
+
+
+$data2 = [];
+// Функция выполняющая рекурсивный спуск по массиву
+function recursion($arr)
+{
+    global $data2;
+    if(is_array($arr))
+    {
+        for($i=0; $i<count($arr); $i++)
+        {
+            if(is_array($arr[$i]))
+            {
+                recursion($arr[$i]);
+            }
+            else
+            {
+                $data2[] = $arr[$i];
+            }
+        }
+    }
+    else
+    {
+        $data2[] =  $arr;
+    }
+}
+
+$recArr = [];
+// Функция выполняющая рекурсивный спуск по массиву
+function recursionKeys($arr)
+{
+    global $recArr;
+    if(is_array($arr))
+    {
+        $recArr[] = array_keys($arr);
+        for($i=0; $i<=count($arr); $i++)
+        {
+            if(is_array($arr[$i]))
+            {
+                recursionKeys($arr[$i]);
+            }
+        }
+    }
+}
+
+function custom_validation2($xml, $xsd) {
+
+    global $data2;
+    global $recArr;
+
+    $firstXML  = simplexml_load_file($xml);
+    $secondXML  = simplexml_load_file($xsd);
+
+    $aaa = ["s"=>"2", "q"=>"f"];
+
+//    $recArr[] = array_keys([
+//       '1' => [
+//           '1_1' => "val_1_1",
+//           '1_2' => [
+//               '1_2_1' => "val_1_2_1",
+//               '1_2_2' => "val_1_2_2"
+//           ]
+//       ]
+//    ]);
+
+
+
+//    recursionKeys([
+//        'dsa' =>"dsa2",
+//        'sdfdf' => "4342"
+//    ]);
+
+
+    recursionKeys([
+       '1' => [
+           '1_1' => "val_1_1",
+           '1_2' => [
+               '1_2_1' => "val_1_2_1",
+               '1_2_2' => "val_1_2_2"
+           ]
+       ]
+    ]);
+
+
+    return [
+      'keys' => $recArr,
+        'xml' => $data2
+    ];
+
+
+
+
+    /*if(!file_exists($xml)) {
+        return [
+            'hasErrors' => true,
+            'errorList' => "File not found."
+        ];
+    }
+
+    //XML document
+    $xmlDoc = [];
+
+    //XML nodes
+    $xmlNode = [];
+
+    //CurrentNodeLevel
+    $currNodelevel = 0;
+
+    $handle = @fopen($xml, "r");
+    if ($handle) {
+        $xmlDoc[] = $xmlNode;
+        while (($buffer = fgets($handle)) !== false) {
+            $match = [];
+            if(preg_match_all('/<(.*?)>/', $buffer, $match)) {
+                if(!in_array($match[0], $xmlNode)) {
+                    $xmlNode[$currNodelevel++] = $match[0];
+                }
+                return [
+                  'xmlDoc' => $xmlNode
+                ];
+            }
+
+        }
+
+        if (!feof($handle)) {
+            echo "Error: unexpected fgets() fail\n";
+        }
+        fclose($handle);
+    }*/
+}
+
 
 function custom_validation($xml, $xsd) {
 
@@ -108,6 +247,9 @@ function custom_validation($xml, $xsd) {
 
     }
     $doc->close();
+
+
+
 
 //    $doc->setParserProperty(XMLReader::NONE, true);
 //    $doc->setParserProperty(XMLReader::ELEMENT, true);

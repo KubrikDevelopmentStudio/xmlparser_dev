@@ -139,6 +139,12 @@ $msg_types = $app->get_message_types();
                         Тест
                     </label>
                 </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" data-param="MY_TEST" class="form-check-input">
+                        Мой тест
+                    </label>
+                </div>
                 <hr>
                 <button id="launch_test" type="button" class="btn btn-success" disabled>Начать тестирование</button>
             </form>

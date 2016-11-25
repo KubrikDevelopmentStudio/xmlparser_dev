@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mbrd:ContactCenterDataExchange xmlns:mbrd="mbrd">
+    <requestId>1476356583</requestId>
+    <messageId>41e53a96-dada-3f88-e053-35ebadd25eae</messageId>
+    <messageIdRq>E53EE807-2757-DB3E-9FA5-574BA974766B</messageIdRq>
+    <messageType>ENT_ANKETA_REQUEST_DATA_RS</messageType>
+    <messageDateTime>2016-11-22T17:02:54</messageDateTime>
+    <initiatorCode>CALL_CENTER</initiatorCode>
+    <sourceCode>DIRECT_CREDIT</sourceCode>
+    <client>
+        <clientId>3489533</clientId>
+        <clientSupportInfo>
+            <lastRenewUser>Мобильные Теле Системы</lastRenewUser>
+            <branchCode>0</branchCode>
+            <lastRenewDate>2016-11-22</lastRenewDate>
+        </clientSupportInfo>
+        <clientCommonData>
+            <isnewclient>true</isnewclient>
+            <family>Фамилиятест</family>
+            <familyHfCode>Unlist</familyHfCode>
+            <name>Фамилиякл</name>
+            <nameHfCode>Unlist</nameHfCode>
+            <fatherName>Отчествотест</fatherName>
+            <fathernameHfCode>Unlist</fathernameHfCode>
+            <birthDate>1991-02-05</birthDate>
+            <clientSex>Sx1</clientSex>
+            <sexHfCode>Undef</sexHfCode>
+            <birthPlace>Смоленская обл. г. Велиж</birthPlace>
+            <birthPlaceKladr>
+                <countryCode>643</countryCode>
+                <countryName>Российская Федерация</countryName>
+            </birthPlaceKladr>
+            <familyLat/>
+            <nameLat/>
+            <citizenship>
+                <countryName>Российская Федерация</countryName>
+                <countryCode>643</countryCode>
+            </citizenship>
+            <residence>
+                <countryName>Россия</countryName>
+                <countryCode>643</countryCode>
+            </residence>
+            <martialStatus>FAMILY.STATUS.2</martialStatus>
+            <educationStatus>EDUCATION.LEVEL.3</educationStatus>
+            <dependents>4</dependents>
+            <flag_is_student>false</flag_is_student>
+            <flag_is_work>true</flag_is_work>
+            <flag_is_pensioner>false</flag_is_pensioner>
+            <total_experiance>60</total_experiance>
+            <transport_count>1</transport_count>
+            <loans_monthly_payments>123123</loans_monthly_payments>
+            <familyIncome>3213213</familyIncome>
+            <flag_allow_pass_BKI>true</flag_allow_pass_BKI>
+            <addressReceiptMail/>
+            <relationshipIPDLData>
+                <statusIPDL>IPDL.4</statusIPDL>
+            </relationshipIPDLData>
+            <statusIPDL>IPDL.4</statusIPDL>
+            <militaryService>MILITARY.SERVICE.2</militaryService>
+            <childCount>1</childCount>
+            <eyePosition>0;0;0;0</eyePosition>
+            <birthCountry>643</birthCountry>
+            <flag_control_another_person>no</flag_control_another_person>
+            <motherMaidenName>21321312</motherMaidenName>
+            <employeeCode>3</employeeCode>
+            <noInsAcctId>true</noInsAcctId>
+        </clientCommonData>
+        <clientListDocument>
+            <clientDocument isActive="true" isPrimary="true" documentType="DOCTYPE.FIRST.1">
+                <serial>6610</serial>
+                <number>575682</number>
+                <issueOrgCode>111-111</issueOrgCode>
+                <issueOrgName>Велижскими ребятами</issueOrgName>
+                <issueDate>2011-02-12</issueDate>
+            </clientDocument>
+        </clientListDocument>
+        <clientListAddress>
+            <clientAddress addressType="ADDRESS.TYPE.1">
+                <countryName>Россия</countryName>
+                <countryCode>643</countryCode>
+                <regionName>Смоленская</regionName>
+                <regionSocr>обл</regionSocr>
+                <cityName>Велиж</cityName>
+                <citySocr/>
+                <streetName>Калинина</streetName>
+                <streetSocr>ул</streetSocr>
+                <citySocr>г</citySocr>
+                <house>12</house>
+                <flat/>
+                <zipCode>321312</zipCode>
+                <kladrCode>6700200100000280001</kladrCode>
+                <kladrCodeStreet>6700200100000280001</kladrCodeStreet>
+                <kladrCodeHouse>6700200100000280001</kladrCodeHouse>
+                <codeOKATO>66203501000</codeOKATO>
+                <regDate>05.2000</regDate>
+                <isKladr>false</isKladr>
+                <address_to_string>321312,Россия,обл Смоленская,р-н Велижский,г Велиж,ул Калинина,12</address_to_string>
+                <isHfChangeAddr/>
+                <phone/>
+            </clientAddress>
+            <clientAddress addressType="ADDRESS.TYPE.2">
+                <countryName>Россия</countryName>
+                <countryCode>643</countryCode>
+                <regionName>Смоленская</regionName>
+                <regionSocr>обл</regionSocr>
+                <cityName>Велиж</cityName>
+                <citySocr>г</citySocr>
+                <streetName/>
+                <streetSocr/>
+                <house>12</house>
+                <flat/>
+                <zipCode/>
+                <kladrCode>6700200100000280001</kladrCode>
+                <kladrCodeStreet>6700200100000280001</kladrCodeStreet>
+                <kladrCodeHouse>6700200100000280001</kladrCodeHouse>
+                <codeOKATO>66203501000</codeOKATO>
+                <status>STATUS.TO.ADDRESS.3</status>
+                <phone/>
+                <regDate>02.2000</regDate>
+                <isKladr/>
+                <address_to_string>Россия,обл Смоленская,р-н Велижский,г Велиж,ул Калинина,12</address_to_string>
+            </clientAddress>
+        </clientListAddress>
+        <clientListContact>
+            <clientContact contactType="CONTACT.TYPE.4">test@gmail.com</clientContact>
+        </clientListContact>
+        <clientListWork>
+            <clientWork>
+                <employmentType>WORKACTIVITY.1</employmentType>
+                <workForm>WORK.FORM.5</workForm>
+                <fullName>Тест</fullName>
+                <sizeCompany>SIZE_COMPANY.3</sizeCompany>
+                <headName>ваыавыаыва</headName>
+                <propertyForm>PROPERTY.FORM.2</propertyForm>
+                <curLengthService>66</curLengthService>
+                <positionName>Военнослужащий по контракту</positionName>
+                <activityType>ACTIVITY.TYPE.SER.2</activityType>
+                <clientActivity>CLIENT.ACTIVITY.SCOPE.7</clientActivity>
+                <addresses>
+                    <address addressType="ADDRESS.WRK.CHIEF">
+                        <countryName>Россия</countryName>
+                        <countryCode>643</countryCode>
+                        <regionName>Смоленская</regionName>
+                        <regionSocr>обл</regionSocr>
+                        <cityName>Велиж</cityName>
+                        <citySocr>г</citySocr>
+                        <streetName>Калинина</streetName>
+                        <streetSocr>ул</streetSocr>
+                        <house>12</house>
+                        <zipCode>5435345</zipCode>
+                        <kladrCode>6700200100000280001</kladrCode>
+                        <kladrCodeStreet>6700200100000280001</kladrCodeStreet>
+                        <kladrCodeHouse>6700200100000280001</kladrCodeHouse>
+                        <codeOKATO>66203501000</codeOKATO>
+                        <isKladr>false</isKladr>
+                    </address>
+                </addresses>
+                <addForEmployment>
+                    <worker>
+                        <positionLevel>POSITION.LEVEL.1</positionLevel>
+                        <position>Фамилиякл</position>
+                        <startDate>05.2011</startDate>
+                    </worker>
+                </addForEmployment>
+                <accountingPhone contactType="CONTACT.TYPE.7">(499)9999999</accountingPhone>
+            </clientWork>
+        </clientListWork>
+        <clientListTransport>
+            <clientTransport>
+                <purchaseMethod>Покупка нового авто</purchaseMethod>
+                <regNumber>Е819МВ67</regNumber>
+                <yearCreate>1986</yearCreate>
+            </clientTransport>
+        </clientListTransport>
+        <clientIncome>
+            <other>32132131</other>
+        </clientIncome>
+        <clientListClient2People>
+            <clientClient2People type="RELATIONSHIP.1">
+                <flagEmployment>false</flagEmployment>
+                <lastname>Супругакл</lastname>
+                <firstname>Имякл</firstname>
+                <middlename>Отчествотест</middlename>
+                <phone type="CONTACT.TYPE.1">(999)9999999</phone>
+                <birthdate>2005-10-10</birthdate>
+            </clientClient2People>
+            <clientClient2People type="RELATIONSHIP.5">
+                <lastname>Супругакл</lastname>
+                <firstname>Супругакл</firstname>
+                <middlename>Имякл</middlename>
+                <phone type="CONTACT.TYPE.1">(711)1111111</phone>
+            </clientClient2People>
+        </clientListClient2People>
+    </client>
+    <clientRequest>
+        <requestID>130008382</requestID>
+        <user>000058953</user>
+        <product>
+            <productType>Потребительский кредит</productType>
+            <productCode>MTS.POS.SPB</productCode>
+            <creditPeriod>12</creditPeriod>
+            <secretWord/>
+            <currency>RUB</currency>
+            <insuranceInfo>
+                <insuranceInfoItem>
+                    <insuranceProgrammCode>24</insuranceProgrammCode>
+                    <insuranceProgramIsActive>true</insuranceProgramIsActive>
+                    <insuranceType>2</insuranceType>
+                </insuranceInfoItem>
+                <insuranceInfoItem>
+                    <insuranceProgrammCode>21</insuranceProgrammCode>
+                    <insuranceProgramIsActive>true</insuranceProgramIsActive>
+                    <insuranceType>1</insuranceType>
+                </insuranceInfoItem>
+            </insuranceInfo>
+            <bankServices>
+                <service>
+                    <serviceType>SMS_INFO_PAID</serviceType>
+                </service>
+            </bankServices>
+        </product>
+    </clientRequest>
+</mbrd:ContactCenterDataExchange>
