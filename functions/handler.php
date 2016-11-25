@@ -23,27 +23,27 @@
  *
  *
  *Array
-(
-    [hasErrors] => 1
-    [errorList] => Array
-        (
-            [0] => Array
-                (
-                    [ERROR_TYPE] => FATAL_ERROR
-                    [HEADER] => Fatal error 4:
-                    [MESSAGE] => Start tag expected, '<' not found
-                    [LINE] =>  на строке 1
-                    )
-
-            [1] => Array
-                (
-                    [ERROR_TYPE] => ERROR
-                    [HEADER] => Error 1872:
-                    [MESSAGE] => The document has no document element.
-                    [LINE] =>  на строке -1
-                )
-        )
-)
+ *(
+ *   [hasErrors] => 1
+ *   [errorList] => Array
+ *       (
+ *           [0] => Array
+ *               (
+ *                   [ERROR_TYPE] => FATAL_ERROR
+ *                   [HEADER] => Fatal error 4:
+ *                   [MESSAGE] => Start tag expected, '<' not found
+ *                   [LINE] =>  на строке 1
+ *                   )
+*
+  *           [1] => Array
+  *              (
+  *                  [ERROR_TYPE] => ERROR
+  *                  [HEADER] => Error 1872:
+  *                  [MESSAGE] => The document has no document element.
+  *                  [LINE] =>  на строке -1
+  *              )
+  *      )
+*) 
  */
 
 switch ($_REQUEST['action']) {
@@ -92,133 +92,63 @@ switch ($_REQUEST['action']) {
 }
 
 
-$data2 = [];
+
 // Функция выполняющая рекурсивный спуск по массиву
-function recursion($arr)
+function xml2array($arr)
 {
-    global $data2;
     if(is_array($arr))
     {
-        for($i=0; $i<count($arr); $i++)
-        {
-            if(is_array($arr[$i]))
-            {
+        for($i = 0; $i < count($arr); $i++) {
+            if(is_array($arr[$i])) {
                 recursion($arr[$i]);
-            }
-            else
-            {
-                $data2[] = $arr[$i];
+            } else {
+                return $arr[$i];
             }
         }
-    }
-    else
-    {
-        $data2[] =  $arr;
+    } else {
+        return $arr;
     }
 }
 
-$recArr = [];
-// Функция выполняющая рекурсивный спуск по массиву
-function recursionKeys($arr)
-{
-    global $recArr;
-    if(is_array($arr))
-    {
-        $recArr[] = array_keys($arr);
-        for($i=0; $i<=count($arr); $i++)
-        {
-            if(is_array($arr[$i]))
-            {
-                recursionKeys($arr[$i]);
-            }
-        }
-    }
+$count = 0;
+function get_keys($arr) {
+
+   
+
 }
+
 
 function custom_validation2($xml, $xsd) {
 
-    global $data2;
-    global $recArr;
-
-    $firstXML  = simplexml_load_file($xml);
+    $firstXML   = simplexml_load_file($xml);
     $secondXML  = simplexml_load_file($xsd);
 
-    $aaa = ["s"=>"2", "q"=>"f"];
+    $nodes[] = xml2array($firstXML);
 
-//    $recArr[] = array_keys([
-//       '1' => [
-//           '1_1' => "val_1_1",
-//           '1_2' => [
-//               '1_2_1' => "val_1_2_1",
-//               '1_2_2' => "val_1_2_2"
-//           ]
-//       ]
-//    ]);
+    // $keys[] = get_keys($nodes);
 
-
-
-//    recursionKeys([
-//        'dsa' =>"dsa2",
-//        'sdfdf' => "4342"
-//    ]);
-
-
-    recursionKeys([
-       '1' => [
-           '1_1' => "val_1_1",
-           '1_2' => [
-               '1_2_1' => "val_1_2_1",
-               '1_2_2' => "val_1_2_2"
-           ]
-       ]
-    ]);
-
-
-    return [
-      'keys' => $recArr,
-        'xml' => $data2
+    $test = [
+        '1' => [
+            '1_1' => "1_1_1",
+            '1_2' => [
+                '1_2_1' => "1_2_2",
+                '1_2_3' => [
+                    '1_3_1' => '1_4_1',
+                ]
+            ],
+            '1_3' => "1_3_1",
+        ]
     ];
 
+  $keys = get_keys($test);
+global $count;
+    
 
-
-
-    /*if(!file_exists($xml)) {
-        return [
-            'hasErrors' => true,
-            'errorList' => "File not found."
-        ];
-    }
-
-    //XML document
-    $xmlDoc = [];
-
-    //XML nodes
-    $xmlNode = [];
-
-    //CurrentNodeLevel
-    $currNodelevel = 0;
-
-    $handle = @fopen($xml, "r");
-    if ($handle) {
-        $xmlDoc[] = $xmlNode;
-        while (($buffer = fgets($handle)) !== false) {
-            $match = [];
-            if(preg_match_all('/<(.*?)>/', $buffer, $match)) {
-                if(!in_array($match[0], $xmlNode)) {
-                    $xmlNode[$currNodelevel++] = $match[0];
-                }
-                return [
-                  'xmlDoc' => $xmlNode
-                ];
-            }
-
-        }
-
-        if (!feof($handle)) {
-            echo "Error: unexpected fgets() fail\n";
-        }
-        fclose($handle);
-    }*/
+    return [
+        'count' => $count,
+      'keys' => $keys,
+      'node' => $nodes,
+    ];
 }
 
 
@@ -249,29 +179,7 @@ function custom_validation($xml, $xsd) {
     $doc->close();
 
 
-
-
-//    $doc->setParserProperty(XMLReader::NONE, true);
-//    $doc->setParserProperty(XMLReader::ELEMENT, true);
-//    $doc->setParserProperty(XMLReader::ATTRIBUTE, true);
-//    $doc->setParserProperty(XMLReader::TEXT, true);
-//    $doc->setParserProperty(XMLReader::CDATA, true);
-//    $doc->setParserProperty(XMLReader::ENTITY_REF, true);
-//    $doc->setParserProperty(XMLReader::ENTITY, true);
-//    $doc->setParserProperty(XMLReader::PI, true);
-//    $doc->setParserProperty(XMLReader::COMMENT, true);
-//    $doc->setParserProperty(XMLReader::DOC, true);
-//    $doc->setParserProperty(XMLReader::DOC_TYPE, true);
-//    $doc->setParserProperty(XMLReader::DOC_FRAGMENT, true);
-//    $doc->setParserProperty(XMLReader::NOTATION, true);
-//    $doc->setParserProperty(XMLReader::WHITESPACE, true);
-//    $doc->setParserProperty(XMLReader::SIGNIFICANT_WHITESPACE, true);
-//    $doc->setParserProperty(XMLReader::END_ELEMENT, true);
-//    $doc->setParserProperty(XMLReader::END_ENTITY, true);
-//    $doc->setParserProperty(XMLReader::XML_DECLARATION, true);
-
     return [
-        'valid' =>$doc->isValid(),
         'errors' =>$error_body = libxml_display_errors(),
         'nodes' => $nodes
 
