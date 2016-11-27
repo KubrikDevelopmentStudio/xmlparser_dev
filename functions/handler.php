@@ -34,16 +34,16 @@
  *                   [MESSAGE] => Start tag expected, '<' not found
  *                   [LINE] =>  на строке 1
  *                   )
-*
-  *           [1] => Array
-  *              (
-  *                  [ERROR_TYPE] => ERROR
-  *                  [HEADER] => Error 1872:
-  *                  [MESSAGE] => The document has no document element.
-  *                  [LINE] =>  на строке -1
-  *              )
-  *      )
-*) 
+ *
+ *           [1] => Array
+ *              (
+ *                  [ERROR_TYPE] => ERROR
+ *                  [HEADER] => Error 1872:
+ *                  [MESSAGE] => The document has no document element.
+ *                  [LINE] =>  на строке -1
+ *              )
+ *      )
+ *) 
  */
 
 switch ($_REQUEST['action']) {
@@ -79,9 +79,15 @@ switch ($_REQUEST['action']) {
                         break;
 
                     case 'MY_TEST':
-                        $data = custom_validation2($xml, $xsd);
+                        $validResult = custom_validation2($xml, $xsd);
 
-                        print_r($data);
+                        $data = [
+                            'hasErrors' => "1",
+                            'errorList' => array_merge($validResult['NOT_FOUND_TAGS'],
+                                                       $validResult['MISEPLACED_TAGS'])
+                        ];
+
+                        print_r(json_encode($data));
                         die();
 
                         break;
@@ -111,43 +117,188 @@ function xml2array($arr)
 }
 
 $count = 0;
-function get_keys($arr) {
-
-   
-
+function array_diff_assoc_recursive($array1, $array2) {
+    $difference=array();
+    foreach($array1 as $key => $value) {
+        if( is_array($value) ) {
+            if( !isset($array2[$key]) || !is_array($array2[$key]) ) {
+                $difference[$key] = $value;
+            } else {
+                $new_diff = array_diff_assoc_recursive($value, $array2[$key]);
+                if( !empty($new_diff) )
+                    $difference[$key] = $new_diff;
+            }
+        } else if( !array_key_exists($key,$array2) || $array2[$key] !== $value ) {
+            $difference[$key] = $value;
+        }
+    }
+    return $difference;
 }
 
+function readXmlDoc($doc_path) {
+    $read_arr = [];
+    $handle = @fopen($doc_path, "r");
+    if ($handle) {
+        while (($buffer = fgets($handle)) !== false) {
+            if(!empty(trim($buffer)) || trim($buffer) != null) {
+                $read_arr[] = trim($buffer);
+            }
+        }
+        if (!feof($handle)) {
+            echo "Error: unexpected fgets() fail\n";
+        }
+        fclose($handle);
+    }
+    return $read_arr;
+}
+
+function getTagName($tag) {
+    $_match;
+    if(preg_match('/(?=\<)(.*?)(?=\>)/', $tag, $_match)) {
+        $tag_name = preg_replace('/</', '', $_match);
+        return is_array($tag_name) ? $tag_name[0] : $tag_name;
+    } else {
+        return null;
+    }
+}
+
+function getTagValue($tag) {
+    $_match = [];
+    if(preg_match_all('/(?=\>)(.*?)(?=\<)/', $tag, $_match)) {
+        $value = preg_replace('/>/', '', $_match[0]);
+        if($value !== "" && $value[0] !== null) {
+            return $value[0];
+        } else {
+            return "EMPTY_TAG";
+        }
+    } else {
+        return "OPEN_TAG";
+    }
+}
 
 function custom_validation2($xml, $xsd) {
 
-    $firstXML   = simplexml_load_file($xml);
-    $secondXML  = simplexml_load_file($xsd);
+    // $firstXML   = simplexml_load_file($xml);
+    // $secondXML  = simplexml_load_file($xsd);
 
-    $nodes[] = xml2array($firstXML);
+    // $nodes[] = xml2array($firstXML);
+    // $nodes2[] = xml2array($secondXML);
 
-    // $keys[] = get_keys($nodes);
+    $strings1 = readXmlDoc($xml);
+    $strings2 = readXmlDoc($xsd);
 
-    $test = [
-        '1' => [
-            '1_1' => "1_1_1",
-            '1_2' => [
-                '1_2_1' => "1_2_2",
-                '1_2_3' => [
-                    '1_3_1' => '1_4_1',
-                ]
-            ],
-            '1_3' => "1_3_1",
-        ]
-    ];
+    $count = 0;
+    $priority = 0;
+    if(count($strings1) == count($strings2)) {
+        $count = count($strings1);
+    } else if(count($strings1) > count($strings2)) {
+        $count = count($strings2);
+        $priority = 1;
+    } else {
+        $count = count($strings1);
+        $priority = 2;
+    }
 
-  $keys = get_keys($test);
-global $count;
+    // Изменить вообще проверку: функцией in_array() искать все строки и в конце 
+    // выводить инфу о том, какие не обнаружены и где именно! Будет топово)
+
+    //Значения тегов из эталонной xml
+    $first_xml_values = [];
+
+    //Значения тегов из xml, которую проверяем
+    $second_xml_values = [];
     
+    for($i = 0; $i < $count; $i++) {
+
+        //Получаем тег и его значение из эталонной xml.     
+        if(($tag = getTagName($strings1[$i])) !== null) {
+            if(($value = getTagValue($strings1[$i])) !== null) {
+                $first_xml_values[] = [
+                    "TAG_NAME" => $tag,
+                    "TAG_VALUE" => $value,
+                    "LINE" => $i + 1
+                ];
+            }
+        }
+
+        //Получаем тег и его значение из проверяемой xml.
+        if(($tag = getTagName($strings2[$i])) !== null) {
+            if(($value = getTagValue($strings2[$i])) !== null) {
+                $second_xml_values[] = [
+                    "TAG_NAME" => $tag,
+                    "TAG_VALUE" => $value,
+                    "LINE" => $i + 1
+                ];
+            }
+        }       
+    }
+
+
+    //Разница в документах.
+    $difference = [];
+
+    //Не на своем месте.
+    $misplaced = [];
+
+    $curr_tag;
+    $search_tag = [];
+    for($i = 0; $i < $count; $i++) {       
+        //Если нашли разницу в тегах, получааем инфу по тегу и вставляем
+        //в сообщение об ошибке. 
+        $tag_name = $first_xml_values[$i]['TAG_NAME'];
+        $tag_value = $first_xml_values[$i]['TAG_VALUE']; 
+        $line = $first_xml_values[$i]['LINE']; 
+
+        //Если тег вообще не найден
+        // @todo:  Это условие выполнится так же, если не будет совпадение 
+        // в значении! Если значения тегов отличаются, это условие тоже выполняется,
+        //что неверно! Исправить!.
+        if(!in_array($strings1[$i], $strings2)) {     
+            $difference[] = [
+                "ERROR_TYPE" => "error",
+                "HEADER" => "Tag not found",
+                "MESSAGE" => "The tag <" . $tag_name . "> with value: '" . $tag_value . "' not found in comparer XML" ,
+                "LINE" => $i + 1
+                ];  
+               continue;               
+        }
+
+
+        if(($strings1[$i] !== $strings2[$i])) { 
+             
+            $curr_tag = $first_xml_values[$i];
+
+            $found_line;
+
+            for($j = 0; $j < count($second_xml_values); $j++) {
+                if($curr_tag["TAG_NAME"] === $second_xml_values[$j]["TAG_NAME"]) {
+                    $found_line = $second_xml_values[$j]['LINE'];
+                }
+            }
+
+            $misplaced[] = [
+                "ERROR_TYPE" => "warning",
+                "HEADER" => "Not correct line",
+                "MESSAGE" => "The tag <" . $tag_name . "> is not on the correct line! Exepted on line " 
+                             . $line . ", but found on " 
+                             . $found_line,
+                "LINE" => $i + 1
+                ];
+
+                break;
+        }
+    }   
+
+    $all_tags_best = count($strings1);
+    $all_tags_comparer = count($strings2);
 
     return [
-        'count' => $count,
-      'keys' => $keys,
-      'node' => $nodes,
+    //    'da' => $first_xml_values,
+       'TAGS_COUNT_IN_XML' => $all_tags_best,
+       'TAGS_COUNT_IN_COMPARER_XML' => $all_tags_comparer,
+
+       'NOT_FOUND_TAGS' => $difference,
+       'MISEPLACED_TAGS' => $misplaced
     ];
 }
 
