@@ -47,3 +47,8 @@
     padding: 20px;              /* поля 20px */
     overflow: auto;             /* прокрутка */
 }
+
+
+#input_xml {
+    width: 40%;
+}

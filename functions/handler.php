@@ -87,7 +87,7 @@ switch ($_REQUEST['action']) {
                                                        $validResult['MISEPLACED_TAGS'])
                         ];
 
-                        print_r(json_encode($data));
+                        print_r($data);
                         die();
 
                         break;
