@@ -50,11 +50,12 @@ switch ($_REQUEST['action']) {
 
     case 'validateXml':
 
-        $xml    = $_REQUEST['xml_doc'] ? $_REQUEST['xml_doc'] : null;
-        $xsd    = $_REQUEST['xsd_doc'] ? $_REQUEST['xsd_doc'] : null;
-        $params = $_REQUEST['test_params'] ? $_REQUEST['test_params'] : null;
+        $xml               = $_REQUEST['xml_doc'] ? $_REQUEST['xml_doc'] : null;
+        $xml_comparer_text = $_REQUEST['xml_comparer_text'] ? $_REQUEST['xml_comparer_text'] : null;
+        $xsd               = $_REQUEST['xsd_doc'] ? $_REQUEST['xsd_doc'] : null;
+        $params            = $_REQUEST['test_params'] ? $_REQUEST['test_params'] : null;
 
-        if(isset($xml) && isset($xsd)) {
+        if(isset($xml) && (isset($xsd) || isset($xml_comparer_text))) {
 
             foreach ($params as $param) {
                 switch ($param) {
@@ -79,7 +80,7 @@ switch ($_REQUEST['action']) {
                         break;
 
                     case 'MY_TEST':
-                        $validResult = custom_validation2($xml, $xsd);
+                        $validResult = custom_validation2($xml, $xml_comparer_text);
 
                         $data = [
                             'hasErrors' => "1",
@@ -87,7 +88,9 @@ switch ($_REQUEST['action']) {
                                                        $validResult['MISEPLACED_TAGS'])
                         ];
 
-                        print_r($data);
+                        // $data = $validResult;
+
+                        print_r(json_encode($data));
                         die();
 
                         break;
@@ -158,16 +161,33 @@ function getTagValue($tag) {
     }
 }
 
-function custom_validation2($xml, $xsd) {
+function save_to_file($text) {
+    $file_name = uniqid();
+    $full_file_name = "../data/temp/" . $file_name . ".xml";
 
-    // $firstXML   = simplexml_load_file($xml);
-    // $secondXML  = simplexml_load_file($xsd);
+    $resut = file_put_contents("../data/temp/" . $file_name . ".xml", $text);
+  
+    return $result !== false ? $full_file_name : false; 
+}
 
-    // $nodes[] = xml2array($firstXML);
-    // $nodes2[] = xml2array($secondXML);
+function custom_validation2($xml, $xml_comparer_text) {
 
-    $strings1 = readXmlDoc($xml);
-    $strings2 = readXmlDoc($xsd);
+    $temp_file_name = save_to_file($xml_comparer_text);
+
+    $strings1 = "";
+    $strings2 = "";
+
+    if($temp_file_name !== false) {
+         $strings1 = readXmlDoc($xml);
+         $strings2 = readXmlDoc($temp_file_name);      
+    } else {
+       $data = [
+            'hasErrors' => "1",
+            'errorList' => "Could't create temp file! Check access rights!",
+        ];
+
+        return $data;
+    }
 
     $count = 0;
     $priority = 0;

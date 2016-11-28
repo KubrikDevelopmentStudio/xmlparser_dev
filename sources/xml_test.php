@@ -60,21 +60,20 @@ $msg_types = $app->get_message_types();
             <p class="card-text">Отформатируйте XML перед загрузкой!</p>
 
             <!--<button id="load_from_file_btn" class="btn btn-primary" disabled>Загрузить из файла...</button>-->
-            <div class="form-group has-warning" id="input_xml">
+            <div class="form-group has-warning" id="input_xml_block">
                 <label class="form-control-label" for="inputWarning1">Вставьте отформатированную XML для проверки в блок ниже</label>
-                <textarea rows="10" cols="45" name="text" class="form-control form-control-warning"></textarea>
+                <textarea id="xml_input_area" rows="10" cols="45" name="text" class="form-control form-control-warning"></textarea>
                 <div class="form-control-feedback">Теги должны располагаться строго по одному на строку!</div>
                 <small class="form-text text-muted">Важная подсказка!</small>
             </div>
 
             <button id="cheat_button" type="button" class="btn btn-outline-info btn-sm">Загрузить эталонку</button>
-            <br><br>
+            
 
             <!--Таблица со списком xml-->
-            <div class="card card-block">
-                <h4 class="card-title">STEP 2: Выберите эталонную XML <i id="xml_help" class="fa fa-info-circle"
-                                                           aria-hidden="true"></i></h4>
-                <table class="table table-striped">
+            <div class="card card-block" id="xml_table_list_block">
+                <h4 class="card-title">STEP 2: Выберите эталонную XML <i id="xml_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
+                <table class="table table-striped" id="xml_table_list">
                     <thead>
                     <tr>
                         <th>#</th>
@@ -133,17 +132,17 @@ $msg_types = $app->get_message_types();
             <p class="card-text">Отметьте необходимые параметры для тестирования.</p>
             <form id="test_params_form">
                 <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" data-param="DEFAULT" class="form-check-input">
+                    <label id="defaul_validation_param" class="form-check-label text-muted">
+                        <input type="checkbox" data-param="DEFAULT" class="form-check-input" disabled>
                         Стандартная валидация (требует XSD схемы)
                     </label>
                 </div>
-                <div class="form-check">
+                <!--<div class="form-check">
                     <label class="form-check-label">
                         <input type="checkbox" data-param="TEST" class="form-check-input">
                         Тест
                     </label>
-                </div>
+                </div>-->
                 <div class="form-check">
                     <label class="form-check-label">
                         <input type="checkbox" data-param="MY_TEST" class="form-check-input">
