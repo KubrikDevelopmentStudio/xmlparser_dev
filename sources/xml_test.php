@@ -60,9 +60,10 @@ $msg_types = $app->get_message_types();
             <p class="card-text">Отформатируйте XML перед загрузкой!</p>
 
             <!--<button id="load_from_file_btn" class="btn btn-primary" disabled>Загрузить из файла...</button>-->
+
             <div class="form-group has-warning" id="input_xml_block">
                 <label class="form-control-label" for="inputWarning1">Вставьте отформатированную XML для проверки в блок ниже</label>
-                <textarea id="xml_input_area" class="form-control form-control-warning" rows="10" cols="45" name="text"></textarea>
+                <textarea id="xml_input_area" class="form-control form-control-warning" rows="20" cols="45" name="text" placeholder="XML вставлять сюда"></textarea>
                 <div class="form-control-feedback">Теги должны располагаться строго по одному на строку!</div>
                 <small class="form-text text-muted">Важная подсказка!</small>
             </div>

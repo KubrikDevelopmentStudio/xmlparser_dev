@@ -176,7 +176,12 @@ function getTagValue($tag) {
             return "EMPTY_TAG";
         }
     } else {
-        return "OPEN_TAG";
+        /*return "OPEN_TAG";*/
+        if(preg_match('/\//', $tag)) {
+            return "CLOSE_TAG";
+        } else {
+            return "OPEN_TAG";
+        }
     }
 }
 
@@ -297,7 +302,7 @@ function custom_validation2($xml, $xml_comparer_text) {
                         $tag_value_bool = true;
                     }
                 }
-                break;
+                /*break;*/
             }
         }
 
@@ -305,7 +310,7 @@ function custom_validation2($xml, $xml_comparer_text) {
         if(!$tag_exists_bool) {
              $difference[] = [
                 "ERROR_TYPE" => "ERROR",
-                "HEADER" => "[Tag not found]",
+                "HEADER" => "[Тег не найден]",
                 "MESSAGE" => htmlspecialchars("Тег <" . $tag_name . "> не найден в проверяемой XML.") ,
                 "LINE" => $i + 1
                 ];  
@@ -315,7 +320,7 @@ function custom_validation2($xml, $xml_comparer_text) {
         if(!$tag_value_bool) {
              $difference[] = [
                 "ERROR_TYPE" => "WARNING",
-                "HEADER" => "[Incorrect tag value]",
+                "HEADER" => "[Неверное значение]",
                 "MESSAGE" => htmlspecialchars("Тег <" . $tag_name . "> со значением: '" . $tag_value . "' не найден в проверяемой XML.") ,
                 "LINE" => $i + 1
                 ];  
