@@ -82,10 +82,18 @@ switch ($_REQUEST['action']) {
                     case 'MY_TEST':
                         $validResult = custom_validation2($xml, $xml_comparer_text);
 
+                        $temp_arr = [];
+                        $temp_arr =  array_merge($validResult['NOT_FOUND_TAGS'], $validResult['MISEPLACED_TAGS']);
+                        
+                        sort($temp_arr);
+
                         $data = [
                             'hasErrors' => "1",
-                            'errorList' => array_merge($validResult['NOT_FOUND_TAGS'],
-                                                       $validResult['MISEPLACED_TAGS'])
+                            
+                            'all_tags_in_first_xml' => $validResult['TAGS_COUNT_IN_XML'],
+                            'all_tags_in_comparer_xml' => $validResult['TAGS_COUNT_IN_COMPARER_XML'],
+                            
+                            'errorList' => $temp_arr
                         ];
 
                         // $data = $validResult;
@@ -257,38 +265,36 @@ function custom_validation2($xml, $xml_comparer_text) {
         //что неверно! Исправить!.
         if(!in_array($strings1[$i], $strings2)) {     
             $difference[] = [
-                "ERROR_TYPE" => "error",
+                "ERROR_TYPE" => "ERROR",
                 "HEADER" => "Tag not found",
-                "MESSAGE" => "The tag <" . $tag_name . "> with value: '" . $tag_value . "' not found in comparer XML" ,
+                "MESSAGE" => htmlspecialchars("The tag <" . $tag_name . "> with value: '" . $tag_value . "' not found in comparer XML") ,
                 "LINE" => $i + 1
                 ];  
                continue;               
         }
 
 
-        if(($strings1[$i] !== $strings2[$i])) { 
-             
-            $curr_tag = $first_xml_values[$i];
-
-            $found_line;
-
-            for($j = 0; $j < count($second_xml_values); $j++) {
-                if($curr_tag["TAG_NAME"] === $second_xml_values[$j]["TAG_NAME"]) {
+        $curr_tag = $first_xml_values[$i];
+        for($j = 0; $j < count($second_xml_values); $j++) {
+            if($curr_tag['TAG_NAME'] === $second_xml_values[$j]['TAG_NAME']) {
+                if($curr_tag['LINE'] !== $second_xml_values[$j]['LINE']) {
                     $found_line = $second_xml_values[$j]['LINE'];
+                    $misplaced[] = [
+                        "ERROR_TYPE" => "WARNING",
+                        "HEADER" => "[Not correct line]",
+                        "MESSAGE" => htmlspecialchars("The tag <" . $curr_tag['TAG_NAME'] . "> is not on the correct line! Exepted on line " 
+                                        . $curr_tag['LINE'] . ", but found on " 
+                                        . $second_xml_values[$j]['LINE']),
+                        /*"LINE" => $i + 1*/
+                        ];
+                        break;
                 }
-            }
-
-            $misplaced[] = [
-                "ERROR_TYPE" => "warning",
-                "HEADER" => "Not correct line",
-                "MESSAGE" => "The tag <" . $tag_name . "> is not on the correct line! Exepted on line " 
-                             . $line . ", but found on " 
-                             . $found_line,
-                "LINE" => $i + 1
-                ];
-
-                break;
+            }  
         }
+            
+        
+
+       
     }   
 
     $all_tags_best = count($strings1);

@@ -62,7 +62,7 @@ $msg_types = $app->get_message_types();
             <!--<button id="load_from_file_btn" class="btn btn-primary" disabled>Загрузить из файла...</button>-->
             <div class="form-group has-warning" id="input_xml_block">
                 <label class="form-control-label" for="inputWarning1">Вставьте отформатированную XML для проверки в блок ниже</label>
-                <textarea id="xml_input_area" rows="10" cols="45" name="text" class="form-control form-control-warning"></textarea>
+                <textarea id="xml_input_area" class="form-control form-control-warning" rows="10" cols="45" name="text"></textarea>
                 <div class="form-control-feedback">Теги должны располагаться строго по одному на строку!</div>
                 <small class="form-text text-muted">Важная подсказка!</small>
             </div>
@@ -167,9 +167,7 @@ $msg_types = $app->get_message_types();
                     <div id="FIRST_TEST_RESULT_BLOCK" class="card card-block">
                         <h3 id="FIRST_HEADER_BLOCK" class="card-title">Заголовок первого блока</h3>
                         <p  id="FIRST_DESCRIPTION_BLOCK" class="card-text">Описание первого блока.</p>
-                        <div id="xml_content">
-
-                        </div>
+                        <!--<div id="xml_content"></div>-->
                         <text id="FIRST_BODY_BLOCK"></text>
                     </div>
                 </div>
@@ -177,7 +175,7 @@ $msg_types = $app->get_message_types();
                 <div class="col-sm-6">
                     <div id="SECOND_TEST_RESULT_BLOCK" class="card card-block">
                         <h3 id="SECOND_HEADER_BLOCK" class="card-title">Заголовок второго блока</h3>
-                        <p  id="SECOND_DESCRIPTION_BLOCK" class="card-text">Описание второго блока.</p>
+                        <p  id="SECOND_DESCRIPTION_BLOCK" class="card-text">Супер-мего тестирование от Торвальдса</p>
 
                         <text id="SECOND_BODY_BLOCK"></text>
                     </div>
