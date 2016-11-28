@@ -127,7 +127,10 @@ function xml2array($arr)
     }
 }
 
-$count = 0;
+
+/**
+*    Читаем указанный файл в массив тримируя пробелы на каждой строчке.
+*/
 function readXmlDoc($doc_path) {
     $read_arr = [];
     $handle = @fopen($doc_path, "r");
@@ -145,6 +148,10 @@ function readXmlDoc($doc_path) {
     return $read_arr;
 }
 
+
+/**
+*    Получение имени тега между скобок <tag>
+*/
 function getTagName($tag) {
     $_match;
     if(preg_match('/(?=\<)(.*?)(?=\>)/', $tag, $_match)) {
@@ -155,6 +162,10 @@ function getTagName($tag) {
     }
 }
 
+
+/**
+*    Получение значение тега между скобок <tag>tag_value</tag>
+*/
 function getTagValue($tag) {
     $_match = [];
     if(preg_match_all('/(?=\>)(.*?)(?=\<)/', $tag, $_match)) {
@@ -169,6 +180,10 @@ function getTagValue($tag) {
     }
 }
 
+
+/**
+*    Сохранение переданной в виде текста XML в temp файл с уникальным именем.
+*/
 function save_to_file($text) {
     $file_name = uniqid();
     $full_file_name = "../data/temp/" . $file_name . ".xml";
@@ -178,6 +193,10 @@ function save_to_file($text) {
     return $result !== false ? $full_file_name : false; 
 }
 
+
+/**
+*    Моя кастомная валидация
+*/
 function custom_validation2($xml, $xml_comparer_text) {
 
     $temp_file_name = save_to_file($xml_comparer_text);
@@ -209,24 +228,22 @@ function custom_validation2($xml, $xml_comparer_text) {
         $priority = 2;
     }
 
-    // Изменить вообще проверку: функцией in_array() искать все строки и в конце 
-    // выводить инфу о том, какие не обнаружены и где именно! Будет топово)
-
     //Значения тегов из эталонной xml
     $first_xml_values = [];
 
     //Значения тегов из xml, которую проверяем
     $second_xml_values = [];
     
+    /*Получение тегов и значений из всех XML*/
     for($i = 0; $i < $count; $i++) {
 
         //Получаем тег и его значение из эталонной xml.     
         if(($tag = getTagName($strings1[$i])) !== null) {
             if(($value = getTagValue($strings1[$i])) !== null) {
                 $first_xml_values[] = [
-                    "TAG_NAME" => $tag,
-                    "TAG_VALUE" => $value,
-                    "LINE" => $i + 1
+                    "TAG_NAME" => $tag,     /*Имя тега*/
+                    "TAG_VALUE" => $value,  /*Значение тега*/
+                    "LINE" => $i + 1        /*На какой строке находится*/
                 ];
             }
         }
@@ -235,62 +252,92 @@ function custom_validation2($xml, $xml_comparer_text) {
         if(($tag = getTagName($strings2[$i])) !== null) {
             if(($value = getTagValue($strings2[$i])) !== null) {
                 $second_xml_values[] = [
-                    "TAG_NAME" => $tag,
-                    "TAG_VALUE" => $value,
-                    "LINE" => $i + 1
+                    "TAG_NAME" => $tag,     /*Имя тега*/
+                    "TAG_VALUE" => $value,  /*Значение тега*/
+                    "LINE" => $i + 1        /*На какой строке находится*/
                 ];
             }
         }       
     }
 
 
-    //Разница в документах.
+    /*Отсутствующие теги*/
     $difference = [];
 
-    //Не на своем месте.
+    /*теги, находящиеся не на своих местах*/
     $misplaced = [];
 
+    /*Текущий тег*/
     $curr_tag;
-    $search_tag = [];
-    for($i = 0; $i < $count; $i++) {       
-        //Если нашли разницу в тегах, получааем инфу по тегу и вставляем
-        //в сообщение об ошибке. 
-        $tag_name = $first_xml_values[$i]['TAG_NAME'];
-        $tag_value = $first_xml_values[$i]['TAG_VALUE']; 
-        $line = $first_xml_values[$i]['LINE']; 
 
-        //Если тег вообще не найден
-        // @todo:  Это условие выполнится так же, если не будет совпадение 
-        // в значении! Если значения тегов отличаются, это условие тоже выполняется,
-        //что неверно! Исправить!.
-        if(!in_array($strings1[$i], $strings2)) {     
-            $difference[] = [
+    /*Начало алгоритма сравнения XML*/
+    for($i = 0; $i < $count; $i++) {       
+
+        /*Берем инфу по текущему тегу*/ 
+        $full_tag  = $first_xml_values[$i];
+
+        $tag_name  = $first_xml_values[$i]['TAG_NAME'];
+        $tag_value = $first_xml_values[$i]['TAG_VALUE']; 
+        $line      = $first_xml_values[$i]['LINE']; 
+
+        
+        $tag_exists_bool = false;
+        $tag_value_bool  = false;
+
+        /*Проверка на наличие текущего тега в проверяемой XML.
+          Если тег найден, идет проверка на соответствие значения тегов.*/
+        for($f_index = 0; $f_index < count($second_xml_values); $f_index++) {
+            if($tag_name === $second_xml_values[$f_index]['TAG_NAME']) {
+                $tag_exists_bool = true;
+                /*if($tag_value === $second_xml_values[$f_index]['TAG_VALUE']) {
+                    $tag_value_bool = true;
+                }*/
+                for($s_index = 0; $s_index < count($second_xml_values); $s_index++) {
+                    if($tag_value === $second_xml_values[$s_index]['TAG_VALUE']) {
+                        $tag_value_bool = true;
+                    }
+                }
+                break;
+            }
+        }
+
+        /*Если небыл найден тег, генерируем сообщение об ошибке.*/
+        if(!$tag_exists_bool) {
+             $difference[] = [
                 "ERROR_TYPE" => "ERROR",
-                "HEADER" => "Tag not found",
-                "MESSAGE" => htmlspecialchars("The tag <" . $tag_name . "> with value: '" . $tag_value . "' not found in comparer XML") ,
+                "HEADER" => "[Tag not found]",
+                "MESSAGE" => htmlspecialchars("Тег <" . $tag_name . "> не найден в проверяемой XML.") ,
                 "LINE" => $i + 1
                 ];  
-               continue;               
+        }
+
+        /*Если найденные теги, имели разное значение, генерируем предупреждение.*/
+        if(!$tag_value_bool) {
+             $difference[] = [
+                "ERROR_TYPE" => "WARNING",
+                "HEADER" => "[Incorrect tag value]",
+                "MESSAGE" => htmlspecialchars("Тег <" . $tag_name . "> со значением: '" . $tag_value . "' не найден в проверяемой XML.") ,
+                "LINE" => $i + 1
+                ];  
         }
 
 
-        $curr_tag = $first_xml_values[$i];
-        for($j = 0; $j < count($second_xml_values); $j++) {
-            if($curr_tag['TAG_NAME'] === $second_xml_values[$j]['TAG_NAME']) {
-                if($curr_tag['LINE'] !== $second_xml_values[$j]['LINE']) {
+        /*for($j = 0; $j < count($second_xml_values); $j++) {
+            if($tag_name === $second_xml_values[$j]['TAG_NAME']) {
+                if($line !== $second_xml_values[$j]['LINE']) {
                     $found_line = $second_xml_values[$j]['LINE'];
                     $misplaced[] = [
                         "ERROR_TYPE" => "WARNING",
                         "HEADER" => "[Not correct line]",
-                        "MESSAGE" => htmlspecialchars("The tag <" . $curr_tag['TAG_NAME'] . "> is not on the correct line! Exepted on line " 
-                                        . $curr_tag['LINE'] . ", but found on " 
+                        "MESSAGE" => htmlspecialchars("Тег <" . $curr_tag['TAG_NAME'] . "> находится на неверной месте!  Ожидался на строке " 
+                                        . $curr_tag['LINE'] . ", но обнаружен на " 
                                         . $second_xml_values[$j]['LINE']),
-                        /*"LINE" => $i + 1*/
+                        //"LINE" => $i + 1
                         ];
                         break;
                 }
             }  
-        }
+        }*/
             
         
 
