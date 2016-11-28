@@ -50,10 +50,10 @@ switch ($_REQUEST['action']) {
 
     case 'validateXml':
 
-        $xml               = $_REQUEST['xml_doc'] ? $_REQUEST['xml_doc'] : null;
+        $xml               = $_REQUEST['xml_doc']           ? $_REQUEST['xml_doc']           : null;
         $xml_comparer_text = $_REQUEST['xml_comparer_text'] ? $_REQUEST['xml_comparer_text'] : null;
-        $xsd               = $_REQUEST['xsd_doc'] ? $_REQUEST['xsd_doc'] : null;
-        $params            = $_REQUEST['test_params'] ? $_REQUEST['test_params'] : null;
+        $xsd               = $_REQUEST['xsd_doc']           ? $_REQUEST['xsd_doc']           : null;
+        $params            = $_REQUEST['test_params']       ? $_REQUEST['test_params']       : null;
 
         if(isset($xml) && (isset($xsd) || isset($xml_comparer_text))) {
 
@@ -68,15 +68,7 @@ switch ($_REQUEST['action']) {
 
                         print_r(json_encode($data));
                         die();
-
-                        break;
-
-                    case 'TEST':
-                        $data = custom_validation($xml, $xsd);
-
-                        print_r($data);
-                        die();
-
+                        
                         break;
 
                     case 'MY_TEST':
@@ -105,6 +97,8 @@ switch ($_REQUEST['action']) {
                 }
             }
         }
+        die();
+        
         break;
 }
 
@@ -363,53 +357,6 @@ function custom_validation2($xml, $xml_comparer_text) {
 }
 
 
-function custom_validation($xml, $xsd) {
-
-    //Включаем информацию об ошибках.
-    libxml_use_internal_errors(true);
-
-    $doc = new XMLReader();
-    $doc->open($xml);
-
-    $nodes = [];
-    while($doc->read()) {
-        $mathc=[];
-        $node = $doc->readOuterXml();
-        if(preg_match_all('/<(.*?)>/', $node, $mathc)) {
-            if(count($mathc[0]) == 2) {
-               $nodes[] = $node;
-            }
-        } else {
-            $node = str_replace(array("\r\n", "\r", "\n"), '',  trim($node));
-            if(!preg_match('/<(.*?)>/', $node) && $node != "") {
-                $nodes[count($nodes)][] = $node;
-            }
-        }
-
-    }
-    $doc->close();
-
-
-    return [
-        'errors' =>$error_body = libxml_display_errors(),
-        'nodes' => $nodes
-
-    ];
-
-    if(!$doc->isValid()) {
-        $has_errors = true;
-        $error_body = libxml_display_errors();
-    } else {
-        $has_errors = false;
-    }
-
-    $data = [
-        'hasErrors' => $has_errors,
-        'errorList' => $error_body,
-    ];
-
-    return $data;
-}
 /**
  * Стандартный механизм валидирования.
  *
