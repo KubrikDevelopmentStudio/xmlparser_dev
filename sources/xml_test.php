@@ -31,6 +31,7 @@ $msg_types = $app->get_message_types();
     <script type="text/javascript" src="../lib/js/animations/xml_test-anim.js"></script>
     <script type="text/javascript" src="../lib/js/redirects/xml_test-redir.js"></script>
     <script type="text/javascript" src="../lib/js/main.js"></script>
+    <script type="text/javascript" src="../lib/js/hints.js"></script>
 </head>
 <body>
 <div id="alert_message" class="alert alert-warning" role="alert">
@@ -56,7 +57,7 @@ $msg_types = $app->get_message_types();
         <h4 id="main_block_body_header" class="card-title">XML PARSER DEV</h4>
 
         <div class="card card-block">
-            <h4 class="card-title">STEP 1: Настройка XML</h4>
+            <h4 class="card-title">STEP 1: Настройка XML <i id="xml_setup_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
             <p class="card-text">Отформатируйте XML перед загрузкой!</p>
 
             <!--<button id="load_from_file_btn" class="btn btn-primary" disabled>Загрузить из файла...</button>-->
@@ -73,7 +74,7 @@ $msg_types = $app->get_message_types();
 
             <!--Таблица со списком xml-->
             <div class="card card-block" id="xml_table_list_block">
-                <h4 class="card-title">STEP 2: Выберите эталонную XML <i id="xml_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
+                <h4 class="card-title">STEP 2: Выберите эталонную XML <i id="xml_table_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
                 <table class="table table-striped" id="xml_table_list">
                     <thead>
                     <tr class="no-clickable">
@@ -113,7 +114,7 @@ $msg_types = $app->get_message_types();
 
         <!--Блок с SELECT для выбора типа сообщения-->
         <div id="select_message_block" class="card card-block">
-            <h4 class="card-title">STEP 3: Выбор XSD схемы</h4>
+            <h4 class="card-title">STEP 3: Выбор XSD схемы <i id="select_xsd_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
             <p class="card-text">Выберите XSD схему, если хотите использовать валидацияю по XSD</p>
             <form>
                 <div class="form-group">
@@ -124,12 +125,12 @@ $msg_types = $app->get_message_types();
                     </select>
                 </div>
             </form>
-            <button id="setup_xsd" type="button" class="btn btn-outline-info btn-sm">Настройка XSD</button>
+            <!--<button id="setup_xsd" type="button" class="btn btn-outline-info btn-sm">Настройка XSD</button>-->
         </div>
 
         <!--Блок для выбора параметров тестирования-->
         <div id="select_test_params_block" class="card card-block">
-            <h4 class="card-title">STEP 4: Параметры тестирования</h4>
+            <h4 class="card-title">STEP 4: Параметры тестирования <i id="test_param_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
             <p class="card-text">Отметьте необходимые параметры для тестирования.</p>
             <form id="test_params_form">
                 <div class="form-check">
@@ -185,11 +186,8 @@ $msg_types = $app->get_message_types();
             <div id="info_body_text" class="modal-body">
                 Исправте этот текст функцией show_model_info в main.js!
             </div>
-            <div class="modal-footer">
-                <button id="load_test_module_button" type="button" class="btn btn-outline-success">Ага</button>
-                <button id="load_create_module_button" type="button" class="btn btn-outline-danger"
-                        data-dismiss="modal">Отмена
-                </button>
+            <div id="info_footer" class="modal-footer">
+               
             </div>
         </div>
     </div>
