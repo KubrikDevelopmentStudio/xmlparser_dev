@@ -56,109 +56,99 @@ $msg_types = $app->get_message_types();
     <div class="card-block">
         <h4 id="main_block_body_header" class="card-title">XML PARSER DEV</h4>
 
-        <div class="card card-block">
-            <h4 class="card-title">STEP 1: Настройка XML <i id="xml_setup_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
-            <p class="card-text">Отформатируйте XML перед загрузкой!</p>
-
-            <!--<button id="load_from_file_btn" class="btn btn-primary" disabled>Загрузить из файла...</button>-->
-            <div class="form-group has-warning" id="input_xml_block">
-                <label class="form-control-label" for="inputWarning1">Вставьте отформатированную XML для проверки в блок ниже</label>
-                <textarea id="xml_input_area" class="form-control form-control-warning" rows="15" cols="45" name="text" placeholder="XML вставлять сюда"></textarea>
-                <div class="form-control-feedback">Теги должны располагаться строго по одному на строку!</div>
-                <small class="form-text text-muted">Важная подсказка!</small>
+        <!--Поле для вставки XML-->
+        <div class="row">
+            <div id="first_block" class="col-sm-6">
+                <div class="card card-block">
+                    <h4 class="card-title">STEP 1: Настройка XML <i id="xml_setup_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
+                    <p class="card-text">Отформатируйте XML перед загрузкой!</p>
+                    <div class="form-group has-warning" id="input_xml_block">
+                        <label class="form-control-label" for="inputWarning1">Вставьте отформатированную XML для проверки в блок ниже</label>
+                        <textarea id="xml_input_area" class="form-control form-control-warning" rows="15" cols="45" name="text" placeholder="XML вставлять сюда"></textarea>
+                        <div class="form-control-feedback">Теги должны располагаться строго по одному на строку!</div>
+                        <small class="form-text text-muted">Важная подсказка!</small>
+                    </div>            
+                    <!--<button id="cheat_button" type="button" class="btn btn-outline-info btn-sm">Загрузить эталонку</button>-->          
+                </div>
             </div>
-       
-            <button id="cheat_button" type="button" class="btn btn-outline-info btn-sm">Загрузить эталонку</button>
-            
-            <!--Таблица со списком xml-->
-            <div class="card card-block" id="xml_table_list_block">
-                <h4 class="card-title">STEP 2: Выберите эталонную XML <i id="xml_table_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
-                <table class="table table-bordered table-hover" id="xml_table_list">
-                    <thead>
-                    <tr class="no-clickable">
-                        <th>#</th>
-                        <th><i class="fa fa-calendar" aria-hidden="true"></i> Версия файла</th>
-                        <th><i class="fa fa-code" aria-hidden="true"></i> Тип</th>
-                        <th><i class="fa fa-file-text-o" aria-hidden="true"></i> Имя</th>
-                        <th><i class="fa fa-check-circle" aria-hidden="true"></i> Выбрать</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php echo $xml_table; ?>
-                    </tbody>
-                </table>
 
-                <!--Постраничная навигация внизу таблицы-->
-                <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
-                </nav>
+            <!--Таблица со списком xml-->
+            <div class="col-sm-6">
+                <div class="card card-block" id="xml_table_list_block">
+                    <h4 class="card-title">STEP 2: Выберите эталонную XML <i id="xml_table_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
+                    <table class="table table-bordered table-hover" id="xml_table_list">
+                        <thead>
+                        <tr class="no-clickable">
+                            <th>#</th>
+                            <th><i class="fa fa-calendar" aria-hidden="true"></i> Версия файла</th>
+                            <th><i class="fa fa-code" aria-hidden="true"></i> Тип</th>
+                            <th><i class="fa fa-file-text-o" aria-hidden="true"></i> Имя</th>
+                            <th><i class="fa fa-check-circle" aria-hidden="true"></i> Выбрать</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php echo $xml_table; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
         <!--Блок с SELECT для выбора типа сообщения-->
-        <div id="select_message_block" class="card card-block">
-            <h4 class="card-title">STEP 3: Выбор XSD схемы <i id="select_xsd_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
-            <p class="card-text">Выберите XSD схему, если хотите использовать валидацияю по XSD</p>
-            <form>
-                <div class="form-group">
-                    <label for="exampleSelect1">Тип</label>
-                    <select id="message_type_select" class="form-control" id="exampleSelect1">
-                        <option>Не использовать XSD</option>
-                        <?php echo $msg_types; ?>
-                    </select>
+        <div class="row">
+            <div class="col-sm-6">
+                <div id="select_message_block" class="card card-block">
+                    <h4 class="card-title">STEP 3: Выбор XSD схемы <i id="select_xsd_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
+                    <p class="card-text">Выберите XSD схему, если хотите использовать валидацияю по XSD</p>
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleSelect1">Тип</label>
+                            <select id="message_type_select" class="form-control" id="exampleSelect1">
+                                <option>Не использовать XSD</option>
+                                <?php echo $msg_types; ?>
+                            </select>
+                        </div>
+                    </form>
+                    <!--<button id="setup_xsd" type="button" class="btn btn-outline-info btn-sm">Настройка XSD</button>-->
                 </div>
-            </form>
-            <!--<button id="setup_xsd" type="button" class="btn btn-outline-info btn-sm">Настройка XSD</button>-->
+            </div>
+
+            <!--Блок для выбора параметров тестирования-->
+            <div class="col-sm-6">
+                <div id="select_test_params_block" class="card card-block">
+                    <h4 class="card-title">STEP 4: Параметры тестирования <i id="test_param_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
+                    <p class="card-text">Отметьте необходимые параметры для тестирования.</p>
+                    <form id="test_params_form">
+                        <div class="form-check">
+                            <label id="defaul_validation_param" class="form-check-label text-muted">
+                                <input type="checkbox" data-param="DEFAULT" class="form-check-input" disabled>
+                                Стандартная валидация (требует XSD схемы)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" data-param="MY_TEST" class="form-check-input">
+                                Сравнение двух XML
+                            </label>
+                        </div>                     
+                    </form>
+                </div>
+            </div>
         </div>
 
-        <!--Блок для выбора параметров тестирования-->
-        <div id="select_test_params_block" class="card card-block">
-            <h4 class="card-title">STEP 4: Параметры тестирования <i id="test_param_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
-            <p class="card-text">Отметьте необходимые параметры для тестирования.</p>
-            <form id="test_params_form">
-                <div class="form-check">
-                    <label id="defaul_validation_param" class="form-check-label text-muted">
-                        <input type="checkbox" data-param="DEFAULT" class="form-check-input" disabled>
-                        Стандартная валидация (требует XSD схемы)
-                    </label>
-                </div>
-                <!--<div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" data-param="TEST" class="form-check-input">
-                        Тест
-                    </label>
-                </div>-->
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" data-param="MY_TEST" class="form-check-input">
-                        Сравнение двух XML
-                    </label>
-                </div>
-                <hr>
-                <button id="launch_test" type="button" class="btn btn-success" disabled>Начать тестирование</button>
-            </form>
+        <div id="prepare_for_start" class="card card-block text-xs-center">
+            <h4 class="card-title">Все готово для начала тестирования!</h4>
+            <p class="card-text">Сядьте поудобнее, заварите кофе, поставьте рядом печеньки и приготовьтесь... Что произойдет дальше, никому неизвестно...</p>
+            <hr>
+            <button id="launch_test" type="button" class="btn btn-success" disabled>Начать тестирование</button>
         </div>
+        
         <!--КОНЕЦ: Блок для выбора параметров тестирования-->
 
         <!--Блок Вывода информации о результатах валидации-->
         <div id="validation_results_block" class="card card-block">
 
-            <h4 id="TEST_HEADER"      class="card-title">STEP 5: Результаты тестирования</h4>
+            <h4 id="TEST_HEADER"      class="card-title">Результаты тестирования</h4>
             <p  id="TEST_DESCRIPTION" class="card-text">Тут можно выводить описание тестирования.</p>
 
         </div>
