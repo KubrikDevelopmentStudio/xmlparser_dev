@@ -73,8 +73,8 @@ switch ($_REQUEST['action']) {
                         $validResult = default_validation($xml, $xsd);
 
                         $data = [
-                            'test_caption' => "schema validation",
-                            'test_description' => "description schema",
+                            'test_caption' => "Валидация по XSD схеме",
+                            'test_description' => "Для проверки используется функция schemaValidate()",
                         ];
 
                         $data = array_merge($data, $validResult);
@@ -99,8 +99,8 @@ switch ($_REQUEST['action']) {
                         sort($temp_arr);
 
                         $data = [
-                            'test_caption' => "my validation",
-                            'test_description' => "desscription my test",
+                            'test_caption' => "мой тестик",
+                            'test_description' => "На пол-Фёдора работающий тест.",
                             
                             'all_tags_in_first_xml' => $validResult['TAGS_COUNT_IN_XML'],
                             'all_tags_in_comparer_xml' => $validResult['TAGS_COUNT_IN_COMPARER_XML'],
@@ -302,10 +302,10 @@ function custom_validation2($xml, $xml_comparer_text) {
         $tag_value = $first_xml_values[$i]['TAG_VALUE']; 
         $line      = $first_xml_values[$i]['LINE']; 
 
-        
         $tag_exists_bool = false;
         $tag_value_bool  = false;
 
+        $tag_value_found = "";
         /*Проверка на наличие текущего тега в проверяемой XML.
           Если тег найден, идет проверка на соответствие значения тегов.*/
         for($f_index = 0; $f_index < count($second_xml_values); $f_index++) {
@@ -315,12 +315,15 @@ function custom_validation2($xml, $xml_comparer_text) {
                     $tag_value_bool = true;
                 }*/
                 for($s_index = 0; $s_index < count($second_xml_values); $s_index++) {
-                    if($tag_value === $second_xml_values[$s_index]['TAG_VALUE']) {
-                        $tag_value_bool = true;
+                    if($tag_name === $second_xml_values[$s_index]['TAG_NAME']) {
+                        if($tag_value === $second_xml_values[$s_index]['TAG_VALUE']) {
+                            $tag_value_bool = true;
+                        } else {
+                            $tag_value_found = $second_xml_values[$s_index]['TAG_VALUE'];
+                        }
                     }
                 }
-                /*break;*/
-            }
+            }      
         }
 
         /*Если небыл найден тег, генерируем сообщение об ошибке.*/
@@ -334,11 +337,11 @@ function custom_validation2($xml, $xml_comparer_text) {
         }
 
         /*Если найденные теги, имели разное значение, генерируем предупреждение.*/
-        if(!$tag_value_bool) {
+        if(!$tag_value_bool && $tag_exists_bool) {
              $difference[] = [
                 "ERROR_TYPE" => "WARNING",
                 "HEADER" => "[Неверное значение]",
-                "MESSAGE" => htmlspecialchars("Тег <" . $tag_name . "> со значением: '" . $tag_value . "' не найден в проверяемой XML.") ,
+                "MESSAGE" => htmlspecialchars("Тег <" . $tag_name . "> имеет неверное значение '" . $tag_value_found . "', ожидаемое значение '" . $tag_value . "'") ,
                 "LINE" => $i + 1
                 ];  
         }
@@ -370,7 +373,6 @@ function custom_validation2($xml, $xml_comparer_text) {
     $all_tags_comparer = count($strings2);
 
     return [
-    //    'da' => $first_xml_values,
        'TAGS_COUNT_IN_XML' => $all_tags_best,
        'TAGS_COUNT_IN_COMPARER_XML' => $all_tags_comparer,
 
@@ -419,17 +421,17 @@ function libxml_display_error($error) {
 
         case LIBXML_ERR_WARNING:
             $return['ERROR_TYPE'] = "WARNING";
-            $return['HEADER'] = "[WARNING] code: $error->code: ";
+            $return['HEADER'] = "[Предупреждение] код: $error->code: ";
             break;
 
         case LIBXML_ERR_ERROR:
             $return['ERROR_TYPE'] = "ERROR";
-            $return['HEADER'] = "[ERROR] code: $error->code: ";
+            $return['HEADER'] = "[Ошибка] код: $error->code: ";
             break;
 
         case LIBXML_ERR_FATAL:
             $return['ERROR_TYPE'] = "FATAL_ERROR";
-            $return['HEADER'] = "[FATAL ERROR] code: $error->code: ";
+            $return['HEADER'] = "[Фатальная ошибка] код: $error->code: ";
             break;
 
     }

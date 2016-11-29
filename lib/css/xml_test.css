@@ -2,13 +2,13 @@
 
 /*Основной блок с контентом*/
 #main_block, #alert_message {
-    width: 80%;
+    width: 50%;
     height: auto;
     margin: 50px auto;
 }
 
 
-#main_block_body_header{
+#main_block_body_header, #TEST_HEADER, #TEST_DESCRIPTION {
     text-align: center;
 }
 
@@ -22,7 +22,9 @@
 
 
 #message_type_select {
-    width: 35%;
+    /*width: 35%;*/
+    max-width: 45%;
+    cursor: pointer;
 }
 
 #setup_xsd {
@@ -30,7 +32,9 @@
 }
 
 
-#select_message_block, #select_test_params_block, #validation_results_block, #xml_table_list_block {
+#select_message_block, #select_test_params_block, 
+#validation_results_block, #xml_table_list_block, 
+#prepare_for_start {
     display: none;
 }
 
@@ -52,6 +56,10 @@
 }
 
 
-#input_xml_block {
-    width: 40%;
+#input_xml_block, #first_block {
+    width: 100%;
+}
+
+tr {
+    cursor: pointer;
 }
