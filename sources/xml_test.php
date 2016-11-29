@@ -56,19 +56,25 @@ $msg_types = $app->get_message_types();
         <h4 id="main_block_body_header" class="card-title">XML PARSER DEV</h4>
 
         <div class="card card-block">
-            <h4 class="card-title">Выберите способ загрузки XML</h4>
-            <p class="card-text">Выберите XML для загрузки из списка ниже, или укажить путь до неё.</p>
+            <h4 class="card-title">STEP 1: Настройка XML</h4>
+            <p class="card-text">Отформатируйте XML перед загрузкой!</p>
 
-            <button id="load_from_file_btn" class="btn btn-primary" disabled>Загрузить из файла...</button>
+            <!--<button id="load_from_file_btn" class="btn btn-primary" disabled>Загрузить из файла...</button>-->
+
+            <div class="form-group has-warning" id="input_xml_block">
+                <label class="form-control-label" for="inputWarning1">Вставьте отформатированную XML для проверки в блок ниже</label>
+                <textarea id="xml_input_area" class="form-control form-control-warning" rows="15" cols="45" name="text" placeholder="XML вставлять сюда"></textarea>
+                <div class="form-control-feedback">Теги должны располагаться строго по одному на строку!</div>
+                <small class="form-text text-muted">Важная подсказка!</small>
+            </div>
 
             <button id="cheat_button" type="button" class="btn btn-outline-info btn-sm">Загрузить эталонку</button>
-            <br><br>
+            
 
             <!--Таблица со списком xml-->
-            <div class="card card-block">
-                <h4 class="card-title">Существующие XML <i id="xml_help" class="fa fa-info-circle"
-                                                           aria-hidden="true"></i></h4>
-                <table class="table table-striped">
+            <div class="card card-block" id="xml_table_list_block">
+                <h4 class="card-title">STEP 2: Выберите эталонную XML <i id="xml_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
+                <table class="table table-striped" id="xml_table_list">
                     <thead>
                     <tr>
                         <th>#</th>
@@ -84,8 +90,7 @@ $msg_types = $app->get_message_types();
                 </table>
 
                 <!--Постраничная навигация внизу таблицы-->
-                <nav aria-label="Page navigation"
-                ">
+                <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li class="page-item">
                         <a class="page-link" href="#" aria-label="Previous">
@@ -108,13 +113,13 @@ $msg_types = $app->get_message_types();
 
         <!--Блок с SELECT для выбора типа сообщения-->
         <div id="select_message_block" class="card card-block">
-            <h4 class="card-title">Выбор XSD схемы</h4>
-            <p class="card-text">Выберите XSD схему, для валидирования выбранной выше XML.</p>
+            <h4 class="card-title">STEP 3: Выбор XSD схемы</h4>
+            <p class="card-text">Выберите XSD схему, если хотите использовать валидацияю по XSD</p>
             <form>
                 <div class="form-group">
                     <label for="exampleSelect1">Тип</label>
                     <select id="message_type_select" class="form-control" id="exampleSelect1">
-                        <option>Выбрать</option>
+                        <option>Не использовать XSD</option>
                         <?php echo $msg_types; ?>
                     </select>
                 </div>
@@ -124,19 +129,25 @@ $msg_types = $app->get_message_types();
 
         <!--Блок для выбора параметров тестирования-->
         <div id="select_test_params_block" class="card card-block">
-            <h4 class="card-title">Параметры тестирования</h4>
+            <h4 class="card-title">STEP 4: Параметры тестирования</h4>
             <p class="card-text">Отметьте необходимые параметры для тестирования.</p>
             <form id="test_params_form">
                 <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" data-param="DEFAULT" class="form-check-input">
-                        Первый параметр
+                    <label id="defaul_validation_param" class="form-check-label text-muted">
+                        <input type="checkbox" data-param="DEFAULT" class="form-check-input" disabled>
+                        Стандартная валидация (требует XSD схемы)
                     </label>
                 </div>
+                <!--<div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" data-param="TEST" class="form-check-input">
+                        Тест
+                    </label>
+                </div>-->
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" data-param="MY_VALIDATION" class="form-check-input">
-                        Второй параметр
+                        <input type="checkbox" data-param="MY_TEST" class="form-check-input">
+                        Сравнение двух XML
                     </label>
                 </div>
                 <hr>
@@ -148,18 +159,16 @@ $msg_types = $app->get_message_types();
         <!--Блок Вывода информации о результатах валидации-->
         <div id="validation_results_block" class="card card-block">
 
-            <h4 id="TEST_HEADER"      class="card-title">Результаты тестирования</h4>
+            <h4 id="TEST_HEADER"      class="card-title">STEP 5: Результаты тестирования</h4>
             <p  id="TEST_DESCRIPTION" class="card-text">Тут можно выводить описание тестирования.</p>
 
-            <div class="row">
+            <!--<div class="row">
 
                 <div class="col-sm-6">
                     <div id="FIRST_TEST_RESULT_BLOCK" class="card card-block">
                         <h3 id="FIRST_HEADER_BLOCK" class="card-title">Заголовок первого блока</h3>
                         <p  id="FIRST_DESCRIPTION_BLOCK" class="card-text">Описание первого блока.</p>
-                        <div id="xml_content">
 
-                        </div>
                         <text id="FIRST_BODY_BLOCK"></text>
                     </div>
                 </div>
@@ -167,13 +176,13 @@ $msg_types = $app->get_message_types();
                 <div class="col-sm-6">
                     <div id="SECOND_TEST_RESULT_BLOCK" class="card card-block">
                         <h3 id="SECOND_HEADER_BLOCK" class="card-title">Заголовок второго блока</h3>
-                        <p  id="SECOND_DESCRIPTION_BLOCK" class="card-text">Описание второго блока.</p>
+                        <p  id="SECOND_DESCRIPTION_BLOCK" class="card-text">Супер-мего тестирование от Торвальдса</p>
 
                         <text id="SECOND_BODY_BLOCK"></text>
                     </div>
                 </div>
 
-            </div>
+            </div>-->
         </div>
         <!--КОНЕЦ: Блок Вывода информации о результатах валидации-->
     </div>

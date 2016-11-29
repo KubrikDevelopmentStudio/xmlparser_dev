@@ -15,6 +15,9 @@
 
 #cheat_button {
     float: right;
+
+    /*Временное решение, пока не решу, зачем мне эта кнопка*/
+    display: none;
 }
 
 
@@ -27,7 +30,7 @@
 }
 
 
-#select_message_block, #select_test_params_block, #validation_results_block {
+#select_message_block, #select_test_params_block, #validation_results_block, #xml_table_list_block {
     display: none;
 }
 
@@ -46,4 +49,9 @@
     border: 2px solid #E8C48F; /* рамка 25px */
     padding: 20px;              /* поля 20px */
     overflow: auto;             /* прокрутка */
+}
+
+
+#input_xml_block {
+    width: 40%;
 }
