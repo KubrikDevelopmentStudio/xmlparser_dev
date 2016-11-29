@@ -61,21 +61,19 @@ $msg_types = $app->get_message_types();
             <p class="card-text">Отформатируйте XML перед загрузкой!</p>
 
             <!--<button id="load_from_file_btn" class="btn btn-primary" disabled>Загрузить из файла...</button>-->
-
             <div class="form-group has-warning" id="input_xml_block">
                 <label class="form-control-label" for="inputWarning1">Вставьте отформатированную XML для проверки в блок ниже</label>
                 <textarea id="xml_input_area" class="form-control form-control-warning" rows="15" cols="45" name="text" placeholder="XML вставлять сюда"></textarea>
                 <div class="form-control-feedback">Теги должны располагаться строго по одному на строку!</div>
                 <small class="form-text text-muted">Важная подсказка!</small>
             </div>
-
+       
             <button id="cheat_button" type="button" class="btn btn-outline-info btn-sm">Загрузить эталонку</button>
             
-
             <!--Таблица со списком xml-->
             <div class="card card-block" id="xml_table_list_block">
                 <h4 class="card-title">STEP 2: Выберите эталонную XML <i id="xml_table_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
-                <table class="table table-striped" id="xml_table_list">
+                <table class="table table-bordered table-hover" id="xml_table_list">
                     <thead>
                     <tr class="no-clickable">
                         <th>#</th>
