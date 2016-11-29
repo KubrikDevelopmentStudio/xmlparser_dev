@@ -76,7 +76,7 @@ $msg_types = $app->get_message_types();
                 <h4 class="card-title">STEP 2: Выберите эталонную XML <i id="xml_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
                 <table class="table table-striped" id="xml_table_list">
                     <thead>
-                    <tr>
+                    <tr class="no-clickable">
                         <th>#</th>
                         <th><i class="fa fa-calendar" aria-hidden="true"></i> Версия файла</th>
                         <th><i class="fa fa-code" aria-hidden="true"></i> Тип</th>
@@ -162,27 +162,6 @@ $msg_types = $app->get_message_types();
             <h4 id="TEST_HEADER"      class="card-title">STEP 5: Результаты тестирования</h4>
             <p  id="TEST_DESCRIPTION" class="card-text">Тут можно выводить описание тестирования.</p>
 
-            <!--<div class="row">
-
-                <div class="col-sm-6">
-                    <div id="FIRST_TEST_RESULT_BLOCK" class="card card-block">
-                        <h3 id="FIRST_HEADER_BLOCK" class="card-title">Заголовок первого блока</h3>
-                        <p  id="FIRST_DESCRIPTION_BLOCK" class="card-text">Описание первого блока.</p>
-
-                        <text id="FIRST_BODY_BLOCK"></text>
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div id="SECOND_TEST_RESULT_BLOCK" class="card card-block">
-                        <h3 id="SECOND_HEADER_BLOCK" class="card-title">Заголовок второго блока</h3>
-                        <p  id="SECOND_DESCRIPTION_BLOCK" class="card-text">Супер-мего тестирование от Торвальдса</p>
-
-                        <text id="SECOND_BODY_BLOCK"></text>
-                    </div>
-                </div>
-
-            </div>-->
         </div>
         <!--КОНЕЦ: Блок Вывода информации о результатах валидации-->
     </div>
