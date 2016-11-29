@@ -30,7 +30,7 @@ $msg_types = $app->get_message_types();
 
     <script type="text/javascript" src="../lib/js/animations/xml_test-anim.js"></script>
     <script type="text/javascript" src="../lib/js/redirects/xml_test-redir.js"></script>
-    <script type="text/javascript" src="../lib/js/main.js"></script>
+    <script type="text/javascript" src="../lib/js/xml_test-main.js"></script>
     <script type="text/javascript" src="../lib/js/hints.js"></script>
 </head>
 <body>
