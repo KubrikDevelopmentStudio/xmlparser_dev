@@ -210,7 +210,7 @@ function save_to_file($text) {
     $file_name = uniqid();
     $full_file_name = "../data/temp/" . $file_name . ".xml";
 
-    $resut = file_put_contents("../data/temp/" . $file_name . ".xml", $text);
+    $result = file_put_contents("../data/temp/" . $file_name . ".xml", $text);
   
     return $result !== false ? $full_file_name : false; 
 }
