@@ -46,32 +46,51 @@
  *) 
  */
 
-switch ($_REQUEST['action']) {
 
+$all_params = 0;
+$current_param = 0;
+
+switch ($_REQUEST['action']) {
     case 'validateXml':
 
         $xml               = $_REQUEST['xml_doc']           ? $_REQUEST['xml_doc']           : null;
         $xml_comparer_text = $_REQUEST['xml_comparer_text'] ? $_REQUEST['xml_comparer_text'] : null;
         $xsd               = $_REQUEST['xsd_doc']           ? $_REQUEST['xsd_doc']           : null;
         $params            = $_REQUEST['test_params']       ? $_REQUEST['test_params']       : null;
-
+        
+        $all_params = count($params);
+        
         if(isset($xml) && (isset($xsd) || isset($xml_comparer_text))) {
-
+            $global_data = [];
             foreach ($params as $param) {
                 switch ($param) {
                     /**
                      * Стандартный тест валидирования.
                      */
                     case 'DEFAULT':
+                        $current_param++;                      
 
-                        $data = default_validation($xml, $xsd);
+                        $validResult = default_validation($xml, $xsd);
 
-                        print_r(json_encode($data));
-                        die();
+                        $data = [
+                            'test_caption' => "schema validation",
+                            'test_description' => "description schema",
+                        ];
+
+                        $data = array_merge($data, $validResult);
+                        $global_data[] = array_merge($global_data, $data);
+
+                        if($current_param === $all_params) {
+                            print_r(json_encode($global_data));
+                        }
+
+                        /*die();*/
                         
                         break;
 
                     case 'MY_TEST':
+                        $current_param++;
+
                         $validResult = custom_validation2($xml, $xml_comparer_text);
 
                         $temp_arr = [];
@@ -80,7 +99,8 @@ switch ($_REQUEST['action']) {
                         sort($temp_arr);
 
                         $data = [
-                            'hasErrors' => "1",
+                            'test_caption' => "my validation",
+                            'test_description' => "desscription my test",
                             
                             'all_tags_in_first_xml' => $validResult['TAGS_COUNT_IN_XML'],
                             'all_tags_in_comparer_xml' => $validResult['TAGS_COUNT_IN_COMPARER_XML'],
@@ -88,17 +108,20 @@ switch ($_REQUEST['action']) {
                             'errorList' => $temp_arr
                         ];
 
-                        // $data = $validResult;
+                        $global_data[] = array_merge($global_data, $data);
 
-                        print_r(json_encode($data));
-                        die();
+                        if($current_param === $all_params) {
+                            print_r(json_encode($global_data));
+                        }
+
+                        /*die();*/
 
                         break;
                 }
             }
         }
         die();
-        
+
         break;
 }
 
@@ -372,14 +395,11 @@ function default_validation($xml, $xsd) {
     $xmlDoc = new DOMDocument();
     $xmlDoc->loadXML($xml);
 
-    $has_errors = false;
     if (!$xmlDoc->schemaValidate($xsd)) {
-        $has_errors = true;
         $error_body = libxml_display_errors();
     }
 
     $data = [
-        'hasErrors' => $has_errors,
         'errorList' => $error_body
     ];
 

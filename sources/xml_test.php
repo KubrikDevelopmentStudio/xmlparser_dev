@@ -63,7 +63,7 @@ $msg_types = $app->get_message_types();
 
             <div class="form-group has-warning" id="input_xml_block">
                 <label class="form-control-label" for="inputWarning1">Вставьте отформатированную XML для проверки в блок ниже</label>
-                <textarea id="xml_input_area" class="form-control form-control-warning" rows="20" cols="45" name="text" placeholder="XML вставлять сюда"></textarea>
+                <textarea id="xml_input_area" class="form-control form-control-warning" rows="15" cols="45" name="text" placeholder="XML вставлять сюда"></textarea>
                 <div class="form-control-feedback">Теги должны располагаться строго по одному на строку!</div>
                 <small class="form-text text-muted">Важная подсказка!</small>
             </div>
@@ -162,13 +162,13 @@ $msg_types = $app->get_message_types();
             <h4 id="TEST_HEADER"      class="card-title">STEP 5: Результаты тестирования</h4>
             <p  id="TEST_DESCRIPTION" class="card-text">Тут можно выводить описание тестирования.</p>
 
-            <div class="row">
+            <!--<div class="row">
 
                 <div class="col-sm-6">
                     <div id="FIRST_TEST_RESULT_BLOCK" class="card card-block">
                         <h3 id="FIRST_HEADER_BLOCK" class="card-title">Заголовок первого блока</h3>
                         <p  id="FIRST_DESCRIPTION_BLOCK" class="card-text">Описание первого блока.</p>
-                        <!--<div id="xml_content"></div>-->
+
                         <text id="FIRST_BODY_BLOCK"></text>
                     </div>
                 </div>
@@ -182,7 +182,7 @@ $msg_types = $app->get_message_types();
                     </div>
                 </div>
 
-            </div>
+            </div>-->
         </div>
         <!--КОНЕЦ: Блок Вывода информации о результатах валидации-->
     </div>
