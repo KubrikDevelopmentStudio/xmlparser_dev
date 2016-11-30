@@ -5,18 +5,6 @@
  * Date: 23.11.16
  * Time: 0:12
  */
-
-require_once "../classes/Application.php";
-
-$app = new Application();
-
-$app->load_schema('xsd', '../data/xsds/CC');
-$app->load_schema('xml', '../data/custom_xmls');
-
-
-$xml_table = $app->get_xml_table();
-$msg_types = $app->get_message_types();
-
 ?>
 
 <html>
@@ -27,9 +15,12 @@ $msg_types = $app->get_message_types();
 
     <script type="text/javascript" src="../lib/jquery/jquery-3.1.1.js"></script>
     <script type="text/javascript" src="../lib/bootstrap4/js/bootstrap.js"></script>
-
+    
+    <script type="text/javascript" src="../lib/js/gen-xml-table.lib.js"></script>
+    <script type="text/javascript" src="../lib/js/gen-xsd-table.lib.js"></script>
+    <script type="text/javascript" src="../lib/js/gen-param.lib.js"></script>
     <script type="text/javascript" src="../lib/js/animations/xml_test-anim.js"></script>
-    <script type="text/javascript" src="../lib/js/redirects/xml_test-redir.js"></script>
+    <script type="text/javascript" src="../lib/js/redirects/xml_test-redir.js"></script>   
     <script type="text/javascript" src="../lib/js/main.js"></script>
     <script type="text/javascript" src="../lib/js/hints.js"></script>
 </head>
@@ -86,8 +77,8 @@ $msg_types = $app->get_message_types();
                             <th><i class="fa fa-check-circle" aria-hidden="true"></i> Выбрать</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <?php echo $xml_table; ?>
+                        <tbody id="xml_table_body">
+                            <!--Генерация происходит в файле: gen-xml-table.lib.js-->    
                         </tbody>
                     </table>
                 </div>
@@ -105,7 +96,7 @@ $msg_types = $app->get_message_types();
                             <label for="exampleSelect1">Тип</label>
                             <select id="message_type_select" class="form-control" id="exampleSelect1">
                                 <option>Не использовать XSD</option>
-                                <?php echo $msg_types; ?>
+                                    <!--Генерация происходит в файле: gen-xsd-table.lib.js-->
                             </select>
                         </div>
                     </form>
@@ -118,19 +109,8 @@ $msg_types = $app->get_message_types();
                 <div id="select_test_params_block" class="card card-block">
                     <h4 class="card-title">STEP 4: Параметры тестирования <i id="test_param_help" class="fa fa-info-circle" aria-hidden="true"></i></h4>
                     <p class="card-text">Отметьте необходимые параметры для тестирования.</p>
-                    <form id="test_params_form">
-                        <div class="form-check">
-                            <label id="defaul_validation_param" class="form-check-label text-muted">
-                                <input type="checkbox" data-param="DEFAULT" class="form-check-input" disabled>
-                                Стандартная валидация (требует XSD схемы)
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input type="checkbox" data-param="MY_TEST" class="form-check-input">
-                                Сравнение двух XML
-                            </label>
-                        </div>                     
+                    <form id="test_params_form">                     
+                        <!--Генерация происходит в файле: gen-param.lib.js-->    
                     </form>
                 </div>
             </div>
