@@ -46,6 +46,16 @@
  *) 
  */
 
+require_once "../classes/Application.php";
+
+$app = new Application();
+
+$app->load_schema('xsd', '../data/xsds/CC');
+$app->load_schema('xml', '../data/custom_xmls');
+
+$xml_table = $app->get_xml_table();
+$msg_types = $app->get_message_types();
+
 
 $all_params = 0;
 $current_param = 0;
@@ -123,25 +133,28 @@ switch ($_REQUEST['action']) {
         die();
 
         break;
-}
 
+        case 'getXSDschemas':
+            $has_values = (!empty($msg_types) && $msg_types !== null) ? true : false;
+            $data = [
+                'has_values' => $has_values,
+                'xsd_table' => $msg_types
+            ];
 
+            print_r(json_encode($data));
+            die();
+            break;
 
-// Функция выполняющая рекурсивный спуск по массиву
-function xml2array($arr)
-{
-    if(is_array($arr))
-    {
-        for($i = 0; $i < count($arr); $i++) {
-            if(is_array($arr[$i])) {
-                recursion($arr[$i]);
-            } else {
-                return $arr[$i];
-            }
-        }
-    } else {
-        return $arr;
-    }
+        case 'getXMLtables':
+            $has_values = (!empty($xml_table) && $xml_table !== null) ? true : false;
+            $data = [
+                'has_values' => $has_values,
+                'xml_table' => $xml_table
+            ];
+
+            print_r(json_encode($data));
+            die();
+            break;
 }
 
 
