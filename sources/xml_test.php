@@ -16,27 +16,25 @@
     <script type="text/javascript" src="../lib/jquery/jquery-3.1.1.js"></script>
     <script type="text/javascript" src="../lib/bootstrap4/js/bootstrap.js"></script>
     
-    <script type="text/javascript" src="../lib/js/gen-xml-table.lib.js"></script>
-    <script type="text/javascript" src="../lib/js/gen-xsd-table.lib.js"></script>
-    <script type="text/javascript" src="../lib/js/gen-param.lib.js"></script>
+    <script type="text/javascript" src="../lib/js/generation/gen-xml-table.lib.js"></script>
+    <script type="text/javascript" src="../lib/js/generation/gen-xsd-table.lib.js"></script>
+    <script type="text/javascript" src="../lib/js/generation/gen-param.lib.js"></script>
+
     <script type="text/javascript" src="../lib/js/animations/xml_test-anim.js"></script>
-    <script type="text/javascript" src="../lib/js/redirects/xml_test-redir.js"></script>   
-    <script type="text/javascript" src="../lib/js/main.js"></script>
-    <script type="text/javascript" src="../lib/js/hints.js"></script>
+    <script type="text/javascript" src="../lib/js/redirects/xml_test-redir.js"></script>  
+
+    <script type="text/javascript" src="../lib/js/xml_test-main.js"></script>
+    <script type="text/javascript" src="../lib/js/xml_test-hints.js"></script>
 </head>
 <body>
-<div id="alert_message" class="alert alert-warning" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <text id="header_text" style="font-weight: bold"></text>
-    <text id="body_text"></text>
-    <?php if (!empty($app->errorMsg)) {
-        foreach ($app->errorMsg as $message) {
-            echo $message;
-        }
-    } ?>
-</div>
+<!--<div id="alert_message" class="alert alert-warning" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <text id="header_text" style="font-weight: bold"></text>
+        <text id="body_text"></text>
+    
+    </div>-->
 
 
 <div id="main_block" class="card">
