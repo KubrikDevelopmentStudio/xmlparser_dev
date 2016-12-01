@@ -23,6 +23,6 @@
     <script type="text/javascript" src="../lib/js/xml_create-hints.js"></script>
 </head>
 <body>
-
+    <!--Тут типо создание новой XML!-->
 </body>
 </html>
