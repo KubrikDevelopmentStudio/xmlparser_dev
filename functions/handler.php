@@ -178,58 +178,45 @@ function readXmlDoc($doc_path) {
     return $read_arr;
 }
 
-
 /**
-*    Получение имени тега между скобок <tag>
+*   Функция возвращает инфомрацию о текущем теге.
 */
-function getTagName($tag) {
+function get_tag_info($string, $line) {
+    $tag_name;
+    $tag_value;
+    $tag_line = $line + 1;
+    $tag_parent = "NOT_READY";
+
     $_match;
-    if(preg_match('/(?=\<)(.*?)(?=\>)/', $tag, $_match)) {
-        $tag_name = preg_replace('/</', '', $_match);
-
-        /*Костыль на обрезание закрывающего слеша, проблема в том,
-          если тег имеет вид <tag/>, он по сути является (пустым или сгенерился неверно), 
-          нужно это отловить, но не здесь! Как-то выяснить это при присваении тегу значения TAG_VALUE,
-          чтобы правильно потом обработать тег при парсинге.*/
-        $index = stripos($tag_name[0], '/');
-
-        if($idnex !== false) {
-            if($index == 0) {
-                $tag_name[0] = substr($tag_name[0], $index);
-                return $tag_name[0];
-            } else {
-                $tag_name[0] = substr($tag_name[0], 0, $index);
-                return $tag_name[0];
-            }
-        }
-
-        return is_array($tag_name) ? $tag_name[0] : $tag_name;
+    if(preg_match('/<(.*?)\/>/', $string, $_match)) {
+        $tag_name = $_match[1];
+        $tag_value = "ERROR_TAG";
+        $tag_line = $line + 1;
     } else {
-        return null;
-    }
-}
-
-
-/**
-*    Получение значение тега между скобок <tag>tag_value</tag>
-*/
-function getTagValue($tag) {
-    $_match = [];
-    if(preg_match_all('/(?=\>)(.*?)(?=\<)/', $tag, $_match)) {
-        $value = preg_replace('/>/', '', $_match[0]);
-        if($value !== "" && $value[0] !== null) {
-            return $value[0];
-        } else {
-            return "EMPTY_TAG";
-        }
-    } else {
-        /*return "OPEN_TAG";*/
-        if(preg_match('/\//', $tag)) {
-            return "CLOSE_TAG";
-        } else {
-            return "OPEN_TAG";
+        if(preg_match('/<([^\/].*?)>/', $string, $_match)) {
+             $tag_name = $_match[1];
+             if(preg_match('/>(.*?)</', $string, $_match)) {
+                 if(isset($_match[1])) {
+                     $tag_value = $_match[1];
+                     
+                 } else {
+                     $tag_value = "EMPTY_TAG";
+                 }
+             } else {
+                 $tag_value = "OPEN_TAG";
+             }
+        } else if(preg_match('/<\/(.*?)>/', $string, $_match)) {
+            $tag_name = $_match[1];
+            $tag_value = "CLOSE_TAG";
         }
     }
+
+    return [
+        'TAG_NAME' => $tag_name,
+        'TAG_VALUE' => $tag_value,
+        'TAG_PARENT' => $tag_parent,
+        'LINE' => $tag_line,
+    ];
 }
 
 
@@ -238,24 +225,28 @@ function getTagValue($tag) {
 *
 *    Необходимо передать массив с XML и тег, родителя которого необходимо получить.
 */
-function getTagParents($xml_values, $line, $all_parents = false) {
+function parents($xml, $id, $all_parents = false) {
+    $parents;
     if($all_parents) {
-        $tag_parents = "";
-        for($i = 0; $i < $line - 1; $i++) {
-            if($xml_values[$i]['TAG_VALUE'] === 'OPEN_TAG') {
-                $tag_parents .= $xml_values[$i]['TAG_NAME'] . "/";
+        for($i = 0; $i < $id; $i++) {
+            if($xml[$i]['TAG_VALUE'] === 'OPEN_TAG') {
+                $parents .= $xml[$i]['TAG_NAME'] . "/";
             }
-        }
-        return $tag_parents;
+        }       
+        return !empty($parents) ? $parents : "NO_PARENT";
     } else {
-        for($i = $line - 1; $i >= 0; $i--) {
-            if($xml_values[$i]['TAG_VALUE'] === 'OPEN_TAG') {
-                return $xml_values[$i]['TAG_NAME'];
+        if(isset($xml[$id - 1])) {
+            for($i = ($id - 1); $i >= 0; $i--) {
+                if($xml[$i]['TAG_VALUE'] === 'OPEN_TAG') {
+                    return $xml[$i]['TAG_NAME'];
+                }
             }
+        } else {
+            return "NO_PARENT";
         }
+        return "NO_PARENT";
     }
 }
-
 
 /**
 *    Сохранение переданной в виде текста XML в temp файл с уникальным именем.
@@ -297,14 +288,13 @@ function custom_validation2($xml, $xml_comparer_text) {
     if(count($strings1) == count($strings2)) {
         $count = count($strings1);
     } else if(count($strings1) > count($strings2)) {
-        $count = count($strings2);
+        $count = count($strings1);
         $priority = 1;
     } else {
-        $count = count($strings1);
+        $count = count($strings2);
         $priority = 2;
     }
 
-    $count = count($strings1);
     //Значения тегов из эталонной xml
     $first_xml_values = [];
 
@@ -313,31 +303,12 @@ function custom_validation2($xml, $xml_comparer_text) {
     
     /*Получение тегов и значений из всех XML*/
     for($i = 0; $i < $count; $i++) {
-
-        //Получаем тег и его значение из эталонной xml.     
-        if(($tag = getTagName($strings1[$i])) !== null) {
-            if(($value = getTagValue($strings1[$i])) !== null) {
-                $first_xml_values[] = [
-                    "TAG_NAME" => $tag,     /*Имя тега*/
-                    "TAG_VALUE" => $value,  /*Значение тега*/
-                    "TAG_PARENT" => getTagParents($first_xml_values, $i + 1),
-                    "LINE" => $i + 1        /*На какой строке находится*/
-                ];
-            }
-        }
-
-        //Получаем тег и его значение из проверяемой xml.
-        if(($tag = getTagName($strings2[$i])) !== null) {
-            if(($value = getTagValue($strings2[$i])) !== null) {
-                $second_xml_values[] = [
-                    "TAG_NAME" => $tag,     /*Имя тега*/
-                    "TAG_VALUE" => $value,  /*Значение тега*/
-                    "TAG_PARENT" => getTagParents($second_xml_values, $i + 1),
-                    "LINE" => $i + 1        /*На какой строке находится*/
-                ];
-            }
-        }       
+        $first_xml_values[] = get_tag_info($strings1[$i], $i);
+        $second_xml_values[] = get_tag_info($strings2[$i], $i);             
     }
+
+    print_r($first_xml_values);
+    die();
 
     /*Отсутствующие теги*/
     $difference = [];
@@ -369,23 +340,24 @@ function custom_validation2($xml, $xml_comparer_text) {
           Если тег найден, идет проверка на соответствие значения тегов.*/
         for($f_index = 0; $f_index < count($second_xml_values); $f_index++) {
             if($tag_name === $second_xml_values[$f_index]['TAG_NAME']) {
-                //print_r($tag_name . " == " . $second_xml_values[$f_index]['TAG_NAME'] . "\n");
                 $tag_exists_bool = true;
 
-                for($s_index = 0; $s_index < count($second_xml_values); $s_index++) {
+                for($s_index = $f_index; $s_index < count($second_xml_values); $s_index++) {
                     if($tag_name === $second_xml_values[$s_index]['TAG_NAME']) {
                         if($tag_parent === $second_xml_values[$s_index]['TAG_PARENT']) {
                             if($tag_value === $second_xml_values[$s_index]['TAG_VALUE']) {
-                                $tag_value_bool = true;
+                                $tag_value_bool = true;      
+                                break;                     
                             } else {
                                 $tag_value_found = $second_xml_values[$s_index]['TAG_VALUE'];
                                 $tag_parent_found = $tag_parent;
+                                break;
                             }
                         } 
                     }
-                    break;
+
                 } 
-                break;
+
             } else {
                 //print_r($tag_name . " != " . $second_xml_values[$f_index]['TAG_NAME'] . "\n");
             }
