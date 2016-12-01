@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mbrd:ContactCenterDataExchange xmlns:mbrd="mbrd">
+    <client>
+        <clientCommonData>
+            <family>Фамилиятест</family>
+            <name>Имятест</name>
+            <fatherName>Отчествотест</fatherName>
+            <birthDate>1991-02-05</birthDate>
+            <clientSex>Sx1</clientSex>
+            <birthPlace>Смоленская обл. г. Велиж</birthPlace>
+            <birthPlaceKladr>
+                <countryCode>643</countryCode>
+                <countryName>Российская Федерация</countryName>
+            </birthPlaceKladr>
+            <martialStatus>FAMILY.STATUS.2</martialStatus>
+            <educationStatus>EDUCATION.LEVEL.3</educationStatus>
+            <dependents>4</dependents>
+            <flag_is_work>true</flag_is_work>
+            <flag_is_pensioner>false</flag_is_pensioner>
+            <total_experiance>60</total_experiance>
+            <transport_count>12</transport_count>
+            <loans_monthly_payments>45120</loans_monthly_payments>
+            <familyIncome>14520</familyIncome>
+            <addressReceiptMail></addressReceiptMail>
+            <relationshipIPDLData>
+                <statusIPDL>IPDL.4</statusIPDL>
+            </relationshipIPDLData>
+            <childCount>2</childCount>
+            <eyePosition>0;0;0;0</eyePosition>
+            <birthCountry>643</birthCountry>
+            <flag_control_another_person>yes</flag_control_another_person>
+            <motherMaidenName>Василиса</motherMaidenName>
+            <noInsAcctId>false</noInsAcctId>
+        </clientCommonData>
+        <clientListDocument>
+            <clientDocument isActive="true" isPrimary="true" documentType="DOCTYPE.FIRST.1">
+                <serial>6610</serial>
+                <number>575682</number>
+                <issueOrgCode>111-111</issueOrgCode>
+                <issueOrgName>Велижскими ребятами</issueOrgName>
+                <issueDate>2011-02-12</issueDate>
+            </clientDocument>
+            <clientDocument documentType="DOCTYPE.SECONDARY.11">
+                <number>05624286562</number>
+            </clientDocument>
+        </clientListDocument>
+        <clientListAddress>
+            <clientAddress addressType="ADDRESS.TYPE.1">
+                <countryName>Россия</countryName>
+                <countryCode>643</countryCode>
+                <regionName>Смоленская</regionName>
+                <regionSocr>обл</regionSocr>
+                <cityName>Велиж</cityName>
+                <streetName>Калинина</streetName>
+                <streetSocr>ул</streetSocr>
+                <citySocr>г</citySocr>
+                <house>12</house>
+                <flat></flat>
+                <zipCode>214038</zipCode>
+                <kladrCode>6700200100000280001</kladrCode>
+                <kladrCodeStreet>6700200100000280001</kladrCodeStreet>
+                <kladrCodeHouse>6700200100000280001</kladrCodeHouse>
+                <codeOKATO>66203501000</codeOKATO>
+                <regDate>05.2000</regDate>
+                <isKladr>false</isKladr>
+                <address_to_string>214038,Россия,обл Смоленская,р-н Велижский,г Велиж,ул Калинина,12</address_to_string>
+                <phone>(481)2640102</phone>
+            </clientAddress>
+            <clientAddress addressType="ADDRESS.TYPE.2">
+                <countryName>Россия</countryName>
+                <countryCode>643</countryCode>
+                <regionName>Смоленская</regionName>
+                <regionSocr>обл</regionSocr>
+                <cityName>Велиж</cityName>
+                <streetName>Калинина</streetName>
+                <streetSocr>ул</streetSocr>
+                <citySocr>г</citySocr>
+                <house>12</house>
+                <flat></flat>
+                <zipCode></zipCode>
+                <kladrCode>6700200100000280001</kladrCode>
+                <kladrCodeStreet>6700200100000280001</kladrCodeStreet>
+                <kladrCodeHouse>6700200100000280001</kladrCodeHouse>
+                <codeOKATO>66203501000</codeOKATO>
+                <status>STATUS.TO.ADDRESS.3</status>
+                <phone></phone>
+                <regDate>02.2000</regDate>
+                <isKladr></isKladr>
+                <address_to_string>Россия,обл Смоленская,р-н Велижский,г Велиж,ул Калинина,12</address_to_string>
+            </clientAddress>
+        </clientListAddress>
+        <clientListContact>
+            <clientContact contactType="CONTACT.TYPE.4">test@gmail.com</clientContact>
+        </clientListContact>
+        <clientListWork>
+            <clientWork>
+                <employmentType>WORKACTIVITY.1</employmentType>
+                <workForm>WORK.FORM.1</workForm>
+                <fullName>Жопка</fullName>
+                <sizeCompany>SIZE_COMPANY.3</sizeCompany>
+                <headName>Гриша</headName>
+                <propertyForm>PROPERTY.FORM.1</propertyForm>
+                <curLengthService>67</curLengthService>
+                <positionName>Работник сферы услуг</positionName>
+                <activityType>ACTIVITY.TYPE.SER.2</activityType>
+                <clientActivity>CLIENT.ACTIVITY.SCOPE.7</clientActivity>
+                <addresses>
+                    <address addressType="ADDRESS.WRK.CHIEF">
+                        <countryName>Россия</countryName>
+                        <countryCode>643</countryCode>
+                        <regionName>Смоленская</regionName>
+                        <regionSocr>обл</regionSocr>
+                        <cityName>Велиж</cityName>
+                        <citySocr>г</citySocr>
+                        <streetName>Калинина</streetName>
+                        <streetSocr>ул</streetSocr>
+                        <house>12</house>
+                        <zipCode>214013</zipCode>
+                        <kladrCode>6700200100000280001</kladrCode>
+                        <kladrCodeStreet>6700200100000280001</kladrCodeStreet>
+                        <kladrCodeHouse>6700200100000280001</kladrCodeHouse>
+                        <codeOKATO>66203501000</codeOKATO>
+                        <isKladr>false</isKladr>
+                    </address>
+                </addresses>
+                <addForEmployment>
+                    <worker>
+                        <positionLevel>POSITION.LEVEL.1</positionLevel>
+                        <position>Нюхающий коз</position>
+                        <startDate>05.2011</startDate>
+                    </worker>
+                </addForEmployment>
+                <accountingPhone contactType="CONTACT.TYPE.7">(181)2557521</accountingPhone>
+            </clientWork>
+        </clientListWork>
+        <clientListTransport>
+            <clientTransport transportType="AUTO">
+                <marka>ALFA ROMEO</marka>
+                <purchaseMethod>Покупка поддержаного авто</purchaseMethod>
+                <regNumber>Т819МВ67</regNumber>
+                <yearCreate>1986</yearCreate>
+            </clientTransport>
+        </clientListTransport>
+        <clientIncome>
+            <other>13655</other>
+        </clientIncome>
+        <clientListClient2People>
+            <clientClient2People type="RELATIONSHIP.1">
+                <flagEmployment>true</flagEmployment>
+                <lastname>Дадонова</lastname>
+                <firstname>Коза</firstname>
+                <middlename>Козяковна</middlename>
+                <phone type="CONTACT.TYPE.1">(999)9999999</phone>
+                <birthdate>1995-09-12</birthdate>
+            </clientClient2People>
+            <clientClient2People type="RELATIONSHIP.9">
+                <lastname>Конь</lastname>
+                <firstname>Козий</firstname>
+                <middlename>Желудок</middlename>
+                <phone type="CONTACT.TYPE.1">(711)1111111</phone>
+            </clientClient2People>
+        </clientListClient2People>
+    </client>
+</mbrd:ContactCenterDataExchange>

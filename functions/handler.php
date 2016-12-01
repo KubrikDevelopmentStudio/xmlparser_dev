@@ -186,6 +186,23 @@ function getTagName($tag) {
     $_match;
     if(preg_match('/(?=\<)(.*?)(?=\>)/', $tag, $_match)) {
         $tag_name = preg_replace('/</', '', $_match);
+
+        /*Костыль на обрезание закрывающего слеша, проблема в том,
+          если тег имеет вид <tag/>, он по сути является (пустым или сгенерился неверно), 
+          нужно это отловить, но не здесь! Как-то выяснить это при присваении тегу значения TAG_VALUE,
+          чтобы правильно потом обработать тег при парсинге.*/
+        $index = stripos($tag_name[0], '/');
+
+        if($idnex !== false) {
+            if($index == 0) {
+                $tag_name[0] = substr($tag_name[0], $index);
+                return $tag_name[0];
+            } else {
+                $tag_name[0] = substr($tag_name[0], 0, $index);
+                return $tag_name[0];
+            }
+        }
+
         return is_array($tag_name) ? $tag_name[0] : $tag_name;
     } else {
         return null;
@@ -211,6 +228,30 @@ function getTagValue($tag) {
             return "CLOSE_TAG";
         } else {
             return "OPEN_TAG";
+        }
+    }
+}
+
+
+/**
+*    Получени родителя тега.
+*
+*    Необходимо передать массив с XML и тег, родителя которого необходимо получить.
+*/
+function getTagParents($xml_values, $line, $all_parents = false) {
+    if($all_parents) {
+        $tag_parents = "";
+        for($i = 0; $i < $line - 1; $i++) {
+            if($xml_values[$i]['TAG_VALUE'] === 'OPEN_TAG') {
+                $tag_parents .= $xml_values[$i]['TAG_NAME'] . "/";
+            }
+        }
+        return $tag_parents;
+    } else {
+        for($i = $line - 1; $i >= 0; $i--) {
+            if($xml_values[$i]['TAG_VALUE'] === 'OPEN_TAG') {
+                return $xml_values[$i]['TAG_NAME'];
+            }
         }
     }
 }
@@ -263,6 +304,7 @@ function custom_validation2($xml, $xml_comparer_text) {
         $priority = 2;
     }
 
+    $count = count($strings1);
     //Значения тегов из эталонной xml
     $first_xml_values = [];
 
@@ -278,6 +320,7 @@ function custom_validation2($xml, $xml_comparer_text) {
                 $first_xml_values[] = [
                     "TAG_NAME" => $tag,     /*Имя тега*/
                     "TAG_VALUE" => $value,  /*Значение тега*/
+                    "TAG_PARENT" => getTagParents($first_xml_values, $i + 1),
                     "LINE" => $i + 1        /*На какой строке находится*/
                 ];
             }
@@ -289,12 +332,12 @@ function custom_validation2($xml, $xml_comparer_text) {
                 $second_xml_values[] = [
                     "TAG_NAME" => $tag,     /*Имя тега*/
                     "TAG_VALUE" => $value,  /*Значение тега*/
+                    "TAG_PARENT" => getTagParents($second_xml_values, $i + 1),
                     "LINE" => $i + 1        /*На какой строке находится*/
                 ];
             }
         }       
     }
-
 
     /*Отсутствующие теги*/
     $difference = [];
@@ -311,33 +354,43 @@ function custom_validation2($xml, $xml_comparer_text) {
         /*Берем инфу по текущему тегу*/ 
         $full_tag  = $first_xml_values[$i];
 
-        $tag_name  = $first_xml_values[$i]['TAG_NAME'];
-        $tag_value = $first_xml_values[$i]['TAG_VALUE']; 
-        $line      = $first_xml_values[$i]['LINE']; 
+        $tag_name   = $first_xml_values[$i]['TAG_NAME'];
+        $tag_value  = $first_xml_values[$i]['TAG_VALUE']; 
+        $tag_parent = $first_xml_values[$i]['TAG_PARENT'];
+        $line       = $first_xml_values[$i]['LINE']; 
 
         $tag_exists_bool = false;
         $tag_value_bool  = false;
 
         $tag_value_found = "";
+        $tag_parent_found = "";
+
         /*Проверка на наличие текущего тега в проверяемой XML.
           Если тег найден, идет проверка на соответствие значения тегов.*/
         for($f_index = 0; $f_index < count($second_xml_values); $f_index++) {
             if($tag_name === $second_xml_values[$f_index]['TAG_NAME']) {
+                //print_r($tag_name . " == " . $second_xml_values[$f_index]['TAG_NAME'] . "\n");
                 $tag_exists_bool = true;
-                /*if($tag_value === $second_xml_values[$f_index]['TAG_VALUE']) {
-                    $tag_value_bool = true;
-                }*/
+
                 for($s_index = 0; $s_index < count($second_xml_values); $s_index++) {
                     if($tag_name === $second_xml_values[$s_index]['TAG_NAME']) {
-                        if($tag_value === $second_xml_values[$s_index]['TAG_VALUE']) {
-                            $tag_value_bool = true;
-                        } else {
-                            $tag_value_found = $second_xml_values[$s_index]['TAG_VALUE'];
-                        }
+                        if($tag_parent === $second_xml_values[$s_index]['TAG_PARENT']) {
+                            if($tag_value === $second_xml_values[$s_index]['TAG_VALUE']) {
+                                $tag_value_bool = true;
+                            } else {
+                                $tag_value_found = $second_xml_values[$s_index]['TAG_VALUE'];
+                                $tag_parent_found = $tag_parent;
+                            }
+                        } 
                     }
-                }
-            }      
+                    break;
+                } 
+                break;
+            } else {
+                //print_r($tag_name . " != " . $second_xml_values[$f_index]['TAG_NAME'] . "\n");
+            }
         }
+        
 
         /*Если небыл найден тег, генерируем сообщение об ошибке.*/
         if(!$tag_exists_bool) {
@@ -354,7 +407,7 @@ function custom_validation2($xml, $xml_comparer_text) {
              $difference[] = [
                 "ERROR_TYPE" => "WARNING",
                 "HEADER" => "[Неверное значение]",
-                "MESSAGE" => htmlspecialchars("Тег <" . $tag_name . "> имеет неверное значение '" . $tag_value_found . "', ожидаемое значение '" . $tag_value . "'") ,
+                "MESSAGE" => htmlspecialchars("Тег <" . $tag_name . "> в ветке <" . $tag_parent . "> имеет неверное значение '" . $tag_value_found . "', ожидаемое значение '" . $tag_value . "'") ,
                 "LINE" => $i + 1
                 ];  
         }
