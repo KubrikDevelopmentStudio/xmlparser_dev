@@ -104,7 +104,7 @@ switch ($_REQUEST['action']) {
                         $validResult = custom_validation2($xml, $xml_comparer_text);
 
                         $temp_arr = [];
-                        $temp_arr =  array_merge($validResult['NOT_FOUND_TAGS'], $validResult['MISEPLACED_TAGS']);
+                        $temp_arr =  array_merge($validResult['NOT_FOUND_TAGS'], $validResult['MISEPLACED_TAGS'], $validResult['BROKEN_TAGS']);
                         
                         sort($temp_arr);
 
@@ -196,9 +196,8 @@ function get_tag_info($string, $line) {
         if(preg_match('/<([^\/].*?)>/', $string, $_match)) {
              $tag_name = $_match[1];
              if(preg_match('/>(.*?)</', $string, $_match)) {
-                 if(isset($_match[1])) {
-                     $tag_value = $_match[1];
-                     
+                 if(!empty($_match[1])) {
+                     $tag_value = $_match[1];                   
                  } else {
                      $tag_value = "EMPTY_TAG";
                  }
@@ -236,6 +235,9 @@ function parents($xml, $id, $all_parents = false) {
         return !empty($parents) ? $parents : "NO_PARENT";
     } else {
         if(isset($xml[$id - 1])) {
+            if($xml[$id]['TAG_VALUE'] === 'CLOSE_TAG') {
+                return $xml[$id]['TAG_NAME'];
+            }
             for($i = ($id - 1); $i >= 0; $i--) {
                 if($xml[$i]['TAG_VALUE'] === 'OPEN_TAG') {
                     return $xml[$i]['TAG_NAME'];
@@ -248,6 +250,27 @@ function parents($xml, $id, $all_parents = false) {
     }
 }
 
+
+function supreme_parents_serach($xml, $id) {
+    //Полный проверяемый путь.
+    $path;
+    //Открытые "родители".
+    $parents = [];
+    
+    /*if($xml[$id]['TAG_NAME'] == "relationshipIPDLData") {
+        print_r($xml[$id]['TAG_NAME']);
+        die();
+    }*/
+    for($i = 0; $i < $id; $i++) {
+        if($xml[$i]['TAG_VALUE'] === 'OPEN_TAG') {
+            $parents[] = $xml[$i]['TAG_NAME'];
+        } elseif($xml[$i]['TAG_VALUE'] === 'CLOSE_TAG') {
+            array_pop($parents);
+        }
+    }
+
+    return implode('/', $parents);
+}
 /**
 *    Сохранение переданной в виде текста XML в temp файл с уникальным именем.
 */
@@ -260,6 +283,16 @@ function save_to_file($text) {
     return $result !== false ? $full_file_name : false; 
 }
 
+function get_last_parents($parents_string, $count) {
+    $parents_arr = explode('/', $parents_string);
+
+    $last_parents = [];
+    for($i = count($parents_arr) - 1; $i >= count($parents_arr) - $count; $i--) {
+        $last_parents[] = $parents_arr[$i];
+    } 
+
+    return implode('/', $last_parents);
+}
 
 /**
 *    Моя кастомная валидация
@@ -287,7 +320,7 @@ function custom_validation2($xml, $xml_comparer_text) {
     $priority = 0;
     if(count($strings1) == count($strings2)) {
         $count = count($strings1);
-    } else if(count($strings1) > count($strings2)) {
+    } else if(count($strings1) < count($strings2)) {
         $count = count($strings1);
         $priority = 1;
     } else {
@@ -301,57 +334,93 @@ function custom_validation2($xml, $xml_comparer_text) {
     //Значения тегов из xml, которую проверяем
     $second_xml_values = [];
     
-    /*Получение тегов и значений из всех XML*/
-    for($i = 0; $i < $count; $i++) {
-        $first_xml_values[] = get_tag_info($strings1[$i], $i);
-        $second_xml_values[] = get_tag_info($strings2[$i], $i);             
-    }
-
-    print_r($first_xml_values);
-    die();
-
     /*Отсутствующие теги*/
     $difference = [];
 
     /*теги, находящиеся не на своих местах*/
     $misplaced = [];
 
-    /*Текущий тег*/
-    $curr_tag;
+    /*Сломанные теги (пример <tag/>)*/
+    $broken_tags = [];
+
+    /*Получение тегов и значений из всех XML*/
+    for($i = 0; $i < $count; $i++) {
+        $first_xml_values[]  = get_tag_info($strings1[$i], $i);
+        $first_xml_values[$i]['TAG_PARENT'] = supreme_parents_serach($first_xml_values, $i);
+
+        $second_xml_values[] = get_tag_info($strings2[$i], $i);  
+        $second_xml_values[$i]['TAG_PARENT'] = supreme_parents_serach($second_xml_values, $i);
+
+        if($second_xml_values[$i]['TAG_VALUE'] === 'ERROR_TAG') {
+            $broken_tags[] = [
+                'TAG_NAME' => $second_xml_values[$i]['TAG_NAME'],
+                'LINE' => $second_xml_values[$i]['LINE'],
+            ];
+        }           
+    }
+
+   
+
+
 
     /*Начало алгоритма сравнения XML*/
     for($i = 0; $i < $count; $i++) {       
 
         /*Берем инфу по текущему тегу*/ 
         $full_tag  = $first_xml_values[$i];
+        //Имя тега
+        $tag_name        = $first_xml_values[$i]['TAG_NAME'];
+        // Значение тега
+        $tag_value       = $first_xml_values[$i]['TAG_VALUE'];
+        // Полный путь родителей тега
+        $full_tag_parents = $first_xml_values[$i]['TAG_PARENT'];
+  
+        $last_parents = get_last_parents($full_tag_parents, 3);
 
-        $tag_name   = $first_xml_values[$i]['TAG_NAME'];
-        $tag_value  = $first_xml_values[$i]['TAG_VALUE']; 
-        $tag_parent = $first_xml_values[$i]['TAG_PARENT'];
-        $line       = $first_xml_values[$i]['LINE']; 
+        // Номер строки в файле
+        $line            = $first_xml_values[$i]['LINE']; 
 
         $tag_exists_bool = false;
         $tag_value_bool  = false;
 
-        $tag_value_found = "";
-        $tag_parent_found = "";
+        $tag_value_found;
+        $tag_parent_found;
 
         /*Проверка на наличие текущего тега в проверяемой XML.
           Если тег найден, идет проверка на соответствие значения тегов.*/
-        for($f_index = 0; $f_index < count($second_xml_values); $f_index++) {
+
+          for($first_ind = 0; $first_ind < count($second_xml_values); $first_ind++) {
+              $second_xml_tag = $second_xml_values[$first_ind];
+
+              if($tag_name === $second_xml_tag['TAG_NAME']) {
+                  if($full_tag_parents === $second_xml_tag['TAG_PARENT']) {
+                      $tag_exists_bool = true;
+                      if($tag_value === $second_xml_tag['TAG_VALUE']) {
+                          $tag_value_bool = true;
+                          break;
+                      } else {
+                          $tag_value_found = $second_xml_tag['TAG_VALUE'];
+                          $tag_parent_found = $last_parents;
+                      }
+                  }
+              }
+          }
+
+
+        /*for($f_index = 0; $f_index < count($second_xml_values); $f_index++) {
             if($tag_name === $second_xml_values[$f_index]['TAG_NAME']) {
                 $tag_exists_bool = true;
 
                 for($s_index = $f_index; $s_index < count($second_xml_values); $s_index++) {
                     if($tag_name === $second_xml_values[$s_index]['TAG_NAME']) {
-                        if($tag_parent === $second_xml_values[$s_index]['TAG_PARENT']) {
+                        if($full_tag_parents === $second_xml_values[$s_index]['TAG_PARENT']) {
                             if($tag_value === $second_xml_values[$s_index]['TAG_VALUE']) {
                                 $tag_value_bool = true;      
-                                break;                     
+                                         
                             } else {
                                 $tag_value_found = $second_xml_values[$s_index]['TAG_VALUE'];
-                                $tag_parent_found = $tag_parent;
-                                break;
+                                $tag_parent_found = $full_tag_parents;
+                            
                             }
                         } 
                     }
@@ -361,13 +430,13 @@ function custom_validation2($xml, $xml_comparer_text) {
             } else {
                 //print_r($tag_name . " != " . $second_xml_values[$f_index]['TAG_NAME'] . "\n");
             }
-        }
+        }*/
         
 
         /*Если небыл найден тег, генерируем сообщение об ошибке.*/
         if(!$tag_exists_bool) {
              $difference[] = [
-                "ERROR_TYPE" => "ERROR",
+                "ERROR_TYPE" => "FATAL_ERROR",
                 "HEADER" => "[Тег не найден]",
                 "MESSAGE" => htmlspecialchars("Тег <" . $tag_name . "> не найден в проверяемой XML.") ,
                 "LINE" => $i + 1
@@ -379,33 +448,22 @@ function custom_validation2($xml, $xml_comparer_text) {
              $difference[] = [
                 "ERROR_TYPE" => "WARNING",
                 "HEADER" => "[Неверное значение]",
-                "MESSAGE" => htmlspecialchars("Тег <" . $tag_name . "> в ветке <" . $tag_parent . "> имеет неверное значение '" . $tag_value_found . "', ожидаемое значение '" . $tag_value . "'") ,
+                "MESSAGE" => htmlspecialchars("Тег <" . $tag_name . "> в ветке <.../" . $last_parents . "> имеет неверное значение '" . $tag_value_found . "', ожидаемое значение '" . $tag_value . "'") ,
                 "LINE" => $i + 1
                 ];  
-        }
-
-
-        /*for($j = 0; $j < count($second_xml_values); $j++) {
-            if($tag_name === $second_xml_values[$j]['TAG_NAME']) {
-                if($line !== $second_xml_values[$j]['LINE']) {
-                    $found_line = $second_xml_values[$j]['LINE'];
-                    $misplaced[] = [
-                        "ERROR_TYPE" => "WARNING",
-                        "HEADER" => "[Not correct line]",
-                        "MESSAGE" => htmlspecialchars("Тег <" . $curr_tag['TAG_NAME'] . "> находится на неверной месте!  Ожидался на строке " 
-                                        . $curr_tag['LINE'] . ", но обнаружен на " 
-                                        . $second_xml_values[$j]['LINE']),
-                        //"LINE" => $i + 1
-                        ];
-                        break;
-                }
-            }  
-        }*/
-            
-        
-
+        }    
        
     }   
+
+    $_broken_tags = [];
+    for($i = 0; $i < count($broken_tags); $i++) {
+            $_broken_tags[] = [
+                "ERROR_TYPE" => "ERROR",
+                "HEADER" => "[Неверный тег]",
+                "MESSAGE" => htmlspecialchars("Тег <" . $broken_tags[$i]['TAG_NAME'] . "/> является ошибочным, т.к. не имеет значения и верного закрывающегося формата."),
+                "LINE" => $broken_tags[$i]['LINE'],
+            ];
+        }
 
     $all_tags_best = count($strings1);
     $all_tags_comparer = count($strings2);
@@ -415,7 +473,9 @@ function custom_validation2($xml, $xml_comparer_text) {
        'TAGS_COUNT_IN_COMPARER_XML' => $all_tags_comparer,
 
        'NOT_FOUND_TAGS' => $difference,
-       'MISEPLACED_TAGS' => $misplaced
+       'MISEPLACED_TAGS' => $misplaced,
+
+       'BROKEN_TAGS' => $_broken_tags
     ];
 }
 
