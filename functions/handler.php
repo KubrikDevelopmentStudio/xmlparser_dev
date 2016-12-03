@@ -186,6 +186,7 @@ function get_tag_info($string, $line) {
     $tag_value;
     $tag_line = $line + 1;
     $tag_parent = "NOT_READY";
+    $brkn_cls_tg = "";
 
     $_match;
     if(preg_match('/<(.*?)\/>/', $string, $_match)) {
@@ -201,18 +202,31 @@ function get_tag_info($string, $line) {
                  } else {
                      $tag_value = "EMPTY_TAG";
                  }
+                 if(preg_match('/<\/(.*?)>/', $string, $_match)) {
+                     if(!empty($_match[1])) {
+                         if(/*$tag_name !== $_match[1]*/stripos($tag_name, $_match[1] !== false)) {
+                             $brkn_cls_tg = "TRUE";
+                         } else {
+                             $brkn_cls_tg = "FALSE";
+                         }
+                     } else {
+                         $brkn_cls_tg = "TRUE";
+                     }
+                 }
              } else {
                  $tag_value = "OPEN_TAG";
              }
         } else if(preg_match('/<\/(.*?)>/', $string, $_match)) {
             $tag_name = $_match[1];
             $tag_value = "CLOSE_TAG";
+            $brkn_cls_tg = "FALSE";
         }
     }
 
     return [
         'TAG_NAME' => $tag_name,
         'TAG_VALUE' => $tag_value,
+        'BROKEN_CLOSE_TAG' => $brkn_cls_tg,
         'TAG_PARENT' => $tag_parent,
         'LINE' => $tag_line,
     ];
@@ -224,43 +238,13 @@ function get_tag_info($string, $line) {
 *
 *    Необходимо передать массив с XML и тег, родителя которого необходимо получить.
 */
-function parents($xml, $id, $all_parents = false) {
-    $parents;
-    if($all_parents) {
-        for($i = 0; $i < $id; $i++) {
-            if($xml[$i]['TAG_VALUE'] === 'OPEN_TAG') {
-                $parents .= $xml[$i]['TAG_NAME'] . "/";
-            }
-        }       
-        return !empty($parents) ? $parents : "NO_PARENT";
-    } else {
-        if(isset($xml[$id - 1])) {
-            if($xml[$id]['TAG_VALUE'] === 'CLOSE_TAG') {
-                return $xml[$id]['TAG_NAME'];
-            }
-            for($i = ($id - 1); $i >= 0; $i--) {
-                if($xml[$i]['TAG_VALUE'] === 'OPEN_TAG') {
-                    return $xml[$i]['TAG_NAME'];
-                }
-            }
-        } else {
-            return "NO_PARENT";
-        }
-        return "NO_PARENT";
-    }
-}
-
-
 function supreme_parents_serach($xml, $id) {
     //Полный проверяемый путь.
     $path;
+
     //Открытые "родители".
     $parents = [];
-    
-    /*if($xml[$id]['TAG_NAME'] == "relationshipIPDLData") {
-        print_r($xml[$id]['TAG_NAME']);
-        die();
-    }*/
+
     for($i = 0; $i < $id; $i++) {
         if($xml[$i]['TAG_VALUE'] === 'OPEN_TAG') {
             $parents[] = $xml[$i]['TAG_NAME'];
@@ -271,6 +255,8 @@ function supreme_parents_serach($xml, $id) {
 
     return implode('/', $parents);
 }
+
+
 /**
 *    Сохранение переданной в виде текста XML в temp файл с уникальным именем.
 */
@@ -285,11 +271,18 @@ function save_to_file($text) {
 
 function get_last_parents($parents_string, $count) {
     $parents_arr = explode('/', $parents_string);
-
-    $last_parents = [];
-    for($i = count($parents_arr) - 1; $i >= count($parents_arr) - $count; $i--) {
-        $last_parents[] = $parents_arr[$i];
-    } 
+    
+    if(count($parents_arr) >= $count) {
+        $last_parents = [];
+        for($i = count($parents_arr) - $count; $i < count($parents_arr); $i++) {
+            $last_parents[] = $parents_arr[$i];
+        } 
+    } else {
+        $last_parents = [];
+        for($i = count($parents_arr) - 1; $i >= 0; $i--) {
+            $last_parents[] = $parents_arr[$i];
+        }
+    }
 
     return implode('/', $last_parents);
 }
@@ -354,14 +347,12 @@ function custom_validation2($xml, $xml_comparer_text) {
         if($second_xml_values[$i]['TAG_VALUE'] === 'ERROR_TAG') {
             $broken_tags[] = [
                 'TAG_NAME' => $second_xml_values[$i]['TAG_NAME'],
+                'TAG_PARENT' => get_last_parents($second_xml_values[$i]['TAG_PARENT'], 3),
+                
                 'LINE' => $second_xml_values[$i]['LINE'],
-            ];
+            ];           
         }           
     }
-
-   
-
-
 
     /*Начало алгоритма сравнения XML*/
     for($i = 0; $i < $count; $i++) {       
@@ -438,7 +429,8 @@ function custom_validation2($xml, $xml_comparer_text) {
              $difference[] = [
                 "ERROR_TYPE" => "FATAL_ERROR",
                 "HEADER" => "[Тег не найден]",
-                "MESSAGE" => htmlspecialchars("Тег <" . $tag_name . "> не найден в проверяемой XML.") ,
+                "MESSAGE" => htmlspecialchars("Тег <" . $tag_name . "> не найден по пути <.../" 
+                                                      . $last_parents . "> в проверяемой XML.") ,
                 "LINE" => $i + 1
                 ];  
         }
@@ -448,7 +440,9 @@ function custom_validation2($xml, $xml_comparer_text) {
              $difference[] = [
                 "ERROR_TYPE" => "WARNING",
                 "HEADER" => "[Неверное значение]",
-                "MESSAGE" => htmlspecialchars("Тег <" . $tag_name . "> в ветке <.../" . $last_parents . "> имеет неверное значение '" . $tag_value_found . "', ожидаемое значение '" . $tag_value . "'") ,
+                "MESSAGE" => htmlspecialchars("Тег <" . $tag_name . "> в ветке <.../" 
+                                                      . $last_parents . "> имеет неверное значение '" 
+                                                      . $tag_value_found . "', ожидаемое значение '$tag_value'") ,
                 "LINE" => $i + 1
                 ];  
         }    
@@ -460,7 +454,8 @@ function custom_validation2($xml, $xml_comparer_text) {
             $_broken_tags[] = [
                 "ERROR_TYPE" => "ERROR",
                 "HEADER" => "[Неверный тег]",
-                "MESSAGE" => htmlspecialchars("Тег <" . $broken_tags[$i]['TAG_NAME'] . "/> является ошибочным, т.к. не имеет значения и верного закрывающегося формата."),
+                "MESSAGE" => htmlspecialchars("Тег <" . $broken_tags[$i]['TAG_NAME'] . "/>, находящийся: <.../" 
+                                                      . $broken_tags[$i]['TAG_PARENT'] . "> является ошибочным, т.к. не имеет значения и верного закрывающегося формата."),
                 "LINE" => $broken_tags[$i]['LINE'],
             ];
         }
