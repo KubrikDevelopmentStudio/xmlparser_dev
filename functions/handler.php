@@ -124,8 +124,6 @@ switch ($_REQUEST['action']) {
                             print_r(json_encode($global_data));
                         }
 
-                        /*die();*/
-
                         break;
                 }
             }
@@ -138,7 +136,7 @@ switch ($_REQUEST['action']) {
             $has_values = (!empty($msg_types) && $msg_types !== null) ? true : false;
             $data = [
                 'has_values' => $has_values,
-                'xsd_table' => $msg_types
+                'xsd_table'  => $msg_types
             ];
 
             print_r(json_encode($data));
@@ -166,8 +164,9 @@ function readXmlDoc($doc_path) {
     $handle = @fopen($doc_path, "r");
     if ($handle) {
         while (($buffer = fgets($handle)) !== false) {
-            if(!empty(trim($buffer)) || trim($buffer) != null) {
-                $read_arr[] = trim($buffer);
+            $trimBuffer = trim($buffer);
+            if(!empty($trimBuffer) || $trimBuffer != null) {
+                $read_arr[] = $trimBuffer;
             }
         }
         if (!feof($handle)) {
@@ -269,6 +268,12 @@ function save_to_file($text) {
     return $result !== false ? $full_file_name : false; 
 }
 
+
+/**
+*   Получение последних родителей тега.
+*
+*   Возвращает указанное количество тегов-родителей с конца.
+*/
 function get_last_parents($parents_string, $count) {
     $parents_arr = explode('/', $parents_string);
     
@@ -286,6 +291,7 @@ function get_last_parents($parents_string, $count) {
 
     return implode('/', $last_parents);
 }
+
 
 /**
 *    Моя кастомная валидация

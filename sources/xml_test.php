@@ -39,7 +39,7 @@
 
 <div id="main_block" class="card">
     <div id="main_block_header" class="card-header">
-        VERSION v1.0a
+        VERSION v1.5b
         <button id="main_menu_btn" type="button" class="btn btn-outline-warning">Главное меню</button>
     </div>
     <div class="card-block">
